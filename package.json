@@ -1,7 +1,7 @@
 {
   "name": "react-portal",
   "main": "portal.js",
-  "description": "React component for in-place rendering of your modals, lightboxes, etc at document.body",
+  "description": "Simple React component for transportation of your modals, lightboxes, etc. to document.body",
   "author": "Vojtech Miksu",
   "version": "0.1.0",
   "license": "MIT",
@@ -13,6 +13,14 @@
     "build": "gulp build",
     "dev": "gulp"
   },
+  "keywords": [
+    "react",
+    "modal",
+    "lightbox",
+    "react-portal",
+    "portal",
+    "transportation"
+  ],
   "dependencies": {
     "keymaster": "^1.6.2",
     "react": "^0.13.1"
