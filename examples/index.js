@@ -23,8 +23,7 @@ var App = React.createClass({
             <h2>Pseudo Modal</h2>
             <p>This react component is appended to the document body.</p>
             <p>This is <strong>great for a modal, lightbox, loading bar ... etc.</strong>.</p>
-            <p><strong>Click outside</strong> to close this.</p>
-            <p>Or close this by pressing <strong>ESC</strong>.</p>
+            <p>Close this by pressing <strong>ESC</strong>.</p>
             <p><strong>Why psuedo?</strong> Becuase the proper CSS styles are up to you. ;-)</p>
           </PseudoModal>
         </Portal>
