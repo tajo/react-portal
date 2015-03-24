@@ -58,10 +58,6 @@ var Portal = (function (_React$Component) {
         }if (this.props.isOpened) {
           this.openPortal();
         }
-
-        if (this.props.closeOnOutsideClick) {
-          document.removeEventListener("mousedown", this.handleOutsideMouseClick);
-        }
       }
     },
     componentWillReceiveProps: {
@@ -88,6 +84,11 @@ var Portal = (function (_React$Component) {
         if (this.props.closeOnEsc) {
           Key.unbind("esc");
         }
+
+        if (this.props.closeOnOutsideClick) {
+          document.removeEventListener("mousedown", this.handleOutsideMouseClick);
+        }
+
         this.closePortal();
       }
     },
