@@ -1,0 +1,31 @@
+{
+  "name": "react-portal",
+  "main": "portal.js",
+  "description": "React component for in-place rendering of your modals, lightboxes, etc at document.body",
+  "author": "Vojtech Miksu",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tajo/react-portal"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp"
+  },
+  "dependencies": {
+    "keymaster": "^1.6.2",
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^4.0.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-streamify": "0.0.5",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.6.0"
+  }
+}
