@@ -18,7 +18,9 @@ React-portal
 
 ## Demo
 
-Try [http://portal.miksu.cz](http://portal.miksu.cz) (`/examples/index.html`)
+Try [http://miksu.cz/react-portal](http://miksu.cz/react-portal)
+
+Or `git clone http://github.com/tajo/react-portal` and open `/examples/index.html`
 
 ## Installation
 
