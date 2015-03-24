@@ -53,9 +53,7 @@ var Portal = (function (_React$Component) {
     },
     componentWillMount: {
       value: function componentWillMount() {
-        if (this.props.isOpened == "undefined") {
-          return;
-        }if (this.props.isOpened) {
+        if (this.props.isOpened) {
           this.openPortal();
         }
       }
