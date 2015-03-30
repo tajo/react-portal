@@ -109,7 +109,7 @@ var Portal = (function (_React$Component) {
         if (this.props.openByClickOn) {
           return React.createElement(
             "div",
-            { onClick: this.openPortal },
+            { onClick: this.openPortal, className: "openByClickOn" },
             this.props.openByClickOn
           );
         } else {
