@@ -119,8 +119,10 @@ var Portal = (function (_React$Component) {
     },
     openPortal: {
       value: function openPortal(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         this.setState({ active: true });
         this.renderPortal(this.props);
       }
