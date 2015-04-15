@@ -26,13 +26,14 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
+    "babel-eslint": "^3.0.1",
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
+    "eslint-plugin-react": "^2.1.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
+    "gulp-eslint": "^0.9.0",
     "gulp-livereload": "^3.8.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-streamify": "0.0.5",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^2.6.0"
   }
