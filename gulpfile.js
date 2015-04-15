@@ -10,8 +10,9 @@ var livereload = require('gulp-livereload');
 var babelify = require('babelify');
 var babel = require('gulp-babel');
 var eslint = require('gulp-eslint');
+var connect = require('gulp-connect');
 
-gulp.task('default', function() {
+gulp.task('default', ['connect'], function() {
   livereload.listen(35729);
 
   var watcher = watchify(browserify({
@@ -44,4 +45,11 @@ gulp.task('build', function() {
   return gulp.src('./lib/portal.js')
     .pipe(babel())
     .pipe(gulp.dest('./'));
+});
+
+gulp.task('connect', function() {
+  connect.server({
+    root: 'examples',
+    livereload: true
+  });
 });
