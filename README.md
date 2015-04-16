@@ -1,18 +1,17 @@
 React-portal
 ============
 
-[![Dependency Status](https://david-dm.org/steida/este.png)](https://david-dm.org/tajo/react-portal)
-[![devDependency Status](https://david-dm.org/steida/este/dev-status.png)](https://david-dm.org/tajo/react-portal#info=devDependencies)
+[![Dependency Status](https://david-dm.org/tajo/react-portal.png)](https://david-dm.org/tajo/react-portal)
+[![devDependency Status](https://david-dm.org/tajo/react-portal.png)](https://david-dm.org/tajo/react-portal#info=devDependencies)
 
 > Struggling with modals, lightboxes or loading bars in React? Look no further. This is the component that will help you.
 
 ## Features
 
 - transports its child into a new React component and appends it to the **document.body**
-- propagates all props
 - can be opened by the prop **isOpened**
 - can be opened after click on an element that you pass through the prop **openByClickOn** (and then it takes care of the state)
-- doesn't leave any mess after closing
+- doesn't leave any DOM mess after closing
 - provides its child with **this.props.closePortal** callback
 - provides **close on ESC** and **close on outside mouse click** out of the box (see the docs)
 
@@ -86,6 +85,31 @@ If true, the portal can be closed by the key ESC.
 #### closeOnOutsideClick: bool (optional)
 If true, the portal can be closed by the outside mouse click.
 
+## Tips & Tricks
+- Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
+- Does your inner inner component `<Portal><LevelOne><LevelTwo /></LevelOne></Portal>` also need an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in `<LevelOne>` component. You need to clone it instead: `{React.cloneElement(this.props.children, {closePortal: this.props.closePortal})}`.
+
+#### Don't read this
+Please, skip this section if you dislike dirty tricks.
+
+States make everything harder, right? We don't want to deal with them, right? But sometime you need to open a portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it `true` or `false`.
+
+However, then it's completely up to you to take care about the open state. You have to write all the closing logic! And that sucks. But there is a dirty trick:
+
+```javascript
+<Portal openByClickOn={<span ref="myLittleSecret" />}>
+  <Modal title="My modal">
+    Modal content
+  </Modal>
+</Portal>
+```
+
+```javascript
+findDOMNode(this.refs.myLittleSecret).click(); // opens the portal, yay!
+```
+
+I'll end up in hell. I know.
+
 ## Contribution
 
 Please, create issues and pull requests.
@@ -94,8 +118,12 @@ Please, create issues and pull requests.
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm run dev
+gulp
 ```
+- Copy&paste the address from terminal to your browser. (something like `http://localhost:8080`)
+- Don't commit the main build `portal.js` (aka don't run `npm run build`)
+- Run `gulp eslint` before every commit to preserve the coding style. Do you know there is a [nice real-time checking integration for your editor](http://eslint.org/docs/user-guide/integrations)? ;-)
+
 
 ## Credits
 
