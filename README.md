@@ -1,8 +1,8 @@
 React-portal
 ============
-
-[![Dependency Status](https://david-dm.org/tajo/react-portal.png)](https://david-dm.org/tajo/react-portal)
-[![devDependency Status](https://david-dm.org/tajo/react-portal.png)](https://david-dm.org/tajo/react-portal#info=devDependencies)
+[![Dependency Status](https://david-dm.org/tajo/react-portal.svg)](https://david-dm.org/tajo/react-portal)
+[![peerDependency Status](https://david-dm.org/tajo/react-portal/peer-status.svg)](https://david-dm.org/tajo/react-portal#info=peerDependencies)
+[![devDependency Status](https://david-dm.org/tajo/react-portal/dev-status.svg)](https://david-dm.org/tajo/react-portal#info=devDependencies)
 [![Build Status](https://travis-ci.org/tajo/react-portal.svg?branch=master)](https://travis-ci.org/tajo/react-portal)
 
 > Struggling with modals, lightboxes or loading bars in React? Look no further. This is the component that will help you.
