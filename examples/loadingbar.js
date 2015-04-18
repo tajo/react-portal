@@ -3,7 +3,7 @@ var React = require('react');
 var LoadingBar = React.createClass({
 
   propTypes: {
-    children: React.PropTypes.element.isRequired,
+    children: React.PropTypes.element,
     closePortal: React.PropTypes.func
   },
 
