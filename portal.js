@@ -22,10 +22,6 @@ var _shallowEqual = require('react/lib/shallowEqual');
 
 var _shallowEqual2 = _interopRequireWildcard(_shallowEqual);
 
-var _Key = require('keymaster');
-
-var _Key2 = _interopRequireWildcard(_Key);
-
 var Portal = (function (_React$Component) {
   function Portal() {
     _classCallCheck(this, Portal);
@@ -35,6 +31,7 @@ var Portal = (function (_React$Component) {
     this.openPortal = this.openPortal.bind(this);
     this.closePortal = this.closePortal.bind(this);
     this.handleOutsideMouseClick = this.handleOutsideMouseClick.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
     this.portal = null;
     this.node = null;
   }
@@ -44,12 +41,8 @@ var Portal = (function (_React$Component) {
   _createClass(Portal, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this = this;
-
       if (this.props.closeOnEsc) {
-        _Key2['default']('esc', function () {
-          return _this.closePortal();
-        });
+        document.addEventListener('keydown', this.handleKeydown);
       }
 
       if (this.props.closeOnOutsideClick) {
@@ -79,7 +72,7 @@ var Portal = (function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       if (this.props.closeOnEsc) {
-        _Key2['default'].unbind('esc');
+        document.removeEventListener('keydown', this.handleKeydown);
       }
 
       if (this.props.closeOnOutsideClick) {
@@ -147,6 +140,14 @@ var Portal = (function (_React$Component) {
       }
       e.stopPropagation();
       this.closePortal();
+    }
+  }, {
+    key: 'handleKeydown',
+    value: function handleKeydown(e) {
+      // ESC
+      if (e.keyCode === 27) {
+        this.closePortal();
+      }
     }
   }]);
 

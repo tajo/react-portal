@@ -21,9 +21,6 @@
     "portal",
     "transportation"
   ],
-  "dependencies": {
-    "keymaster": "^1.6.2"
-  },
   "peerDependencies": {
     "react": "^0.13.x"
   },
