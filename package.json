@@ -3,7 +3,7 @@
   "main": "portal.js",
   "description": "Simple React component for transportation of your modals, lightboxes, etc. to document.body",
   "author": "Vojtech Miksu",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "repository": {
     "type": "git",
