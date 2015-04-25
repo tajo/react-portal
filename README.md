@@ -86,6 +86,9 @@ If true, the portal can be closed by the key ESC.
 #### closeOnOutsideClick: bool (optional)
 If true, the portal can be closed by the outside mouse click.
 
+#### onClose: func (optional)
+This callback is called when the portal closes.
+
 ## Tips & Tricks
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
 - Does your inner inner component `<Portal><LevelOne><LevelTwo /></LevelOne></Portal>` also need an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in `<LevelOne>` component. You need to clone it instead: `{React.cloneElement(this.props.children, {closePortal: this.props.closePortal})}`.
@@ -119,6 +122,7 @@ Please, create issues and pull requests.
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
+npm install react
 gulp
 ```
 - Copy&paste the address from terminal to your browser. (something like `http://localhost:8080`)
