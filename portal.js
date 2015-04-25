@@ -128,6 +128,10 @@ var Portal = (function (_React$Component) {
       this.portal = null;
       this.node = null;
       this.setState({ active: false });
+
+      if (this.props.onClose) {
+        this.props.onClose();
+      }
     }
   }, {
     key: 'handleOutsideMouseClick',
@@ -161,7 +165,8 @@ Portal.propTypes = {
   openByClickOn: _React$findDOMNode2['default'].PropTypes.element,
   closeOnEsc: _React$findDOMNode2['default'].PropTypes.bool,
   closeOnOutsideClick: _React$findDOMNode2['default'].PropTypes.bool,
-  isOpened: _React$findDOMNode2['default'].PropTypes.bool
+  isOpened: _React$findDOMNode2['default'].PropTypes.bool,
+  onClose: _React$findDOMNode2['default'].PropTypes.func
 };
 
 function isNodeInRoot(node, root) {

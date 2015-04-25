@@ -10,6 +10,10 @@ var App = React.createClass({
     return {isPortalOpened: false};
   },
 
+  onClose: function() {
+    console.log('Portal closed');
+  },
+
   render: function() {
     var button1 = <button>Open portal with pseudo modal</button>;
     var button2 = <button>Another portal</button>;
@@ -37,7 +41,7 @@ var App = React.createClass({
           <LoadingBar />
         </Portal>
 
-        <Portal closeOnOutsideClick={true} openByClickOn={button2}>
+        <Portal closeOnOutsideClick={true} openByClickOn={button2} onClose={this.onClose}>
           <div style={{border: '1px solid black', margin: 10, padding: 10}}>
             <p>Click anywhere outside of this portal to close it.</p>
           </div>
