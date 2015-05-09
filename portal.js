@@ -18,6 +18,10 @@ var _React$findDOMNode = require('react');
 
 var _React$findDOMNode2 = _interopRequireWildcard(_React$findDOMNode);
 
+var _CSSPropertyOperations = require('react/lib/CSSPropertyOperations');
+
+var _CSSPropertyOperations2 = _interopRequireWildcard(_CSSPropertyOperations);
+
 var _shallowEqual = require('react/lib/shallowEqual');
 
 var _shallowEqual2 = _interopRequireWildcard(_shallowEqual);
@@ -91,6 +95,12 @@ var Portal = (function (_React$Component) {
     value: function renderPortal(props) {
       if (!this.node) {
         this.node = document.createElement('div');
+        if (this.props.className) {
+          this.node.className = this.props.className;
+        }
+        if (this.props.style) {
+          _CSSPropertyOperations2['default'].setValueForStyles(this.node, this.props.style);
+        }
         document.body.appendChild(this.node);
       }
       this.portal = _React$findDOMNode2['default'].render(_React$findDOMNode2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
