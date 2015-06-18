@@ -7,7 +7,10 @@ var LoadingBar = require('./loadingbar');
 var App = React.createClass({
 
   getInitialState: function() {
-    return {isPortalOpened: false};
+    return {
+      isPortalOpened: false,
+      someValue: 'init'
+    };
   },
 
   onClose: function() {
@@ -24,7 +27,7 @@ var App = React.createClass({
         <a href="https://github.com/tajo/react-portal">https://github.com/tajo/react-portal</a>
         <p> </p>
 
-        <Portal closeOnEsc={true} openByClickOn={button1}>
+        <Portal closeOnEsc={true} openByClickOn={button1} testProp={this.state.someValue}>
           <PseudoModal>
             <h2>Pseudo Modal</h2>
             <p>This react component is appended to the document body.</p>
@@ -37,7 +40,7 @@ var App = React.createClass({
         <button onClick={this.toggleLoadingBar}>
           {this.state.isPortalOpened ? 'Close the second portal' : 'Open the second portal'}
         </button>
-        <Portal isOpened={this.state.isPortalOpened}>
+        <Portal isOpened={this.state.isPortalOpened} testProp={this.state.someValue}>
           <LoadingBar />
         </Portal>
 
@@ -47,12 +50,20 @@ var App = React.createClass({
           </div>
         </Portal>
 
+        <button onClick={this.changeValue}>
+          Change randomly value: {this.state.someValue}
+        </button>
+
       </div>
     );
   },
 
   toggleLoadingBar: function(e) {
     this.setState({isPortalOpened: !this.state.isPortalOpened});
+  },
+
+  changeValue: function(e) {
+    this.setState({someValue: Math.random().toString(36).substring(7)});
   }
 
 });

@@ -63,13 +63,23 @@ var Portal = (function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(newProps) {
-      if (newProps.isOpened !== 'undefined' && this.newProps !== this.props) {
-        if (newProps.isOpened && !this.state.active) {
-          this.openPortal();
+      // portal's 'is open' state is handled through the prop isOpened
+      if (typeof newProps.isOpened !== 'undefined') {
+        if (newProps.isOpened) {
+          if (this.state.active) {
+            this.renderPortal(newProps);
+          } else {
+            this.openPortal();
+          }
         }
         if (!newProps.isOpened && this.state.active) {
           this.closePortal();
         }
+      }
+
+      // portal handles its own 'is open' state
+      if (typeof newProps.isOpened === 'undefined' && this.state.active) {
+        this.renderPortal(newProps);
       }
     }
   }, {
@@ -159,7 +169,7 @@ var Portal = (function (_React$Component) {
     key: 'handleKeydown',
     value: function handleKeydown(e) {
       // ESC
-      if (e.keyCode === 27) {
+      if (e.keyCode === 27 && this.state.active) {
         this.closePortal();
       }
     }
