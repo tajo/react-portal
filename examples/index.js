@@ -2,6 +2,7 @@ var React = require('react');
 var Portal = require('../lib/portal.js');
 var PseudoModal = require('./pseudomodal');
 var LoadingBar = require('./loadingbar');
+var AbsolutePosition = require('./absoluteposition');
 
 // Main React app component
 var App = React.createClass({
@@ -20,6 +21,7 @@ var App = React.createClass({
   render: function() {
     var button1 = <button>Open portal with pseudo modal</button>;
     var button2 = <button>Another portal</button>;
+    var button3 = <button>Open portal on top of button</button>;
 
     return (
       <div>
@@ -49,6 +51,21 @@ var App = React.createClass({
             <p>Click anywhere outside of this portal to close it.</p>
           </div>
         </Portal>
+
+        <div className="absolutePosition">
+          <Portal closeOnOutsideClick={true} openByClickOn={button3} onClose={this.onClose}
+            onOpen={(function(e, cb) {
+              var bodyRect = document.body.getBoundingClientRect();
+              var targetRect = e.target.getBoundingClientRect();
+              this.setState({
+                top: targetRect.top - bodyRect.top,
+                left:  targetRect.left - bodyRect.left,
+                width: targetRect.width
+              }, cb);
+            }).bind(this)}>
+            <AbsolutePosition top={this.state.top} left={this.state.left} width={this.state.width} />
+          </Portal>
+        </div>
 
         <button onClick={this.changeValue}>
           Change randomly value: {this.state.someValue}
