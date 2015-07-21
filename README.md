@@ -86,11 +86,8 @@ If true, the portal can be closed by the key ESC.
 #### closeOnOutsideClick: bool (optional)
 If true, the portal can be closed by the outside mouse click.
 
-#### onOpen: func (optional)
-This function is called when the portal opens, before rendering it. It is given two arguments: the open click event (if an `openByClickOn` element was provided), and a callback (to be called when you are ready to render the opened portal). For example, you could use this to give the child the position of the element triggering the portal, for absolute positioning (see `examples/` folder).
-
 #### onClose: func (optional)
-This function is called when the portal closes.
+This callback is called when the portal closes.
 
 ## Tips & Tricks
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
