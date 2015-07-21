@@ -23,7 +23,7 @@ var AbsolutePosition = React.createClass({
 
     return (
       <div style={style}>
-        <p>This portal is positioned using the <i>openByClickOn</i> element's position, and the <i>onOpen</i> callback.</p>
+        <p>This portal is opened manually and given an absolute position using: the opening element's <i>onClick</i> prop, and the portal's <i>isOpened</i> prop.</p>
         <p>Click anywhere outside to close it.</p>
       </div>
     );

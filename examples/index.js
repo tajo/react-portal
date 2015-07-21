@@ -21,7 +21,20 @@ var App = React.createClass({
   render: function() {
     var button1 = <button>Open portal with pseudo modal</button>;
     var button2 = <button>Another portal</button>;
-    var button3 = <button>Open portal on top of button</button>;
+    var button3 = (
+      <button onClick={(function(e) {
+          var bodyRect = document.body.getBoundingClientRect();
+          var targetRect = e.target.getBoundingClientRect();
+          this.setState({
+            isOpened: true,
+            top: targetRect.top - bodyRect.top,
+            left:  targetRect.left - bodyRect.left,
+            width: targetRect.width
+          });
+        }).bind(this)}>
+        {'Open portal on top of button'}
+      </button>
+    );
 
     return (
       <div>
@@ -53,15 +66,13 @@ var App = React.createClass({
         </Portal>
 
         <div className="absolutePosition">
-          <Portal closeOnOutsideClick={true} openByClickOn={button3} onClose={this.onClose}
-            onOpen={(function(e, cb) {
-              var bodyRect = document.body.getBoundingClientRect();
-              var targetRect = e.target.getBoundingClientRect();
-              this.setState({
-                top: targetRect.top - bodyRect.top,
-                left:  targetRect.left - bodyRect.left,
-                width: targetRect.width
-              }, cb);
+          {button3}
+          <Portal
+            closeOnOutsideClick={true}
+            isOpened={this.state.isOpened}
+            onClose={(function() {
+              this.setState({isOpened: false});
+              this.onClose();
             }).bind(this)}>
             <AbsolutePosition top={this.state.top} left={this.state.left} width={this.state.width} />
           </Portal>
