@@ -51,13 +51,14 @@ var Portal = (function (_React$Component) {
 
       if (this.props.closeOnOutsideClick) {
         document.addEventListener('mousedown', this.handleOutsideMouseClick);
+        document.addEventListener('touchstart', this.handleOutsideMouseClick);
       }
     }
   }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
       if (this.props.isOpened) {
-        this.openPortal();
+        this.openPortal(this.props);
       }
     }
   }, {
@@ -69,7 +70,7 @@ var Portal = (function (_React$Component) {
           if (this.state.active) {
             this.renderPortal(newProps);
           } else {
-            this.openPortal();
+            this.openPortal(newProps);
           }
         }
         if (!newProps.isOpened && this.state.active) {
@@ -91,6 +92,7 @@ var Portal = (function (_React$Component) {
 
       if (this.props.closeOnOutsideClick) {
         document.removeEventListener('mousedown', this.handleOutsideMouseClick);
+        document.removeEventListener('touchstart', this.handleOutsideMouseClick);
       }
 
       this.closePortal();
@@ -105,11 +107,11 @@ var Portal = (function (_React$Component) {
     value: function renderPortal(props) {
       if (!this.node) {
         this.node = document.createElement('div');
-        if (this.props.className) {
-          this.node.className = this.props.className;
+        if (props.className) {
+          this.node.className = props.className;
         }
-        if (this.props.style) {
-          _CSSPropertyOperations2['default'].setValueForStyles(this.node, this.props.style);
+        if (props.style) {
+          _CSSPropertyOperations2['default'].setValueForStyles(this.node, props.style);
         }
         document.body.appendChild(this.node);
       }
@@ -121,7 +123,7 @@ var Portal = (function (_React$Component) {
       if (this.props.openByClickOn) {
         return _React$findDOMNode2['default'].createElement(
           'div',
-          { className: 'openByClickOn', onClick: this.openPortal },
+          { className: 'openByClickOn', onClick: this.openPortal.bind(this, this.props) },
           this.props.openByClickOn
         );
       } else {
@@ -130,13 +132,13 @@ var Portal = (function (_React$Component) {
     }
   }, {
     key: 'openPortal',
-    value: function openPortal(e) {
+    value: function openPortal(props, e) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
       this.setState({ active: true });
-      this.renderPortal(this.props);
+      this.renderPortal(props);
     }
   }, {
     key: 'closePortal',
@@ -181,6 +183,8 @@ var Portal = (function (_React$Component) {
 exports['default'] = Portal;
 
 Portal.propTypes = {
+  className: _React$findDOMNode2['default'].PropTypes.string,
+  style: _React$findDOMNode2['default'].PropTypes.object,
   children: _React$findDOMNode2['default'].PropTypes.element.isRequired,
   openByClickOn: _React$findDOMNode2['default'].PropTypes.element,
   closeOnEsc: _React$findDOMNode2['default'].PropTypes.bool,
