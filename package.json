@@ -23,7 +23,8 @@
     "transportation"
   ],
   "peerDependencies": {
-    "react": "^0.13.x"
+    "react": ">=0.14.0-rc1",
+    "react-dom": ">=0.14.0-rc1"
   },
   "devDependencies": {
     "babel-eslint": "^3.0.1",
