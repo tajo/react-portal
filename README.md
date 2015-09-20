@@ -25,6 +25,7 @@ Or `git clone http://github.com/tajo/react-portal` and open `/examples/index.htm
 ## Installation
 
 ```shell
+npm install react react-dom --save
 npm install react-portal --save
 ```
 
@@ -122,7 +123,7 @@ Please, create issues and pull requests.
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm install react
+npm install react react-dom
 gulp
 ```
 - Copy&paste the address from terminal to your browser. (something like `http://localhost:8080`)
