@@ -1,31 +1,32 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Portal = require('../lib/portal.js');
-var PseudoModal = require('./pseudomodal');
-var LoadingBar = require('./loadingbar');
-var AbsolutePosition = require('./absoluteposition');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Portal from '../lib/portal.js';
+import PseudoModal from './pseudomodal';
+import LoadingBar from './loadingbar';
+import AbsolutePosition from './absoluteposition';
 
 // Main React app component
-var App = React.createClass({
+export default class App extends React.Component {
 
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       isPortalOpened: false,
       someValue: 'init'
     };
-  },
+  }
 
-  onClose: function() {
+  onClose() {
     console.log('Portal closed');
-  },
+  }
 
-  render: function() {
-    var button1 = <button>Open portal with pseudo modal</button>;
-    var button2 = <button>Another portal</button>;
-    var button3 = (
+  render() {
+    const button1 = <button>Open portal with pseudo modal</button>;
+    const button2 = <button>Another portal</button>;
+    const button3 = (
       <button onClick={(function(e) {
-          var bodyRect = document.body.getBoundingClientRect();
-          var targetRect = e.target.getBoundingClientRect();
+          const bodyRect = document.body.getBoundingClientRect();
+          const targetRect = e.target.getBoundingClientRect();
           this.setState({
             isOpened: true,
             top: targetRect.top - bodyRect.top,
@@ -85,16 +86,16 @@ var App = React.createClass({
 
       </div>
     );
-  },
+  }
 
-  toggleLoadingBar: function(e) {
+  toggleLoadingBar(e) {
     this.setState({isPortalOpened: !this.state.isPortalOpened});
-  },
+  }
 
-  changeValue: function(e) {
+  changeValue(e) {
     this.setState({someValue: Math.random().toString(36).substring(7)});
   }
 
-});
+}
 
-ReactDOM.render(React.createElement(App), document.getElementById('react-body'));
+ReactDOM.render(<App />, document.getElementById('react-body'));

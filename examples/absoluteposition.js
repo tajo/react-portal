@@ -1,16 +1,9 @@
-var React = require('react');
+import React from 'react';
 
-var AbsolutePosition = React.createClass({
+export default class AbsolutePosition extends React.Component {
 
-  propTypes: {
-    top: React.PropTypes.number,
-    left: React.PropTypes.number,
-    width: React.PropTypes.number,
-    closePortal: React.PropTypes.func
-  },
-
-  render: function() {
-    var style = {
+  render() {
+    const style = {
       position: 'absolute',
       top: this.props.top,
       left: this.props.left,
@@ -23,12 +16,20 @@ var AbsolutePosition = React.createClass({
 
     return (
       <div style={style}>
-        <p>This portal is opened manually and given an absolute position using: the opening element's <i>onClick</i> prop, and the portal's <i>isOpened</i> prop.</p>
+        <p>
+          This portal is opened manually and given an absolute position using:{' '}
+          the opening element's <i>onClick</i> prop, and the portal's <i>isOpened</i> prop.
+        </p>
         <p>Click anywhere outside to close it.</p>
       </div>
     );
   }
 
-});
+}
 
-module.exports = AbsolutePosition;
+AbsolutePosition.propTypes = {
+  top: React.PropTypes.number,
+  left: React.PropTypes.number,
+  width: React.PropTypes.number,
+  closePortal: React.PropTypes.func
+};
