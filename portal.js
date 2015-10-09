@@ -1,32 +1,40 @@
 'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _React$findDOMNode = require('react');
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _React$findDOMNode2 = _interopRequireWildcard(_React$findDOMNode);
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-var _CSSPropertyOperations = require('react/lib/CSSPropertyOperations');
+exports.isNodeInRoot = isNodeInRoot;
 
-var _CSSPropertyOperations2 = _interopRequireWildcard(_CSSPropertyOperations);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _shallowEqual = require('react/lib/shallowEqual');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _shallowEqual2 = _interopRequireWildcard(_shallowEqual);
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactLibCSSPropertyOperations = require('react/lib/CSSPropertyOperations');
+
+var _reactLibCSSPropertyOperations2 = _interopRequireDefault(_reactLibCSSPropertyOperations);
+
+var _reactLibShallowCompare = require('react/lib/shallowCompare');
+
+var _reactLibShallowCompare2 = _interopRequireDefault(_reactLibShallowCompare);
 
 var Portal = (function (_React$Component) {
+  _inherits(Portal, _React$Component);
+
   function Portal() {
     _classCallCheck(this, Portal);
 
@@ -39,8 +47,6 @@ var Portal = (function (_React$Component) {
     this.portal = null;
     this.node = null;
   }
-
-  _inherits(Portal, _React$Component);
 
   _createClass(Portal, [{
     key: 'componentDidMount',
@@ -100,7 +106,7 @@ var Portal = (function (_React$Component) {
   }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps, nextState) {
-      return !_shallowEqual2['default'](this.props, nextProps) || !_shallowEqual2['default'](this.state, nextState);
+      return (0, _reactLibShallowCompare2['default'])(this, nextProps, nextState);
     }
   }, {
     key: 'renderPortal',
@@ -111,17 +117,17 @@ var Portal = (function (_React$Component) {
           this.node.className = props.className;
         }
         if (props.style) {
-          _CSSPropertyOperations2['default'].setValueForStyles(this.node, props.style);
+          _reactLibCSSPropertyOperations2['default'].setValueForStyles(this.node, props.style);
         }
         document.body.appendChild(this.node);
       }
-      this.portal = _React$findDOMNode2['default'].render(_React$findDOMNode2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
+      this.portal = _reactDom2['default'].render(_react2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
     }
   }, {
     key: 'render',
     value: function render() {
       if (this.props.openByClickOn) {
-        return _React$findDOMNode2['default'].createElement(
+        return _react2['default'].createElement(
           'div',
           { className: 'openByClickOn', onClick: this.openPortal.bind(this, this.props) },
           this.props.openByClickOn
@@ -144,7 +150,7 @@ var Portal = (function (_React$Component) {
     key: 'closePortal',
     value: function closePortal() {
       if (this.node) {
-        _React$findDOMNode2['default'].unmountComponentAtNode(this.node);
+        _reactDom2['default'].unmountComponentAtNode(this.node);
         document.body.removeChild(this.node);
       }
       this.portal = null;
@@ -161,7 +167,7 @@ var Portal = (function (_React$Component) {
       if (!this.state.active) {
         return;
       }
-      if (isNodeInRoot(e.target, _React$findDOMNode.findDOMNode(this.portal))) {
+      if (isNodeInRoot(e.target, (0, _reactDom.findDOMNode)(this.portal))) {
         return;
       }
       e.stopPropagation();
@@ -178,19 +184,19 @@ var Portal = (function (_React$Component) {
   }]);
 
   return Portal;
-})(_React$findDOMNode2['default'].Component);
+})(_react2['default'].Component);
 
 exports['default'] = Portal;
 
 Portal.propTypes = {
-  className: _React$findDOMNode2['default'].PropTypes.string,
-  style: _React$findDOMNode2['default'].PropTypes.object,
-  children: _React$findDOMNode2['default'].PropTypes.element.isRequired,
-  openByClickOn: _React$findDOMNode2['default'].PropTypes.element,
-  closeOnEsc: _React$findDOMNode2['default'].PropTypes.bool,
-  closeOnOutsideClick: _React$findDOMNode2['default'].PropTypes.bool,
-  isOpened: _React$findDOMNode2['default'].PropTypes.bool,
-  onClose: _React$findDOMNode2['default'].PropTypes.func
+  className: _react2['default'].PropTypes.string,
+  style: _react2['default'].PropTypes.object,
+  children: _react2['default'].PropTypes.element.isRequired,
+  openByClickOn: _react2['default'].PropTypes.element,
+  closeOnEsc: _react2['default'].PropTypes.bool,
+  closeOnOutsideClick: _react2['default'].PropTypes.bool,
+  isOpened: _react2['default'].PropTypes.bool,
+  onClose: _react2['default'].PropTypes.func
 };
 
 function isNodeInRoot(node, root) {
@@ -202,4 +208,3 @@ function isNodeInRoot(node, root) {
   }
   return false;
 }
-module.exports = exports['default'];
