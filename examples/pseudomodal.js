@@ -1,16 +1,8 @@
-var React = require('react');
+import React from 'react';
 
-var PseudoModal = React.createClass({
+export default class PseudoModal extends React.Component {
 
-  propTypes: {
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(React.PropTypes.element),
-      React.PropTypes.element
-    ]),
-    closePortal: React.PropTypes.func
-  },
-
-  render: function() {
+  render() {
     return (
       <div style={{border: '1px solid blue', margin: 10, padding: 10}}>
         {this.props.children}
@@ -19,6 +11,12 @@ var PseudoModal = React.createClass({
     );
   }
 
-});
+}
 
-module.exports = PseudoModal;
+PseudoModal.propTypes = {
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.element),
+    React.PropTypes.element
+  ]),
+  closePortal: React.PropTypes.func
+};

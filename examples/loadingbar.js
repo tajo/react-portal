@@ -1,13 +1,8 @@
-var React = require('react');
+import React from 'react';
 
-var LoadingBar = React.createClass({
+export default class LoadingBar extends React.Component {
 
-  propTypes: {
-    children: React.PropTypes.element,
-    closePortal: React.PropTypes.func
-  },
-
-  render: function() {
+  render() {
     return (
       <div style={{border: '1px solid green', margin: 10, padding: 10}}>
         <p>This could be a loading bar...</p>
@@ -18,6 +13,9 @@ var LoadingBar = React.createClass({
     );
   }
 
-});
+}
 
-module.exports = LoadingBar;
+LoadingBar.propTypes = {
+  children: React.PropTypes.element,
+  closePortal: React.PropTypes.func
+};
