@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Portal = require('../lib/portal.js');
 var PseudoModal = require('./pseudomodal');
 var LoadingBar = require('./loadingbar');
@@ -96,4 +97,4 @@ var App = React.createClass({
 
 });
 
-React.render(React.createElement(App), document.getElementById('react-body'));
+ReactDOM.render(React.createElement(App), document.getElementById('react-body'));
