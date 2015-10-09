@@ -25,7 +25,7 @@ export default class App extends React.Component {
     const button1 = <button>Open portal with pseudo modal</button>;
     const button2 = <button>Another portal</button>;
     const button3 = (
-      <button onClick={((e) => {
+      <button onClick={(e) => {
         const bodyRect = document.body.getBoundingClientRect();
         const targetRect = e.target.getBoundingClientRect();
         this.setState({
@@ -34,7 +34,7 @@ export default class App extends React.Component {
           left:  targetRect.left - bodyRect.left,
           width: targetRect.width
         });
-      }).bind(this)}>
+      }}>
         {'Open portal on top of button'}
       </button>
     );
@@ -73,10 +73,8 @@ export default class App extends React.Component {
           <Portal
             closeOnOutsideClick
             isOpened={this.state.isOpened}
-            onClose={(function() {
-              this.setState({isOpened: false});
-              this.onClose();
-            }).bind(this)}>
+            onClose={() => {this.setState({isOpened: false}); this.onClose();}}
+          >
             <AbsolutePosition left={this.state.left} top={this.state.top} width={this.state.width} />
           </Portal>
         </div>
