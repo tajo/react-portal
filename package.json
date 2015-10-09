@@ -23,7 +23,7 @@
     "transportation"
   ],
   "engines": {
-    "node": "^4.4.1",
+    "node": "^4.1.2",
     "npm": "^3.3.6"
   },
   "peerDependencies": {
