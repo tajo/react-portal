@@ -121,7 +121,7 @@ var Portal = (function (_React$Component) {
         }
         document.body.appendChild(this.node);
       }
-      this.portal = _reactDom2['default'].render(_react2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
+      this.portal = _reactDom2['default'].unstable_renderSubtreeIntoContainer(this, _react2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
     }
   }, {
     key: 'render',
