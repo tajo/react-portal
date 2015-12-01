@@ -67,6 +67,9 @@ var Portal = (function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(newProps) {
+      if (this.props.isOpened === newProps.isOpened) {
+        return;
+      }
       // portal's 'is open' state is handled through the prop isOpened
       if (typeof newProps.isOpened !== 'undefined') {
         if (newProps.isOpened) {
