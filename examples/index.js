@@ -4,6 +4,7 @@ import Portal from '../lib/portal.js';
 import PseudoModal from './pseudomodal';
 import LoadingBar from './loadingbar';
 import AbsolutePosition from './absoluteposition';
+import TWEEN from 'tween.js';
 
 // Main React app component
 export default class App extends React.Component {
@@ -21,7 +22,33 @@ export default class App extends React.Component {
     console.log('Portal closed');
   }
 
+  onOpen(node) {
+    let tween = new TWEEN.Tween( { opacity: 0 } )
+      .to( { opacity: 1 }, 500 )
+      .easing( TWEEN.Easing.Cubic.In )
+      .onUpdate( function () {
+        node.style.opacity = this.opacity;
+      }).start();
+  }
+
+  beforeClose(node, removeFromDom) {
+    let tween = new TWEEN.Tween( { opacity: 1 } )
+      .to( { opacity: 0 }, 500 )
+      .easing( TWEEN.Easing.Cubic.In )
+      .onUpdate( function () {
+        node.style.opacity = this.opacity;
+      })
+      .onComplete(removeFromDom)
+      .start();
+  } 
+
   render() {
+    function animate(time) {
+      requestAnimationFrame(animate);
+      TWEEN.update(time);
+    }
+    requestAnimationFrame(animate);
+
     const button1 = <button>Open portal with pseudo modal</button>;
     const button2 = <button>Another portal</button>;
     const button3 = (
@@ -38,6 +65,7 @@ export default class App extends React.Component {
         {'Open portal on top of button'}
       </button>
     );
+    const button4 = <button>Animation Example</button>;
 
     return (
       <div>
@@ -83,6 +111,18 @@ export default class App extends React.Component {
           Change randomly value: {this.state.someValue}
         </button>
 
+        <Portal 
+          closeOnEsc
+          closeOnOutsideClick 
+          onOpen={this.onOpen} 
+          beforeClose={this.beforeClose}
+          openByClickOn={button4}
+          style={{opacity: 0}}
+        > 
+          <div style={{border: '1px solid black', margin: 10, padding: 10}}>
+            <p>Trigger Animations, or any arbitrary function, before removing the portal from the DOM, animates out on both click outside and on esc press</p>
+          </div>
+        </Portal>
       </div>
     );
   }
