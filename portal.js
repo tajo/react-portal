@@ -142,17 +142,30 @@ var Portal = (function (_React$Component) {
       }
       this.setState({ active: true });
       this.renderPortal(props);
+      if (this.props.onOpen) {
+        this.props.onOpen(this.node);
+      }
     }
   }, {
     key: 'closePortal',
     value: function closePortal() {
-      if (this.node) {
-        _reactDom2['default'].unmountComponentAtNode(this.node);
-        document.body.removeChild(this.node);
+      var _this = this;
+
+      var resetPortalState = function resetPortalState() {
+        if (_this.node) {
+          _reactDom2['default'].unmountComponentAtNode(_this.node);
+          document.body.removeChild(_this.node);
+        }
+        _this.portal = null;
+        _this.node = null;
+        _this.setState({ active: false });
+      };
+
+      if (this.props.beforeClose) {
+        this.props.beforeClose(this.node, resetPortalState);
+      } else {
+        resetPortalState(this.node);
       }
-      this.portal = null;
-      this.node = null;
-      this.setState({ active: false });
 
       if (this.props.onClose) {
         this.props.onClose();
@@ -164,7 +177,7 @@ var Portal = (function (_React$Component) {
       if (!this.state.active) {
         return;
       }
-      if (isNodeInRoot(e.target, (0, _reactDom.findDOMNode)(this.portal))) {
+      if (isNodeInRoot(e.target, (0, _reactDom.findDOMNode)(this.portal)) || e.target.tagName === 'HTML') {
         return;
       }
       e.stopPropagation();
@@ -193,7 +206,9 @@ Portal.propTypes = {
   closeOnEsc: _react2['default'].PropTypes.bool,
   closeOnOutsideClick: _react2['default'].PropTypes.bool,
   isOpened: _react2['default'].PropTypes.bool,
-  onClose: _react2['default'].PropTypes.func
+  onOpen: _react2['default'].PropTypes.func,
+  onClose: _react2['default'].PropTypes.func,
+  beforeClose: _react2['default'].PropTypes.func
 };
 
 function isNodeInRoot(node, root) {
