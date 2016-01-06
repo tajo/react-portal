@@ -102,6 +102,10 @@ This callback is called when the closing event is triggered but it prevents norm
 #### onClose: func (optional)
 This callback is called when the portal closes and after beforeClose.
 
+#### onUpdate: func (optional)
+This callback is called when the portal is (re)rendered.
+
+
 
 ## Tips & Tricks
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
