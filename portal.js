@@ -8,8 +8,6 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-exports.isNodeInRoot = isNodeInRoot;
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -31,6 +29,10 @@ var _reactLibCSSPropertyOperations2 = _interopRequireDefault(_reactLibCSSPropert
 var _reactLibShallowCompare = require('react/lib/shallowCompare');
 
 var _reactLibShallowCompare2 = _interopRequireDefault(_reactLibShallowCompare);
+
+var KEYCODES = {
+  ESCAPE: 27
+};
 
 var Portal = (function (_React$Component) {
   _inherits(Portal, _React$Component);
@@ -118,7 +120,7 @@ var Portal = (function (_React$Component) {
         }
         document.body.appendChild(this.node);
       }
-      this.portal = _reactDom2['default'].unstable_renderSubtreeIntoContainer(this, _react2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node);
+      this.portal = _reactDom2['default'].unstable_renderSubtreeIntoContainer(this, _react2['default'].cloneElement(props.children, { closePortal: this.closePortal }), this.node, this.props.onUpdate);
     }
   }, {
     key: 'render',
@@ -142,9 +144,8 @@ var Portal = (function (_React$Component) {
       }
       this.setState({ active: true });
       this.renderPortal(props);
-      if (this.props.onOpen) {
-        this.props.onOpen(this.node);
-      }
+
+      this.props.onOpen(this.node);
     }
   }, {
     key: 'closePortal',
@@ -167,9 +168,7 @@ var Portal = (function (_React$Component) {
         resetPortalState(this.node);
       }
 
-      if (this.props.onClose) {
-        this.props.onClose();
-      }
+      this.props.onClose();
     }
   }, {
     key: 'handleOutsideMouseClick',
@@ -177,17 +176,19 @@ var Portal = (function (_React$Component) {
       if (!this.state.active) {
         return;
       }
-      if (isNodeInRoot(e.target, (0, _reactDom.findDOMNode)(this.portal)) || e.target.tagName === 'HTML') {
+
+      var root = (0, _reactDom.findDOMNode)(this.portal);
+      if (root.contains(e.target) || e.target.tagName === 'HTML') {
         return;
       }
+
       e.stopPropagation();
       this.closePortal();
     }
   }, {
     key: 'handleKeydown',
     value: function handleKeydown(e) {
-      // ESC
-      if (e.keyCode === 27 && this.state.active) {
+      if (e.keyCode === KEYCODES.ESCAPE && this.state.active) {
         this.closePortal();
       }
     }
@@ -208,15 +209,13 @@ Portal.propTypes = {
   isOpened: _react2['default'].PropTypes.bool,
   onOpen: _react2['default'].PropTypes.func,
   onClose: _react2['default'].PropTypes.func,
-  beforeClose: _react2['default'].PropTypes.func
+  beforeClose: _react2['default'].PropTypes.func,
+  onUpdate: _react2['default'].PropTypes.func
 };
 
-function isNodeInRoot(node, root) {
-  while (node) {
-    if (node === root) {
-      return true;
-    }
-    node = node.parentNode;
-  }
-  return false;
-}
+Portal.defaultProps = {
+  onOpen: function onOpen() {},
+  onClose: function onClose() {},
+  onUpdate: function onUpdate() {}
+};
+module.exports = exports['default'];
