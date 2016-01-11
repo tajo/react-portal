@@ -11,7 +11,9 @@
   },
   "scripts": {
     "build": "mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
+    "build:examples": "babel ./examples/index.js --out-file ./examples/bundle.js",
     "test": "mocha --compilers js:babel-register",
+    "lint": "eslint examples lib",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -34,6 +36,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "enzyme": "^1.2.0",
+    "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.14.0",
     "jsdom": "^7.2.2",
     "mocha": "^2.3.4",

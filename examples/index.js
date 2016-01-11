@@ -23,24 +23,24 @@ export default class App extends React.Component {
   }
 
   onOpen(node) {
-    let tween = new TWEEN.Tween( { opacity: 0 } )
-      .to( { opacity: 1 }, 500 )
-      .easing( TWEEN.Easing.Cubic.In )
-      .onUpdate( function () {
+    new TWEEN.Tween({opacity: 0})
+      .to({opacity: 1}, 500)
+      .easing(TWEEN.Easing.Cubic.In)
+      .onUpdate(() => {
         node.style.opacity = this.opacity;
       }).start();
   }
 
   beforeClose(node, removeFromDom) {
-    let tween = new TWEEN.Tween( { opacity: 1 } )
-      .to( { opacity: 0 }, 500 )
-      .easing( TWEEN.Easing.Cubic.In )
-      .onUpdate( function () {
+    new TWEEN.Tween({opacity: 1})
+      .to({opacity: 0}, 500)
+      .easing(TWEEN.Easing.Cubic.In)
+      .onUpdate(() => {
         node.style.opacity = this.opacity;
       })
       .onComplete(removeFromDom)
       .start();
-  } 
+  }
 
   render() {
     function animate(time) {
@@ -111,14 +111,14 @@ export default class App extends React.Component {
           Change randomly value: {this.state.someValue}
         </button>
 
-        <Portal 
-          closeOnEsc
-          closeOnOutsideClick 
-          onOpen={this.onOpen} 
+        <Portal
           beforeClose={this.beforeClose}
+          closeOnEsc
+          closeOnOutsideClick
+          onOpen={this.onOpen}
           openByClickOn={button4}
           style={{opacity: 0}}
-        > 
+        >
           <div style={{border: '1px solid black', margin: 10, padding: 10}}>
             <p>Trigger Animations, or any arbitrary function, before removing the portal from the DOM, animates out on both click outside and on esc press</p>
           </div>
