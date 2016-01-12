@@ -1,8 +1,14 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+  - node_modules
 node_js:
+  - "5"
   - "4.1"
   - "4.0"
-  - "0.12"
+before_script:
+  - npm install react react-dom
 script:
   - npm run lint
   - npm test
