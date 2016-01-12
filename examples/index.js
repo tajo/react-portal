@@ -43,14 +43,19 @@ export default class App extends React.Component {
   }
 
   render() {
+    const buttonStyles = {
+      padding: 10,
+      fontSize: 20,
+      marginBottom:10
+    };
     function animate(time) {
       requestAnimationFrame(animate);
       TWEEN.update(time);
     }
     requestAnimationFrame(animate);
 
-    const button1 = <button>Open portal with pseudo modal</button>;
-    const button2 = <button>Another portal</button>;
+    const button1 = <button style={buttonStyles}>Open portal with pseudo modal</button>;
+    const button2 = <button style={buttonStyles}>Another portal</button>;
     const button3 = (
       <button onClick={(e) => {
         const bodyRect = document.body.getBoundingClientRect();
@@ -61,14 +66,14 @@ export default class App extends React.Component {
           left:  targetRect.left - bodyRect.left,
           width: targetRect.width
         });
-      }}>
+      }} style={buttonStyles}>
         {'Open portal on top of button'}
       </button>
     );
-    const button4 = <button>Animation Example</button>;
+    const button4 = <button style={buttonStyles}>Animation Example</button>;
 
     return (
-      <div>
+      <div style={{border: '2px solid red', margin: 10, padding: 10}}>
         <h1>React portal examples</h1>
         <a href="https://github.com/tajo/react-portal">https://github.com/tajo/react-portal</a>
         <p> </p>
@@ -83,7 +88,7 @@ export default class App extends React.Component {
           </PseudoModal>
         </Portal>
 
-        <button onClick={(e) => this.toggleLoadingBar(e)}>
+        <button onClick={(e) => this.toggleLoadingBar(e)} style={buttonStyles}>
           {this.state.isPortalOpened ? 'Close the second portal' : 'Open the second portal'}
         </button>
         <Portal isOpened={this.state.isPortalOpened} testProp={this.state.someValue}>
@@ -96,7 +101,7 @@ export default class App extends React.Component {
           </div>
         </Portal>
 
-        <div className="absolutePosition">
+        <div>
           {button3}
           <Portal
             closeOnOutsideClick
@@ -107,7 +112,7 @@ export default class App extends React.Component {
           </Portal>
         </div>
 
-        <button onClick={(e) => this.changeValue(e)}>
+        <button onClick={(e) => this.changeValue(e)} style={buttonStyles}>
           Change randomly value: {this.state.someValue}
         </button>
 
@@ -137,4 +142,4 @@ export default class App extends React.Component {
 
 }
 
-ReactDOM.render(<App />, document.getElementById('react-body'));
+ReactDOM.render(<App />, document.getElementById('root'));
