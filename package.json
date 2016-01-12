@@ -21,7 +21,7 @@
     "build:examples": "npm run clean && npm run build:examples:webpack",
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf build",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register",
     "lint": "eslint examples lib test devServer.js",
     "prepublish": "npm run build"
   },
