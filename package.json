@@ -1,6 +1,6 @@
 {
   "name": "react-portal",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
   "main": "build/portal",
   "files": [
@@ -23,7 +23,7 @@
     "clean": "rimraf build",
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register",
     "lint": "eslint examples lib test devServer.js",
-    "prepublish": "npm run build"
+    "prepublish": "cross-env NODE_ENV=production npm run build"
   },
   "tags": [
     "react"
