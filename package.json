@@ -1,6 +1,6 @@
 {
   "name": "react-portal",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
   "main": "build/portal",
   "files": [
