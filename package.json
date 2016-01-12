@@ -1,9 +1,15 @@
 {
   "name": "react-portal",
   "main": "build/portal",
+  "files": [
+    "*.md",
+    "LICENSE",
+    "lib",
+    "build"
+  ],
   "description": "Simple React component for transportation of your modals, lightboxes, etc. to document.body",
   "author": "Vojtech Miksu <vojtech@miksu.cz>",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "license": "MIT",
   "repository": {
     "type": "git",
