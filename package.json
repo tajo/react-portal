@@ -1,5 +1,7 @@
 {
   "name": "react-portal",
+  "version": "1.5.3",
+  "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
   "main": "build/portal",
   "files": [
     "*.md",
@@ -7,14 +9,12 @@
     "lib",
     "build"
   ],
-  "description": "Simple React component for transportation of your modals, lightboxes, etc. to document.body",
-  "author": "Vojtech Miksu <vojtech@miksu.cz>",
-  "version": "1.5.3",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/tajo/react-portal"
   },
+  "author": "Vojtech Miksu <vojtech@miksu.cz>",
+  "license": "MIT",
   "scripts": {
     "start": "node devServer.js",
     "build": "mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
@@ -22,9 +22,12 @@
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf build",
     "test": "NODE_ENV=test mocha --compilers js:babel-register",
-    "lint": "eslint examples lib test",
+    "lint": "eslint examples lib test devServer.js",
     "prepublish": "npm run build"
   },
+  "tags": [
+    "react"
+  ],
   "keywords": [
     "react",
     "react-component",
