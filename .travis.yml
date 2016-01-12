@@ -4,6 +4,7 @@ node_js:
   - "4.0"
   - "0.12"
 script:
-  - npm run build
   - npm run lint
+  - npm test
+  - npm run build
   - npm run build:examples
