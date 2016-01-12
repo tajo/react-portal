@@ -173,7 +173,7 @@ open http://localhost:3000
 
 ```
 npm run lint
-npm run test
+npm test
 ```
 
 ## Credits
