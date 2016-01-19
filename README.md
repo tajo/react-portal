@@ -39,7 +39,7 @@ npm install react react-dom react-portal --save
 ```
 
 ## Usage
-```javascript
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
@@ -117,7 +117,7 @@ This callback is called when the portal is (re)rendered.
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
 - Does your inner inner component `<LevelTwo />`
 
-```js
+```jsx
 <Portal>
   <LevelOne>
     <LevelTwo />
@@ -127,7 +127,7 @@ This callback is called when the portal is (re)rendered.
 
 also needs an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in render method of `<LevelOne>` component. You have to clone it instead:
 
-```js
+```jsx
 {React.cloneElement(
   this.props.children,
   {closePortal: this.props.closePortal}
@@ -141,7 +141,7 @@ Please, skip this section if you dislike dirty tricks.
 
 However, then it's completely up to you to take care about the open state. You have to write all the closing logic! And that sucks. But there is a dirty trick:
 
-```javascript
+```jsx
 <Portal openByClickOn={<span ref="myLittleSecret" />}>
   <Modal title="My modal">
     Modal content
@@ -149,7 +149,7 @@ However, then it's completely up to you to take care about the open state. You h
 </Portal>
 ```
 
-```javascript
+```jsx
 ReactDOM.findDOMNode(this.refs.myLittleSecret).click();
 // opens the portal, yay!
 ```
