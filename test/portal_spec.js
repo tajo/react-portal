@@ -2,6 +2,7 @@ import jsdom from 'jsdom';
 import Portal from '../lib/portal';
 import assert from 'assert';
 import {spy} from 'sinon';
+import {render, unmountComponentAtNode} from 'react-dom';
 import {
   mount,
   spyLifecycle
@@ -110,7 +111,24 @@ describe('react-portal', () => {
       const props = {isOpened: true, onClose: spy()};
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
-      assert(props.onClose.called);
+      assert(props.onClose.calledOnce);
+    });
+
+    it('should call props.onClose() only once when portal closes and then is unmounted', () => {
+      const div = document.createElement('div');
+      const props = {isOpened: true, onClose: spy()};
+      const component = render(<Portal {...props}><p>Hi</p></Portal>, div);
+      component.closePortal();
+      unmountComponentAtNode(div);
+      assert(props.onClose.calledOnce);
+    });
+
+    it('should call props.onClose() only once when directly unmounting', () => {
+      const div = document.createElement('div');
+      const props = {isOpened: true, onClose: spy()};
+      render(<Portal {...props}><p>Hi</p></Portal>, div);
+      unmountComponentAtNode(div);
+      assert(props.onClose.calledOnce);
     });
   });
 
