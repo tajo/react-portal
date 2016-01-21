@@ -134,15 +134,14 @@ also needs an access to `this.props.closePortal()`? You can't just use `{this.pr
 )}
 ```
 
-#### Don't read this
-Please, skip this section if you dislike dirty tricks.
+#### Open modal programmatically
 
-**States make everything harder, right?** We don't want to deal with them, right? But sometime you need to open a portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it `true` or `false`.
+Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
 
-However, then it's completely up to you to take care about the open state. You have to write all the closing logic! And that sucks. But there is a dirty trick:
+However, there is a nice trick how to make this happen even without `isOpen`:
 
 ```jsx
-<Portal openByClickOn={<span ref="myLittleSecret" />}>
+<Portal ref="myPortal">
   <Modal title="My modal">
     Modal content
   </Modal>
@@ -150,11 +149,9 @@ However, then it's completely up to you to take care about the open state. You h
 ```
 
 ```jsx
-ReactDOM.findDOMNode(this.refs.myLittleSecret).click();
+this.refs.myPortal.openPortal()
 // opens the portal, yay!
 ```
-
-I'll end up in hell. I know.
 
 ## Contribution
 
