@@ -37,6 +37,13 @@ describe('react-portal', () => {
     assert.equal(document.body.childElementCount, 1);
   });
 
+  it('should open when this.openPortal() is called (used to programmatically open portal)', () => {
+    const wrapper = mount(<Portal><p>Hi</p></Portal>);
+    assert.equal(document.body.childElementCount, 0);
+    wrapper.instance().openPortal();
+    assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
+  });
+
   it('when props.isOpened is false and then set to true should open portal', () => {
     const wrapper = mount(<Portal isOpened={false}><p>Hi</p></Portal>);
     assert.equal(document.body.childElementCount, 0);
