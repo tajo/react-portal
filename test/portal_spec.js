@@ -89,12 +89,22 @@ describe('react-portal', () => {
       const props = {isOpened: true, beforeClose: spy()};
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
+      assert(props.beforeClose.calledOnce);
       assert(props.beforeClose.calledWith(wrapper.instance().node));
+    });
+
+    it('should call props.beforeClose() only once even if closePortal is called multiple times', () => {
+      const props = {isOpened: true, beforeClose: spy((node, cb) => cb())};
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.instance().closePortal();
+      wrapper.instance().closePortal();
+      assert(props.beforeClose.calledOnce);
     });
 
     it('should call props.onOpen() when portal opens', () => {
       const props = {isOpened: true, onOpen: spy()};
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      assert(props.onOpen.calledOnce);
       assert(props.onOpen.calledWith(wrapper.instance().node));
     });
 
@@ -117,6 +127,14 @@ describe('react-portal', () => {
     it('should call props.onClose() when portal closes', () => {
       const props = {isOpened: true, onClose: spy()};
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.instance().closePortal();
+      assert(props.onClose.calledOnce);
+    });
+
+    it('should call props.onClose() only once even if closePortal is called multiple times', () => {
+      const props = {isOpened: true, onClose: spy()};
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.instance().closePortal();
       wrapper.instance().closePortal();
       assert(props.onClose.calledOnce);
     });
