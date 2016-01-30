@@ -161,7 +161,6 @@ Please, create issues and pull requests.
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm install react react-dom
 npm start
 open http://localhost:3000
 ```
@@ -169,7 +168,6 @@ open http://localhost:3000
 **Don't forget to run this before every commit:**
 
 ```
-npm run lint
 npm test
 ```
 

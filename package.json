@@ -21,8 +21,8 @@
     "build:examples": "npm run clean && npm run build:examples:webpack",
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf build",
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register",
-    "lint": "eslint examples lib test devServer.js",
+    "test": "mocha",
+    "lint": "mocha test/eslint_spec.js",
     "prepublish": "cross-env NODE_ENV=production npm run build"
   },
   "tags": [
@@ -58,7 +58,10 @@
     "express": "^4.13.3",
     "jsdom": "^7.2.2",
     "mocha": "^2.3.4",
+    "mocha-eslint": "^1.0.0",
+    "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.6",
+    "react-dom": "^0.14.7",
     "rimraf": "^2.5.0",
     "sinon": "^1.17.2",
     "tween.js": "^16.3.1",
