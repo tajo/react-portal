@@ -27,7 +27,6 @@ Try [http://miksu.cz/react-portal](http://miksu.cz/react-portal) **or**
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm install react react-dom
 npm run build:examples
 open examples/index.html
 ```
