@@ -21,7 +21,7 @@ React-portal
 
 ## Demo
 
-Try [http://miksu.cz/react-portal](http://miksu.cz/react-portal) **or**
+Try [https://miksu.cz/react-portal](https://miksu.cz/react-portal) **or**
 
 ```shell
 git clone https://github.com/tajo/react-portal
@@ -174,4 +174,4 @@ npm test
 
 Inspired by the talk [React.js Conf 2015 - Hype!, Ryan Florence](https://www.youtube.com/watch?v=z5e7kWSHWTg)
 
-Vojtech Miksu 2015, [miksu.cz](http://miksu.cz), [@vmiksu](https://twitter.com/vmiksu)
+Vojtech Miksu 2015, [miksu.cz](https://miksu.cz), [@vmiksu](https://twitter.com/vmiksu)
