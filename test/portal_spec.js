@@ -122,9 +122,10 @@ describe('react-portal', () => {
     });
 
     it('should render the props.openByClickOn element', () => {
-      const openByClickOn = <button>button</button>;
+      const text = `open by click on me`;
+      const openByClickOn = <button>${text}</button>;
       const wrapper = mount(<Portal openByClickOn={openByClickOn}><p>Hi</p></Portal>);
-      assert(wrapper.contains(openByClickOn));
+      assert(wrapper.text(text));
     });
 
     it('should open portal when clicking openByClickOn element', () => {
