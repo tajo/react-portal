@@ -26,7 +26,7 @@ export default class App extends React.Component {
     new TWEEN.Tween({opacity: 0})
       .to({opacity: 1}, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(() => {
+      .onUpdate(function() {
         node.style.opacity = this.opacity;
       }).start();
   }
@@ -35,7 +35,7 @@ export default class App extends React.Component {
     new TWEEN.Tween({opacity: 1})
       .to({opacity: 0}, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(() => {
+      .onUpdate(function() {
         node.style.opacity = this.opacity;
       })
       .onComplete(removeFromDom)

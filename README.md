@@ -27,7 +27,6 @@ Try [http://miksu.cz/react-portal](http://miksu.cz/react-portal) **or**
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm install react react-dom
 npm run build:examples
 open examples/index.html
 ```
@@ -39,7 +38,7 @@ npm install react react-dom react-portal --save
 ```
 
 ## Usage
-```javascript
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
@@ -117,7 +116,7 @@ This callback is called when the portal is (re)rendered.
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
 - Does your inner inner component `<LevelTwo />`
 
-```js
+```jsx
 <Portal>
   <LevelOne>
     <LevelTwo />
@@ -127,34 +126,31 @@ This callback is called when the portal is (re)rendered.
 
 also needs an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in render method of `<LevelOne>` component. You have to clone it instead:
 
-```js
+```jsx
 {React.cloneElement(
   this.props.children,
   {closePortal: this.props.closePortal}
 )}
 ```
 
-#### Don't read this
-Please, skip this section if you dislike dirty tricks.
+#### Open modal programmatically
 
-**States make everything harder, right?** We don't want to deal with them, right? But sometime you need to open a portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it `true` or `false`.
+Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
 
-However, then it's completely up to you to take care about the open state. You have to write all the closing logic! And that sucks. But there is a dirty trick:
+However, there is a nice trick how to make this happen even without `isOpen`:
 
-```javascript
-<Portal openByClickOn={<span ref="myLittleSecret" />}>
+```jsx
+<Portal ref="myPortal">
   <Modal title="My modal">
     Modal content
   </Modal>
 </Portal>
 ```
 
-```javascript
-ReactDOM.findDOMNode(this.refs.myLittleSecret).click();
+```jsx
+this.refs.myPortal.openPortal()
 // opens the portal, yay!
 ```
-
-I'll end up in hell. I know.
 
 ## Contribution
 
@@ -164,7 +160,6 @@ Please, create issues and pull requests.
 git clone https://github.com/tajo/react-portal
 cd react-portal
 npm install
-npm install react react-dom
 npm start
 open http://localhost:3000
 ```
@@ -172,7 +167,6 @@ open http://localhost:3000
 **Don't forget to run this before every commit:**
 
 ```
-npm run lint
 npm test
 ```
 
