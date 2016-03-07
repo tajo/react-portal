@@ -155,6 +155,15 @@ describe('react-portal', () => {
       unmountComponentAtNode(div);
       assert(props.onClose.calledOnce);
     });
+
+    it('should not call this.setState() if portal is unmounted', () => {
+      const div = document.createElement('div');
+      const props = {isOpened: true};
+      const wrapper = render(<Portal {...props}><p>Hi</p></Portal>, div);
+      spy(wrapper, 'setState');
+      unmountComponentAtNode(div);
+      assert.equal(wrapper.setState.callCount, 0);
+    });
   });
 
   describe('openByClickOn', () => {
