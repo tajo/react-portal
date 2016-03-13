@@ -37,10 +37,6 @@
     "portal",
     "transportation"
   ],
-  "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
-  },
   "devDependencies": {
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
