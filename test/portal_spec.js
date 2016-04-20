@@ -4,8 +4,7 @@ import assert from 'assert';
 import {spy} from 'sinon';
 import {render, unmountComponentAtNode} from 'react-dom';
 import {
-  mount,
-  spyLifecycle
+  mount
 } from 'enzyme';
 
 describe('react-portal', () => {
@@ -168,9 +167,10 @@ describe('react-portal', () => {
 
   describe('openByClickOn', () => {
     it('render should return null if no props.openByClickOn', () => {
-      spyLifecycle(Portal);
+      spy(Portal.prototype, 'render');
       mount(<Portal><p>Hi</p></Portal>);
       assert.equal(Portal.prototype.render.returnValue, null);
+      Portal.prototype.render.restore();
     });
 
     it('should render the props.openByClickOn element', () => {
