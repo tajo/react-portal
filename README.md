@@ -1,8 +1,7 @@
 React-portal
 ============
-[![Dependency Status](https://david-dm.org/tajo/react-portal.svg)](https://david-dm.org/tajo/react-portal)
-[![peerDependency Status](https://david-dm.org/tajo/react-portal/peer-status.svg)](https://david-dm.org/tajo/react-portal#info=peerDependencies)
-[![devDependency Status](https://david-dm.org/tajo/react-portal/dev-status.svg)](https://david-dm.org/tajo/react-portal#info=devDependencies)
+[![npm version](https://img.shields.io/npm/v/react-portal.svg?style=flat-square)](https://www.npmjs.com/package/react-portal)
+[![npm downloads](https://img.shields.io/npm/dm/react-portal.svg?style=flat-square)](https://www.npmjs.com/package/react-portal)
 [![Build Status](https://travis-ci.org/tajo/react-portal.svg?branch=master)](https://travis-ci.org/tajo/react-portal)
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its child into it. That's necessary for proper styling (especially positioning).
@@ -16,7 +15,7 @@ React-portal
 - provides its child with **this.props.closePortal** callback
 - provides **close on ESC** and **close on outside mouse click** out of the box
 - supports absolute positioned components (great for tooltips)
-- no dependencies
+- **no dependencies**
 - **fully covered by tests**
 
 ## Demo
