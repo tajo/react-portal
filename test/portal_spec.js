@@ -210,12 +210,12 @@ describe('react-portal', () => {
       assert.equal(document.body.childElementCount, 1);
 
       // Should not close when outside click isn't a main click
-      const rightClickMouseEvent = new window.MouseEvent('mousedown', {view: window, button: 2});
+      const rightClickMouseEvent = new window.MouseEvent('mouseup', {view: window, button: 2});
       document.dispatchEvent(rightClickMouseEvent);
       assert.equal(document.body.childElementCount, 1);
 
       // Should close when outside click is a main click (typically left button click)
-      const leftClickMouseEvent = new window.MouseEvent('mousedown', {view: window, button: 0});
+      const leftClickMouseEvent = new window.MouseEvent('mouseup', {view: window, button: 0});
       document.dispatchEvent(leftClickMouseEvent);
       assert.equal(document.body.childElementCount, 0);
     });
