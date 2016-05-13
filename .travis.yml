@@ -4,9 +4,9 @@ cache:
   directories:
   - node_modules
 node_js:
+  - "6"
   - "5"
-  - "4.1"
-  - "4.0"
+  - "4"
 script:
   - npm test
   - npm run build
