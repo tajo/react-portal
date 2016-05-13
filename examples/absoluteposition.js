@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default class AbsolutePosition extends React.Component {
-
+export default class AbsolutePosition extends React.Component { // eslint-disable-line
   render() {
     const style = {
       position: 'absolute',
@@ -11,7 +10,7 @@ export default class AbsolutePosition extends React.Component {
       border: '1px solid gray',
       background: '#fff',
       margin: 10,
-      padding: 10
+      padding: 10,
     };
 
     return (
@@ -31,5 +30,5 @@ AbsolutePosition.propTypes = {
   top: React.PropTypes.number,
   left: React.PropTypes.number,
   width: React.PropTypes.number,
-  closePortal: React.PropTypes.func
+  closePortal: React.PropTypes.func,
 };

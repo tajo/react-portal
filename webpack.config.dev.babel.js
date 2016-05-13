@@ -1,20 +1,20 @@
-var path = require('path');
-var webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
 
-module.exports = {
+export default {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './examples/index'
+    './examples/index',
   ],
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'examples_bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
   ],
   module: {
     loaders: [{
@@ -22,8 +22,8 @@ module.exports = {
       loaders: ['babel'],
       include: [
         path.join(__dirname, 'examples'),
-        path.join(__dirname, 'lib')
-      ]
-    }]
-  }
+        path.join(__dirname, 'lib'),
+      ],
+    }],
+  },
 };

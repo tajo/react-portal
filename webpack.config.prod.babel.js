@@ -1,28 +1,28 @@
-var path = require('path');
-var webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
 
-module.exports = {
+export default {
   devtool: 'source-map',
   entry: [
-    './examples/index'
+    './examples/index',
   ],
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'examples_bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
-      }
-    })
+        warnings: false,
+      },
+    }),
   ],
   module: {
     loaders: [{
@@ -30,8 +30,8 @@ module.exports = {
       loaders: ['babel'],
       include: [
         path.join(__dirname, 'examples'),
-        path.join(__dirname, 'lib')
-      ]
-    }]
-  }
+        path.join(__dirname, 'lib'),
+      ],
+    }],
+  },
 };

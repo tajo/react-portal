@@ -13,40 +13,49 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isPortalOpened: false,
-      someValue: 'init'
+      someValue: 'init',
     };
   }
 
   onClose() {
-    /*eslint no-console: 0*/
+    /* eslint no-console: 0 */
     console.log('Portal closed');
   }
 
   onOpen(node) {
-    new TWEEN.Tween({opacity: 0})
-      .to({opacity: 1}, 500)
+    new TWEEN.Tween({ opacity: 0 })
+      .to({ opacity: 1 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {
-        node.style.opacity = this.opacity;
-      }).start();
+      .onUpdate(function() {  // eslint-disable-line
+        node.style.opacity = this.opacity;  // eslint-disable-line
+      })
+      .start();
   }
 
   beforeClose(node, removeFromDom) {
-    new TWEEN.Tween({opacity: 1})
-      .to({opacity: 0}, 500)
+    new TWEEN.Tween({ opacity: 1 })
+      .to({ opacity: 0 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {
-        node.style.opacity = this.opacity;
+      .onUpdate(function() {  // eslint-disable-line
+        node.style.opacity = this.opacity; // eslint-disable-line
       })
       .onComplete(removeFromDom)
       .start();
+  }
+
+  toggleLoadingBar() {
+    this.setState({ isPortalOpened: !this.state.isPortalOpened });
+  }
+
+  changeValue() {
+    this.setState({ someValue: Math.random().toString(36).substring(7) });
   }
 
   render() {
     const buttonStyles = {
       padding: 10,
       fontSize: 20,
-      marginBottom:10
+      marginBottom: 10,
     };
     function animate(time) {
       requestAnimationFrame(animate);
@@ -57,23 +66,26 @@ export default class App extends React.Component {
     const button1 = <button style={buttonStyles}>Open portal with pseudo modal</button>;
     const button2 = <button style={buttonStyles}>Another portal</button>;
     const button3 = (
-      <button onClick={(e) => {
-        const bodyRect = document.body.getBoundingClientRect();
-        const targetRect = e.target.getBoundingClientRect();
-        this.setState({
-          isOpened: true,
-          top: targetRect.top - bodyRect.top,
-          left:  targetRect.left - bodyRect.left,
-          width: targetRect.width
-        });
-      }} style={buttonStyles}>
+      <button
+        onClick={(e) => {
+          const bodyRect = document.body.getBoundingClientRect();
+          const targetRect = e.target.getBoundingClientRect();
+          this.setState({
+            isOpened: true,
+            top: targetRect.top - bodyRect.top,
+            left: targetRect.left - bodyRect.left,
+            width: targetRect.width,
+          });
+        }}
+        style={buttonStyles}
+      >
         {'Open portal on top of button'}
       </button>
     );
     const button4 = <button style={buttonStyles}>Animation Example</button>;
 
     return (
-      <div style={{border: '2px solid red', margin: 10, padding: 10}}>
+      <div style={{ border: '2px solid red', margin: 10, padding: 10 }}>
         <h1>React portal examples</h1>
         <a href="https://github.com/tajo/react-portal">https://github.com/tajo/react-portal</a>
         <p> </p>
@@ -96,7 +108,7 @@ export default class App extends React.Component {
         </Portal>
 
         <Portal closeOnOutsideClick onClose={this.onClose} openByClickOn={button2}>
-          <div style={{border: '1px solid black', margin: 10, padding: 10}}>
+          <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
             <p>Click anywhere outside of this portal to close it.</p>
           </div>
         </Portal>
@@ -106,9 +118,13 @@ export default class App extends React.Component {
           <Portal
             closeOnOutsideClick
             isOpened={this.state.isOpened}
-            onClose={() => {this.setState({isOpened: false}); this.onClose();}}
+            onClose={() => { this.setState({ isOpened: false }); this.onClose(); }}
           >
-            <AbsolutePosition left={this.state.left} top={this.state.top} width={this.state.width} />
+            <AbsolutePosition
+              left={this.state.left}
+              top={this.state.top}
+              width={this.state.width}
+            />
           </Portal>
         </div>
 
@@ -122,24 +138,17 @@ export default class App extends React.Component {
           closeOnOutsideClick
           onOpen={this.onOpen}
           openByClickOn={button4}
-          style={{opacity: 0}}
+          style={{ opacity: 0 }}
         >
-          <div style={{border: '1px solid black', margin: 10, padding: 10}}>
-            <p>Trigger Animations, or any arbitrary function, before removing the portal from the DOM, animates out on both click outside and on esc press</p>
+          <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
+            <p>Trigger Animations, or any arbitrary function,{' '}
+            before removing the portal from the DOM, animates out{' '}
+            on both click outside and on esc press</p>
           </div>
         </Portal>
       </div>
     );
   }
-
-  toggleLoadingBar(e) {
-    this.setState({isPortalOpened: !this.state.isPortalOpened});
-  }
-
-  changeValue(e) {
-    this.setState({someValue: Math.random().toString(36).substring(7)});
-  }
-
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
