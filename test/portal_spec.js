@@ -77,9 +77,21 @@ describe('react-portal', () => {
     assert.equal(document.body.lastElementChild.className, 'some-class');
   });
 
-  it('should add inline style to portal\'s wrapping node', () => {
+  it('should add inline style to the portal\'s wrapping node', () => {
     mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
     assert.equal(document.body.lastElementChild.style.color, 'blue');
+  });
+
+  it('should update className on the portal\'s wrapping node when props.className changes', () => {
+    const wrapper = mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
+    wrapper.setProps({ className: 'some-other-class', children: <p>Hi</p> });
+    assert.equal(document.body.lastElementChild.className, 'some-other-class');
+  });
+
+  it('should update inline style on the portal\'s wrapping node when props.style changes', () => {
+    const wrapper = mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
+    wrapper.setProps({ style: { color: 'red' }, children: <p>Hi</p> });
+    assert.equal(document.body.lastElementChild.style.color, 'red');
   });
 
   describe('callbacks', () => {
