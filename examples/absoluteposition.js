@@ -17,7 +17,7 @@ export default class AbsolutePosition extends React.Component { // eslint-disabl
       <div style={style}>
         <p>
           This portal is opened manually and given an absolute position using:{' '}
-          the opening element's <i>onClick</i> prop, and the portal's <i>isOpened</i> prop.
+          the opening element's <i>onClick</i> prop, and the portal's <i>isOpen</i> prop.
         </p>
         <p>Click anywhere outside to close it.</p>
       </div>
