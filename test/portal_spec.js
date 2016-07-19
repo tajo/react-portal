@@ -1,18 +1,15 @@
-import jsdom from 'jsdom';
 import Portal from '../lib/portal';
 import assert from 'assert';
 import { spy } from 'sinon';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { mount } from 'enzyme';
+import setup from './setup';
 
 describe('react-portal', () => {
   let React;
   beforeEach(() => {
     // Set up JSDOM
-    global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-    global.window = document.defaultView;
-    global.navigator = { userAgent: 'node.js' };
-    // Enzyme library uses React
+    setup();
     /*eslint-disable */
     React = require('react');
     /*eslint-enable */
@@ -27,13 +24,6 @@ describe('react-portal', () => {
     /*eslint-disable */
     assert.equal(wrapper.instance().node, undefined);
     /*eslint-enable */
-  });
-
-  it('should append portal with children to the document.body', () => {
-    const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
-    assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
-    assert.equal(document.body.lastElementChild, wrapper.instance().node);
-    assert.equal(document.body.childElementCount, 1);
   });
 
   it('should open when this.openPortal() is called (used to programmatically open portal)', () => {
@@ -229,6 +219,41 @@ describe('react-portal', () => {
       const leftClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 0 });
       document.dispatchEvent(leftClickMouseEvent);
       assert.equal(document.body.childElementCount, 0);
+    });
+  });
+
+  describe('target', () => {
+    context('when target is not set', () => {
+      it('should append portal with children to the document.body', () => {
+        const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
+        assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
+        assert.equal(document.body.lastElementChild, wrapper.instance().node);
+        assert.equal(document.body.childElementCount, 1);
+      });
+    });
+
+    context('when target is set', () => {
+      context('when layer passed to component as a prop', () => {
+        it('should append portal with children to the target', () => {
+          const modalLayer = document.createElement('div');
+          document.body.appendChild(modalLayer);
+
+          const wrapper = mount(<Portal isOpened target={modalLayer}><p>Hi</p></Portal>);
+          assert.equal(modalLayer.getElementsByTagName('p')[0].textContent, 'Hi');
+          assert.equal(modalLayer.lastElementChild, wrapper.instance().node);
+          assert.equal(modalLayer.childElementCount, 1);
+        });
+
+        it('should remove portal from the target when isOpened set to false', () => {
+          const modalLayer = document.createElement('div');
+          document.body.appendChild(modalLayer);
+
+          const wrapper = mount(<Portal isOpened target={modalLayer}><p>Hi</p></Portal>);
+          assert.equal(modalLayer.getElementsByTagName('p')[0].textContent, 'Hi');
+          wrapper.setProps({ isOpened: false });
+          assert(!modalLayer.getElementsByTagName('p')[0]);
+        });
+      });
     });
   });
 });

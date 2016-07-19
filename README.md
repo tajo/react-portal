@@ -8,7 +8,8 @@ React-portal
 
 ## Features
 
-- transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
+- transports its child into a new React component and appends it to specified DOM element (**document.body** by default)
+- creates a new independent React tree
 - can be opened by the prop **isOpened**
 - can be opened after a click on an element that you pass through the prop **openByClickOn** (and then it takes care of the open/close state)
 - doesn't leave any mess in DOM after closing
@@ -37,6 +38,7 @@ npm install react react-dom react-portal --save
 ```
 
 ## Usage
+
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -91,6 +93,9 @@ The second way how to open the portal. This element will be rendered by the port
 with `onClick` handler that triggers portal opening. **How to close the portal then?** The portal provides its ported child with a callback `this.props.closePortal`. Or you can use built-in portal closing methods (closeOnEsc, ... more below). Notice that you don't have to deal with the open/close state (like when using the `isOpened` prop).
 
 ### Optional
+
+#### target: HTMLElement
+The element you want portal to be appended to.
 
 #### closeOnEsc: bool
 If true, the portal can be closed by the key ESC.
