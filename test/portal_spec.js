@@ -1,18 +1,15 @@
-import jsdom from 'jsdom';
 import Portal from '../lib/portal';
 import assert from 'assert';
 import { spy } from 'sinon';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { mount } from 'enzyme';
+import setup from './setup';
 
 describe('react-portal', () => {
   let React;
   beforeEach(() => {
     // Set up JSDOM
-    global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-    global.window = document.defaultView;
-    global.navigator = { userAgent: 'node.js' };
-    // Enzyme library uses React
+    setup();
     /*eslint-disable */
     React = require('react');
     /*eslint-enable */
