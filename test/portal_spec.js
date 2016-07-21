@@ -72,6 +72,18 @@ describe('react-portal', () => {
     assert.equal(closePortal, wrapper.instance().closePortal);
   });
 
+  it('should not pass Portal.closePortal when excluded', () => {
+    let closePortal;
+    /*eslint-disable*/
+    const Child = (props) => {
+      closePortal = props.closePortal;
+      return <p>Hi</p>;
+    };
+    /*eslint-enable*/
+    mount(<Portal isOpened noInjectedClose><Child /></Portal>);
+    assert.equal(closePortal, undefined);
+  });
+
   it('should add className to the portal\'s wrapping node', () => {
     mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
     assert.equal(document.body.lastElementChild.className, 'some-class');
