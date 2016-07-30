@@ -6,10 +6,6 @@ React-portal
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its child into it. That's necessary for proper styling (especially positioning).
 
-## Deprecation Notice
-
-The `isOpened` prop has been renamed to `isOpen`.
-
 ## Features
 
 - transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
