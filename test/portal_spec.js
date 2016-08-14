@@ -126,6 +126,12 @@ describe('react-portal', () => {
       assert(props.onOpen.calledOnce);
     });
 
+    it('should call props.onUpdate() after calling props.onOpen()', () => {
+      const props = { isOpened: true, onOpen: spy(), onUpdate: spy() };
+      mount(<Portal {...props}><p>Hi</p></Portal>);
+      assert(props.onUpdate.calledAfter(props.onOpen));
+    });
+
     it('should call props.onUpdate() when portal is opened or receives props', () => {
       const props = { isOpened: true, onUpdate: spy(), className: 'old' };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
