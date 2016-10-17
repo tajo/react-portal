@@ -194,8 +194,27 @@ describe('react-portal', () => {
     it('should open portal when clicking openByClickOn element', () => {
       const openByClickOn = <button>button</button>;
       const wrapper = mount(<Portal openByClickOn={openByClickOn}><p>Hi</p></Portal>);
-      wrapper.find('button').simulate('click');
-      assert.equal(document.body.lastElementChild, wrapper.instance().node);
+      const instance = wrapper.instance();
+      spy(instance, 'openPortal');
+      instance.triggerElement.click();
+      assert(instance.openPortal.calledOnce);
+    });
+
+    it('should allow custom components', () => {
+      class CustomComponent extends React.PureComponent {
+        render() {
+          return (
+            <button>button</button>
+          );
+        }
+      }
+
+      const openByClickOn = <CustomComponent />;
+      const wrapper = mount(<Portal openByClickOn={openByClickOn}><p>Hi</p></Portal>);
+      const instance = wrapper.instance();
+      spy(instance, 'openPortal');
+      instance.triggerElement.click();
+      assert(instance.openPortal.calledOnce);
     });
   });
 
@@ -211,7 +230,7 @@ describe('react-portal', () => {
           );
           const instance = wrapper.instance();
           spy(instance, 'openPortal');
-          wrapper.find('button').simulate('click');
+          instance.triggerElement.click();
           assert(instance.openPortal.calledOnce);
         });
       });
@@ -226,7 +245,7 @@ describe('react-portal', () => {
           );
           const instance = wrapper.instance();
           spy(instance, 'closePortal');
-          wrapper.find('button').simulate('click');
+          instance.triggerElement.click();
           assert(!instance.closePortal.called);
         });
       });
@@ -243,7 +262,7 @@ describe('react-portal', () => {
           );
           const instance = wrapper.instance();
           spy(instance, 'openPortal');
-          wrapper.find('button').simulate('click');
+          instance.triggerElement.click();
           assert(instance.openPortal.calledOnce);
         });
       });
@@ -258,7 +277,7 @@ describe('react-portal', () => {
           );
           const instance = wrapper.instance();
           spy(instance, 'closePortal');
-          wrapper.find('button').simulate('click');
+          instance.triggerElement.click();
           assert(instance.closePortal.calledOnce);
         });
       });
@@ -287,12 +306,12 @@ describe('react-portal', () => {
       assert.equal(document.body.childElementCount, 1);
 
       // Should not close when outside click isn't a main click
-      const rightClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 2 });
+      const rightClickMouseEvent = new window.MouseEvent('click', { view: window, button: 2 });
       document.dispatchEvent(rightClickMouseEvent);
       assert.equal(document.body.childElementCount, 1);
 
       // Should close when outside click is a main click (typically left button click)
-      const leftClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 0 });
+      const leftClickMouseEvent = new window.MouseEvent('click', { view: window, button: 0 });
       document.dispatchEvent(leftClickMouseEvent);
       assert.equal(document.body.childElementCount, 0);
     });

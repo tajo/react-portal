@@ -150,6 +150,8 @@ export default class App extends React.Component {
 
         <Portal
           openByClickOn={button5}
+          closeOnEsc
+          closeOnOutsideClick
           togglesOnClick
         >
           <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
