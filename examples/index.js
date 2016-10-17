@@ -83,6 +83,7 @@ export default class App extends React.Component {
       </button>
     );
     const button4 = <button style={buttonStyles}>Animation Example</button>;
+    const button5 = <button style={buttonStyles}>Toggle portal</button>;
 
     return (
       <div style={{ border: '2px solid red', margin: 10, padding: 10 }}>
@@ -144,6 +145,15 @@ export default class App extends React.Component {
             <p>Trigger Animations, or any arbitrary function,{' '}
             before removing the portal from the DOM, animates out{' '}
             on both click outside and on esc press</p>
+          </div>
+        </Portal>
+
+        <Portal
+          openByClickOn={button5}
+          togglesOnClick
+        >
+          <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
+            <p>Click again on the button to hide this.</p>
           </div>
         </Portal>
       </div>
