@@ -199,6 +199,72 @@ describe('react-portal', () => {
     });
   });
 
+  describe('togglesOnClick', () => {
+    context('if false', () => {
+      context('if the portal is closed', () => {
+        it('should open portal when clicking openByClickOn element', () => {
+          const openByClickOn = <button>button</button>;
+          const wrapper = mount(
+            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpened={false}>
+              <p>Hi</p>
+            </Portal>
+          );
+          const instance = wrapper.instance();
+          spy(instance, 'openPortal');
+          wrapper.find('button').simulate('click');
+          assert(instance.openPortal.calledOnce);
+        });
+      });
+
+      context('if the portal is opened', () => {
+        it('should keep the portal opened when clicking openByClickOn element', () => {
+          const openByClickOn = <button>button</button>;
+          const wrapper = mount(
+            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpened>
+              <p>Hi</p>
+            </Portal>
+          );
+          const instance = wrapper.instance();
+          spy(instance, 'closePortal');
+          wrapper.find('button').simulate('click');
+          assert(!instance.closePortal.called);
+        });
+      });
+    });
+
+    context('if true', () => {
+      context('if the portal is closed', () => {
+        it('should open portal when clicking openByClickOn element', () => {
+          const openByClickOn = <button>button</button>;
+          const wrapper = mount(
+            <Portal openByClickOn={openByClickOn} togglesOnClick isOpened={false}>
+              <p>Hi</p>
+            </Portal>
+          );
+          const instance = wrapper.instance();
+          spy(instance, 'openPortal');
+          wrapper.find('button').simulate('click');
+          assert(instance.openPortal.calledOnce);
+        });
+      });
+
+      context('if the portal is opened', () => {
+        it('should close portal when clicking openByClickOn element', () => {
+          const openByClickOn = <button>button</button>;
+          const wrapper = mount(
+            <Portal openByClickOn={openByClickOn} togglesOnClick isOpened>
+              <p>Hi</p>
+            </Portal>
+          );
+          const instance = wrapper.instance();
+          spy(instance, 'closePortal');
+          wrapper.find('button').simulate('click');
+          assert(instance.closePortal.calledOnce);
+        });
+      });
+    });
+  });
+
   describe('close actions', () => {
     it('Portal.closePortal()', () => {
       const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
