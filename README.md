@@ -110,6 +110,8 @@ This callback is called when the portal closes and after beforeClose.
 #### onUpdate: func
 This callback is called when the portal is (re)rendered.
 
+#### togglesOnClick: bool
+If true, subsequent clicks on the element specified by `openByClickOn` will toggle the portal instead of keeping it always opened. Defaults to `false`.
 
 ## Tips & Tricks
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).
