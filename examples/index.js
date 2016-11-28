@@ -96,7 +96,7 @@ export default class App extends React.Component {
             <p>This react component is appended to the document body.</p>
             <p>This is <strong>great for a modal, lightbox, loading bar ... etc.</strong>.</p>
             <p>Close this by pressing <strong>ESC</strong>.</p>
-            <p><strong>Why psuedo?</strong> Becuase the proper CSS styles are up to you. ;-)</p>
+            <p><strong>Why psuedo?</strong> Because the proper CSS styles are up to you. ;-)</p>
           </PseudoModal>
         </Portal>
 
