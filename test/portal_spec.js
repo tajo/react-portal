@@ -72,21 +72,27 @@ describe('react-portal', () => {
     assert.equal(closePortal, wrapper.instance().closePortal);
   });
 
-  // style & className were removed in 3.0
-  it('should not add className to the portal\'s wrapper', () => {
+  it('should add className to the portal\'s wrapper', () => {
     mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
-    assert.notEqual(document.body.lastElementChild.className, 'some-class');
+    assert.equal(document.body.lastElementChild.className, 'some-class');
   });
 
+  // style was removed in 3.0
   it('should not add inline style to the portal\'s wrapper', () => {
     mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
     assert.notEqual(document.body.lastElementChild.style.color, 'blue');
   });
 
-  it('should not update className on the portal\'s wrapper when props.className changes', () => {
+  it('should update className on the portal\'s wrapper when props.className changes', () => {
     const wrapper = mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
     wrapper.setProps({ className: 'some-other-class', children: <p>Hi</p> });
-    assert.notEqual(document.body.lastElementChild.className, 'some-other-class');
+    assert.equal(document.body.lastElementChild.className, 'some-other-class');
+  });
+
+  it('should remove className on the portal\'s wrapper when props.className changes', () => {
+    const wrapper = mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
+    wrapper.setProps({ className: undefined, children: <p>Hi</p> });
+    assert.equal(document.body.lastElementChild.className, '');
   });
 
   it('should not update inline style on the portal\'s wrapper when props.style changes', () => {
