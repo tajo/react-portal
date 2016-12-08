@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
   "main": "build/portal",
+  "types": "lib/portal.d.ts",
   "files": [
     "*.md",
     "LICENSE",
@@ -22,8 +23,8 @@
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.babel.js",
     "clean": "rimraf build",
     "test": "mocha",
-    "lint": "mocha test/eslint_spec.js",
-    "prepublish": "cross-env NODE_ENV=production npm run build"
+    "lint": "mocha test/eslint_spec.js",    
+    "prepublish": "cross-env NODE_ENV=production npm run build"	
   },
   "tags": [
     "react"
@@ -64,6 +65,7 @@
     "rimraf": "^2.5.0",
     "sinon": "^1.17.4",
     "tween.js": "^16.3.1",
+    "@types/react": "^0.14.54",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0"
