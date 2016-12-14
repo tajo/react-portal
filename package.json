@@ -39,6 +39,7 @@
     "transportation"
   ],
   "devDependencies": {
+    "@types/react": "^0.14.54",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.4",
@@ -65,7 +66,8 @@
     "rimraf": "^2.5.0",
     "sinon": "^1.17.4",
     "tween.js": "^16.3.1",
-    "@types/react": "^0.14.54",
+    "typescript": "^2.1.4",
+    "typescript-definition-tester": "0.0.5",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0"
