@@ -8,19 +8,18 @@ import * as fs from 'fs';
 const TYPESCRIPT_FILE_PATH = './test/typescript/exercise-all-props.ts';
 
 function getPortalInstance(callback) {
-  const jsFilePath = TYPESCRIPT_FILE_PATH.replace('.ts', '.js');
-  const program = ts.createProgram([TYPESCRIPT_FILE_PATH], {
+  const compileOptions = {
     noEmitOnError: true, noImplicitAny: true,
     target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS,
-  });
+  };
 
-  program.emit();
-  program.emit(undefined, () => {
-    const portal = require('./typescript/exercise-all-props.js').portal; //eslint-disable-line global-require, import/no-unresolved, max-len, spaced-comment
-
-    fs.unlink(jsFilePath, () => {
-      callback(portal);
-    });
+  fs.readFile(TYPESCRIPT_FILE_PATH, 'utf-8', (err, data) => {
+    if (err) throw err;
+    const code = data.replace('../../lib', '../lib');
+    /* eslint-disable */
+    const portal = eval(ts.transpileModule(code, compileOptions).outputText);
+    /* eslint-enable */
+    callback(portal);
   });
 }
 
