@@ -171,8 +171,8 @@ describe('react-portal', () => {
       const div = document.createElement('div');
       const props = { isOpened: true };
       const wrapper = render(<Portal {...props}><p>Hi</p></Portal>, div);
-      spy(wrapper, 'setState');
       unmountComponentAtNode(div);
+      spy(wrapper, 'setState');
       assert.equal(wrapper.setState.callCount, 0);
     });
   });

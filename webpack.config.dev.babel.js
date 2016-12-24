@@ -5,7 +5,7 @@ export default {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './examples/index',
+    './examples/index.jsx',
   ],
   output: {
     path: path.join(__dirname, 'build'),
@@ -18,12 +18,15 @@ export default {
   ],
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.jsx|\.js$/,
       loaders: ['babel'],
       include: [
         path.join(__dirname, 'examples'),
         path.join(__dirname, 'lib'),
       ],
     }],
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
   },
 };

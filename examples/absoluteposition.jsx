@@ -29,6 +29,5 @@ export default class AbsolutePosition extends React.Component { // eslint-disabl
 AbsolutePosition.propTypes = {
   top: React.PropTypes.number,
   left: React.PropTypes.number,
-  width: React.PropTypes.number,
-  closePortal: React.PropTypes.func,
+  width: React.PropTypes.number
 };
