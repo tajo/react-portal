@@ -84,6 +84,8 @@ The portal expects one child (`<Portal><Child ... /></Portal>`) that will be por
 ### One of these two required
 
 #### isOpen : bool
+*The V3 version uses `isOpened`. Renaming to `isOpen` is going to be released soon with the V4.*
+
 If true, the portal is open. If false, the portal is closed. It's up to you to take care of the closing (aka taking care of the state). Don't use this prop if you want to make your life easier. Use openByClickOn instead!
 
 #### openByClickOn : ReactElement
@@ -134,9 +136,9 @@ also need an access to `this.props.closePortal()`? You can't just use `{this.pro
 
 #### Open modal programmatically
 
-Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpened` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
+Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
 
-However, there is a nice trick how to make this happen even without `isOpened`:
+However, there is a nice trick how to make this happen even without `isOpen`:
 
 ```jsx
 <Portal ref="myPortal">
