@@ -123,7 +123,7 @@ This callback is called when the portal is (re)rendered.
 </Portal>
 ```
 
-also needs an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in render method of `<LevelOne>` component. You have to clone it instead:
+also need an access to `this.props.closePortal()`? You can't just use `{this.props.children}` in render method of `<LevelOne>` component. You have to clone it instead:
 
 ```jsx
 {React.cloneElement(
@@ -134,15 +134,15 @@ also needs an access to `this.props.closePortal()`? You can't just use `{this.pr
 
 #### Open modal programmatically
 
-Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
+Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpened` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
 
-However, there is a nice trick how to make this happen even without `isOpen`:
+However, there is a nice trick how to make this happen even without `isOpened`:
 
 ```jsx
 <Portal ref="myPortal">
-  <Modal title="My modal">
+  <PseudoModal title="My modal">
     Modal content
-  </Modal>
+  </PseudoModal>
 </Portal>
 ```
 
