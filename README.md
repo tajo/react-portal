@@ -9,7 +9,7 @@ React-portal
 ## Features
 
 - transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
-- can be opened by the prop **isOpened**
+- can be opened by the prop **isOpen**
 - can be opened after a click on an element that you pass through the prop **openByClickOn** (and then it takes care of the open/close state)
 - doesn't leave any mess in DOM after closing
 - provides its child with **this.props.closePortal** callback
@@ -83,12 +83,12 @@ The portal expects one child (`<Portal><Child ... /></Portal>`) that will be por
 
 ### One of these two required
 
-#### isOpened : bool
+#### isOpen : bool
 If true, the portal is open. If false, the portal is closed. It's up to you to take care of the closing (aka taking care of the state). Don't use this prop if you want to make your life easier. Use openByClickOn instead!
 
 #### openByClickOn : ReactElement
 The second way how to open the portal. This element will be rendered by the portal immediately
-with `onClick` handler that triggers portal opening. **How to close the portal then?** The portal provides its ported child with a callback `this.props.closePortal`. Or you can use built-in portal closing methods (closeOnEsc, ... more below). Notice that you don't have to deal with the open/close state (like when using the `isOpened` prop).
+with `onClick` handler that triggers portal opening. **How to close the portal then?** The portal provides its ported child with a callback `this.props.closePortal`. Or you can use built-in portal closing methods (closeOnEsc, ... more below). Notice that you don't have to deal with the open/close state (like when using the `isOpen` prop).
 
 ### Optional
 
