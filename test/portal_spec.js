@@ -156,7 +156,7 @@ describe('react-portal', () => {
       assert(props.onClose.calledOnce);
     });
 
-    it('should call props.onClose() with the passed named params', () => {
+    it('should call props.onClose() with the passed named params when closePortal is called with named params', () => {
       const props = { isOpen: true, onClose: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal({ namedParam: { propA: 1, propB: 'test' } });
