@@ -156,6 +156,13 @@ describe('react-portal', () => {
       assert(props.onClose.calledOnce);
     });
 
+    it('should call props.onClose() with the passed named params', () => {
+      const props = { isOpen: true, onClose: spy() };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.instance().closePortal({ namedParam: { propA: 1, propB: 'test' } });
+      assert(props.onClose.calledWith({ namedParam: { propA: 1, propB: 'test' } }));
+    });
+
     it('should call props.onClose() only once when portal closes and then is unmounted', () => {
       const div = document.createElement('div');
       const props = { isOpen: true, onClose: spy() };
