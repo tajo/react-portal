@@ -194,3 +194,5 @@ Portal.defaultProps = {
   onClose: () => {},
   onUpdate: () => {}
 };
+
+export { default as PortalTarget } from './portaltarget';
