@@ -144,7 +144,13 @@ export default class App extends React.Component {
           </div>
         </Portal>
 
-        <Portal target="console" className="console-portal" closeOnEsc onClose={this.onClose} openByClickOn={button5}>
+        <Portal
+          target="console"
+          className="console-portal"
+          closeOnEsc
+          onClose={this.onClose}
+          openByClickOn={button5}
+        >
           <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
             <p>Hit ESC to close.</p>
           </div>
@@ -189,8 +195,30 @@ export default class App extends React.Component {
           </div>
         </Portal>
 
-        <PortalTarget name="sidebar" style={{ position: 'fixed', top: 0, right: 0, bottom: 0, maxWidth: 250, background: '#eee', zIndex: 100 }} />
-        <PortalTarget className="console" name="console" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#eee', zIndex: 100 }} />
+        <PortalTarget
+          name="sidebar"
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            maxWidth: 250,
+            background: '#eee',
+            zIndex: 100,
+          }}
+        />
+        <PortalTarget
+          className="console"
+          name="console"
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: '#eee',
+            zIndex: 100,
+          }}
+        />
       </div>
     );
   }

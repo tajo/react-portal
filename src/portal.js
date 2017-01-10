@@ -129,7 +129,7 @@ export default class Portal extends React.Component {
     if (!this.node) {
       this.node = document.createElement('div');
       if (props.target) {
-        const targetElement = document.querySelector('[data-portaltarget=' + props.target + ']');
+        const targetElement = document.querySelector(`[data-portaltarget=${props.target}]`);
         if (targetElement) {
           targetElement.appendChild(this.node);
         }
