@@ -30,7 +30,7 @@ describe('react-portal', () => {
   });
 
   it('should append portal with children to the document.body', () => {
-    const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
+    const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
     assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
     assert.equal(document.body.lastElementChild, wrapper.instance().node);
     assert.equal(document.body.childElementCount, 1);
@@ -43,20 +43,20 @@ describe('react-portal', () => {
     assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
   });
 
-  it('when props.isOpened is false and then set to true should open portal', () => {
-    const wrapper = mount(<Portal isOpened={false}><p>Hi</p></Portal>);
+  it('when props.isOpen is false and then set to true should open portal', () => {
+    const wrapper = mount(<Portal isOpen={false}><p>Hi</p></Portal>);
     assert.equal(document.body.childElementCount, 0);
     // Enzyme docs say it merges previous props but without children, react complains
-    wrapper.setProps({ isOpened: true, children: <p>Hi</p> });
+    wrapper.setProps({ isOpen: true, children: <p>Hi</p> });
     assert.equal(document.body.lastElementChild, wrapper.instance().node);
     assert.equal(document.body.childElementCount, 1);
   });
 
-  it('when props.isOpened is true and then set to false should close portal', () => {
-    const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
+  it('when props.isOpen is true and then set to false should close portal', () => {
+    const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
     assert.equal(document.body.lastElementChild, wrapper.instance().node);
     assert.equal(document.body.childElementCount, 1);
-    wrapper.setProps({ isOpened: false, children: <p>Hi</p> });
+    wrapper.setProps({ isOpen: false, children: <p>Hi</p> });
     assert.equal(document.body.childElementCount, 0);
   });
 
@@ -68,35 +68,36 @@ describe('react-portal', () => {
       return <p>Hi</p>;
     };
     /*eslint-enable*/
-    const wrapper = mount(<Portal isOpened><Child /></Portal>);
+    const wrapper = mount(<Portal isOpen><Child /></Portal>);
     assert.equal(closePortal, wrapper.instance().closePortal);
   });
 
-  it('should add className to the portal\'s wrapping node', () => {
-    mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild.className, 'some-class');
+  // style & className were removed in 3.0
+  it('should not add className to the portal\'s wrapper', () => {
+    mount(<Portal className="some-class" isOpen><p>Hi</p></Portal>);
+    assert.notEqual(document.body.lastElementChild.className, 'some-class');
   });
 
-  it('should add inline style to the portal\'s wrapping node', () => {
-    mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild.style.color, 'blue');
+  it('should not add inline style to the portal\'s wrapper', () => {
+    mount(<Portal isOpen style={{ color: 'blue' }}><p>Hi</p></Portal>);
+    assert.notEqual(document.body.lastElementChild.style.color, 'blue');
   });
 
-  it('should update className on the portal\'s wrapping node when props.className changes', () => {
-    const wrapper = mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
+  it('should not update className on the portal\'s wrapper when props.className changes', () => {
+    const wrapper = mount(<Portal className="some-class" isOpen><p>Hi</p></Portal>);
     wrapper.setProps({ className: 'some-other-class', children: <p>Hi</p> });
-    assert.equal(document.body.lastElementChild.className, 'some-other-class');
+    assert.notEqual(document.body.lastElementChild.className, 'some-other-class');
   });
 
-  it('should update inline style on the portal\'s wrapping node when props.style changes', () => {
-    const wrapper = mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
+  it('should not update inline style on the portal\'s wrapper when props.style changes', () => {
+    const wrapper = mount(<Portal isOpen style={{ color: 'blue' }}><p>Hi</p></Portal>);
     wrapper.setProps({ style: { color: 'red' }, children: <p>Hi</p> });
-    assert.equal(document.body.lastElementChild.style.color, 'red');
+    assert.notEqual(document.body.lastElementChild.style.color, 'red');
   });
 
   describe('callbacks', () => {
     it('should call props.beforeClose() if passed when calling Portal.closePortal()', () => {
-      const props = { isOpened: true, beforeClose: spy() };
+      const props = { isOpen: true, beforeClose: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
       assert(props.beforeClose.calledOnce);
@@ -104,7 +105,7 @@ describe('react-portal', () => {
     });
 
     it('should call props.beforeClose() only 1x even if closePortal is called more times', () => {
-      const props = { isOpened: true, beforeClose: spy((node, cb) => cb()) };
+      const props = { isOpen: true, beforeClose: spy((node, cb) => cb()) };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
       wrapper.instance().closePortal();
@@ -112,37 +113,43 @@ describe('react-portal', () => {
     });
 
     it('should call props.onOpen() when portal opens', () => {
-      const props = { isOpened: true, onOpen: spy() };
+      const props = { isOpen: true, onOpen: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onOpen.calledOnce);
       assert(props.onOpen.calledWith(wrapper.instance().node));
     });
 
     it('should not call props.onOpen() when portal receives props', () => {
-      const props = { isOpened: true, onOpen: spy(), className: 'old' };
+      const props = { isOpen: true, onOpen: spy(), className: 'old' };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onOpen.calledOnce);
-      wrapper.setProps({ isOpened: true, children: <p>Hi</p>, className: 'new' });
+      wrapper.setProps({ isOpen: true, children: <p>Hi</p>, className: 'new' });
       assert(props.onOpen.calledOnce);
     });
 
+    it('should call props.onUpdate() after calling props.onOpen()', () => {
+      const props = { isOpen: true, onOpen: spy(), onUpdate: spy() };
+      mount(<Portal {...props}><p>Hi</p></Portal>);
+      assert(props.onUpdate.calledAfter(props.onOpen));
+    });
+
     it('should call props.onUpdate() when portal is opened or receives props', () => {
-      const props = { isOpened: true, onUpdate: spy(), className: 'old' };
+      const props = { isOpen: true, onUpdate: spy(), className: 'old' };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onUpdate.calledOnce);
-      wrapper.setProps({ isOpened: true, children: <p>Hi</p>, className: 'new' });
+      wrapper.setProps({ isOpen: true, children: <p>Hi</p>, className: 'new' });
       assert(props.onUpdate.calledTwice);
     });
 
     it('should call props.onClose() when portal closes', () => {
-      const props = { isOpened: true, onClose: spy() };
+      const props = { isOpen: true, onClose: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
       assert(props.onClose.calledOnce);
     });
 
     it('should call props.onClose() only once even if closePortal is called multiple times', () => {
-      const props = { isOpened: true, onClose: spy() };
+      const props = { isOpen: true, onClose: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
       wrapper.instance().closePortal();
@@ -151,7 +158,7 @@ describe('react-portal', () => {
 
     it('should call props.onClose() only once when portal closes and then is unmounted', () => {
       const div = document.createElement('div');
-      const props = { isOpened: true, onClose: spy() };
+      const props = { isOpen: true, onClose: spy() };
       const component = render(<Portal {...props}><p>Hi</p></Portal>, div);
       component.closePortal();
       unmountComponentAtNode(div);
@@ -160,7 +167,7 @@ describe('react-portal', () => {
 
     it('should call props.onClose() only once when directly unmounting', () => {
       const div = document.createElement('div');
-      const props = { isOpened: true, onClose: spy() };
+      const props = { isOpen: true, onClose: spy() };
       render(<Portal {...props}><p>Hi</p></Portal>, div);
       unmountComponentAtNode(div);
       assert(props.onClose.calledOnce);
@@ -168,7 +175,7 @@ describe('react-portal', () => {
 
     it('should not call this.setState() if portal is unmounted', () => {
       const div = document.createElement('div');
-      const props = { isOpened: true };
+      const props = { isOpen: true };
       const wrapper = render(<Portal {...props}><p>Hi</p></Portal>, div);
       spy(wrapper, 'setState');
       unmountComponentAtNode(div);
@@ -224,7 +231,7 @@ describe('react-portal', () => {
         it('should open portal when clicking openByClickOn element', () => {
           const openByClickOn = <button>button</button>;
           const wrapper = mount(
-            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpened={false}>
+            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpen={false}>
               <p>Hi</p>
             </Portal>
           );
@@ -239,7 +246,7 @@ describe('react-portal', () => {
         it('should keep the portal opened when clicking openByClickOn element', () => {
           const openByClickOn = <button>button</button>;
           const wrapper = mount(
-            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpened>
+            <Portal openByClickOn={openByClickOn} togglesOnClick={false} isOpen>
               <p>Hi</p>
             </Portal>
           );
@@ -256,7 +263,7 @@ describe('react-portal', () => {
         it('should open portal when clicking openByClickOn element', () => {
           const openByClickOn = <button>button</button>;
           const wrapper = mount(
-            <Portal openByClickOn={openByClickOn} togglesOnClick isOpened={false}>
+            <Portal openByClickOn={openByClickOn} togglesOnClick isOpen={false}>
               <p>Hi</p>
             </Portal>
           );
@@ -271,7 +278,7 @@ describe('react-portal', () => {
         it('should close portal when clicking openByClickOn element', () => {
           const openByClickOn = <button>button</button>;
           const wrapper = mount(
-            <Portal openByClickOn={openByClickOn} togglesOnClick isOpened>
+            <Portal openByClickOn={openByClickOn} togglesOnClick isOpen>
               <p>Hi</p>
             </Portal>
           );
@@ -286,13 +293,13 @@ describe('react-portal', () => {
 
   describe('close actions', () => {
     it('Portal.closePortal()', () => {
-      const wrapper = mount(<Portal isOpened><p>Hi</p></Portal>);
+      const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
       wrapper.instance().closePortal();
       assert.equal(document.body.childElementCount, 0);
     });
 
     it('closeOnEsc', () => {
-      mount(<Portal closeOnEsc isOpened><p>Hi</p></Portal>);
+      mount(<Portal closeOnEsc isOpen><p>Hi</p></Portal>);
       assert.equal(document.body.childElementCount, 1);
       // Had to use actual event since simulating wasn't working due to subtree
       // rendering and actual component returns null
@@ -302,7 +309,7 @@ describe('react-portal', () => {
     });
 
     it('closeOnOutsideClick', () => {
-      mount(<Portal closeOnOutsideClick isOpened><p>Hi</p></Portal>);
+      mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
       assert.equal(document.body.childElementCount, 1);
 
       // Should not close when outside click isn't a main click

@@ -71,7 +71,7 @@ export default class App extends React.Component {
           const bodyRect = document.body.getBoundingClientRect();
           const targetRect = e.target.getBoundingClientRect();
           this.setState({
-            isOpened: true,
+            isOpen: true,
             top: targetRect.top - bodyRect.top,
             left: targetRect.left - bodyRect.left,
             width: targetRect.width,
@@ -97,14 +97,14 @@ export default class App extends React.Component {
             <p>This react component is appended to the document body.</p>
             <p>This is <strong>great for a modal, lightbox, loading bar ... etc.</strong>.</p>
             <p>Close this by pressing <strong>ESC</strong>.</p>
-            <p><strong>Why psuedo?</strong> Becuase the proper CSS styles are up to you. ;-)</p>
+            <p><strong>Why psuedo?</strong> Because the proper CSS styles are up to you. ;-)</p>
           </PseudoModal>
         </Portal>
 
         <button onClick={(e) => this.toggleLoadingBar(e)} style={buttonStyles}>
           {this.state.isPortalOpened ? 'Close the second portal' : 'Open the second portal'}
         </button>
-        <Portal isOpened={this.state.isPortalOpened} testProp={this.state.someValue}>
+        <Portal isOpen={this.state.isPortalOpened} testProp={this.state.someValue}>
           <LoadingBar />
         </Portal>
 
@@ -118,8 +118,8 @@ export default class App extends React.Component {
           {button3}
           <Portal
             closeOnOutsideClick
-            isOpened={this.state.isOpened}
-            onClose={() => { this.setState({ isOpened: false }); this.onClose(); }}
+            isOpen={this.state.isOpen}
+            onClose={() => { this.setState({ isOpen: false }); this.onClose(); }}
           >
             <AbsolutePosition
               left={this.state.left}
