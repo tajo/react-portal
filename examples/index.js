@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Portal from '../lib/portal.js';
 import PseudoModal from './pseudomodal';
@@ -7,7 +7,7 @@ import AbsolutePosition from './absoluteposition';
 import TWEEN from 'tween.js';
 
 // Main React app component
-export default class App extends React.Component {
+export default class App extends Component {
 
   constructor(props) {
     super(props);
