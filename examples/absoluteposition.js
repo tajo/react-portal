@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default class AbsolutePosition extends React.Component { // eslint-disable-line
+// eslint-disable-next-line react/prefer-stateless-function
+export default class AbsolutePosition extends React.Component {
   render() {
     const style = {
       position: 'absolute',

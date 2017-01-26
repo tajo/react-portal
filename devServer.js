@@ -21,5 +21,6 @@ app.get('*', (req, res) => {
 
 
 app.listen(3000, 'localhost', () => {
-  console.log('Listening at http://localhost:3000'); // eslint-disable-line
+  // eslint-disable-next-line no-console
+  console.log('Listening at http://localhost:3000');
 });
