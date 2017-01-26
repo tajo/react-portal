@@ -38,11 +38,11 @@ npm install react react-dom react-portal --save
 
 ## Usage
 ```jsx
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Portal from 'react-portal';
 
-export default class App extends React.Component {
+export default class App extends Component {
 
   render() {
     const button1 = <button>Open portal with pseudo modal</button>;
@@ -59,7 +59,7 @@ export default class App extends React.Component {
 
 }
 
-export class PseudoModal extends React.Component {
+export class PseudoModal extends Component {
 
   render() {
     return (
