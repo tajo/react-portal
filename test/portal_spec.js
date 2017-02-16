@@ -237,51 +237,6 @@ describe('react-portal', () => {
           assert.equal(document.body.childElementCount, 0);
         }
       });
-
-      it('should not close the portal after manually open it on a click event handler', () => {
-        class Test extends React.Component {
-          constructor(props) {
-            super(props);
-
-            this.handleClick = this.handleClick.bind(this);
-            this.portalRef = this.portalRef.bind(this);
-          }
-
-          handleClick() {
-            this.portal.openPortal();
-          }
-
-          portalRef(portal) {
-            this.portal = portal;
-          }
-
-          render() {
-            return (
-              <div onClick={this.handleClick}>
-                <Portal
-                  closeOnOutsideClick
-                  ref={this.portalRef}
-                >
-                  <p>Hi</p>
-                </Portal>
-              </div>
-            );
-          }
-        }
-
-        // Attaches the node to test the document propagation events
-        const div = document.createElement('div');
-        document.body.appendChild(div);
-
-        render(<Test />, div);
-
-        assert.equal(document.body.children.length, 1);
-
-        triggerMouse(div.children[0], 'mousedown');
-        triggerMouse(div.children[0], 'click');
-
-        assert.equal(document.body.children.length, 2);
-      });
     });
 
     it('should not close the portal if the clicked element was his own trigger', () => {
