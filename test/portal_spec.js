@@ -284,7 +284,7 @@ describe('react-portal', () => {
       });
     });
 
-    it('should not close the portal if the clicked element was is own trigger', () => {
+    it('should not close the portal if the clicked element was his own trigger', () => {
       class Test extends React.Component {
         constructor(props) {
           super(props);
@@ -319,6 +319,50 @@ describe('react-portal', () => {
       const instance = render(<Test onClose={handleClose} />, div);
 
       triggerMouse(instance.trigger, 'mousedown');
+      triggerMouse(instance.trigger, 'click');
+
+      assert(!handleClose.called);
+    });
+
+    it('should not close the portal if the clicked element is a child of his own trigger', () => {
+      class Test extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.triggerRef = this.triggerRef.bind(this);
+        }
+
+        triggerRef(trigger) {
+          this.trigger = trigger;
+        }
+
+        render() {
+          return (
+            <Portal
+              closeOnOutsideClick
+              isOpen
+              openByClickOn={
+                <button>
+                  <span ref={this.triggerRef} />
+                </button>
+              }
+              {...this.props}
+            >
+              <p>Hi</p>
+            </Portal>
+          );
+        }
+      }
+
+      const handleClose = spy();
+
+      // Attaches the node to test the document propagation events
+      const div = document.createElement('div');
+      document.body.appendChild(div);
+
+      const instance = render(<Test onClose={handleClose} />, div);
+
+      triggerMouse(instance.trigger, 'mousedown', 0, instance.trigger);
       triggerMouse(instance.trigger, 'click');
 
       assert(!handleClose.called);
