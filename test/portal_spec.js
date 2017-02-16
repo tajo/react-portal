@@ -225,17 +225,15 @@ describe('react-portal', () => {
     });
 
     describe('closeOnOutsideClick', () => {
-      it('should close the portal when clicking outside with the main click', () => {
-        mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
-        assert.equal(document.body.childElementCount, 1);
+      it('should close the portal when clicking with any mouse button', () => {
+        const component = mount(<Portal closeOnOutsideClick><p>Hi</p></Portal>);
 
-        // Should not close when outside click isn't a main click
-        triggerMouse(document, 'mousedown', 2);
-        assert.equal(document.body.childElementCount, 1);
-
-        // Should close when outside click is a main click (typically left button click)
-        triggerMouse(document, 'mousedown');
-        assert.equal(document.body.childElementCount, 0);
+        for (let i = 0; i <= 4; i++) {
+          component.instance().openPortal();
+          assert.equal(document.body.childElementCount, 1);
+          triggerMouse(document, 'mousedown', i);
+          assert.equal(document.body.childElementCount, 0);
+        }
       });
 
       it('should not close the portal after manually open it on a click event handler', () => {
