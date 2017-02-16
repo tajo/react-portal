@@ -230,11 +230,11 @@ describe('react-portal', () => {
         assert.equal(document.body.childElementCount, 1);
 
         // Should not close when outside click isn't a main click
-        triggerMouse(document, 'mouseup', 2);
+        triggerMouse(document, 'mousedown', 2);
         assert.equal(document.body.childElementCount, 1);
 
         // Should close when outside click is a main click (typically left button click)
-        triggerMouse(document, 'mouseup');
+        triggerMouse(document, 'mousedown');
         assert.equal(document.body.childElementCount, 0);
       });
 
@@ -277,8 +277,8 @@ describe('react-portal', () => {
 
         assert.equal(document.body.children.length, 1);
 
+        triggerMouse(document, 'mousedown');
         triggerMouse(div.children[0], 'click');
-        triggerMouse(document, 'mouseup');
 
         assert.equal(document.body.children.length, 2);
       });
