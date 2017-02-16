@@ -223,19 +223,21 @@ describe('react-portal', () => {
       assert.equal(document.body.childElementCount, 0);
     });
 
-    it('closeOnOutsideClick', () => {
-      mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
-      assert.equal(document.body.childElementCount, 1);
+    describe('closeOnOutsideClick', () => {
+      it('should close the portal when clicking outside with the main click', () => {
+        mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
+        assert.equal(document.body.childElementCount, 1);
 
-      // Should not close when outside click isn't a main click
-      const rightClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 2 });
-      document.dispatchEvent(rightClickMouseEvent);
-      assert.equal(document.body.childElementCount, 1);
+        // Should not close when outside click isn't a main click
+        const rightClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 2 });
+        document.dispatchEvent(rightClickMouseEvent);
+        assert.equal(document.body.childElementCount, 1);
 
-      // Should close when outside click is a main click (typically left button click)
-      const leftClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 0 });
-      document.dispatchEvent(leftClickMouseEvent);
-      assert.equal(document.body.childElementCount, 0);
+        // Should close when outside click is a main click (typically left button click)
+        const leftClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 0 });
+        document.dispatchEvent(leftClickMouseEvent);
+        assert.equal(document.body.childElementCount, 0);
+      });
     });
   });
 });
