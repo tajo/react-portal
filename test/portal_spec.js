@@ -1,3 +1,5 @@
+/* eslint-disable react/no-multi-comp */
+
 import jsdom from 'jsdom';
 import Portal from '../lib/portal';
 import assert from 'assert';
@@ -275,11 +277,51 @@ describe('react-portal', () => {
 
         assert.equal(document.body.children.length, 1);
 
-        triggerMouse(document, 'mousedown');
+        triggerMouse(div.children[0], 'mousedown');
         triggerMouse(div.children[0], 'click');
 
         assert.equal(document.body.children.length, 2);
       });
+    });
+
+    it('should not close the portal if the clicked element was is own trigger', () => {
+      class Test extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.triggerRef = this.triggerRef.bind(this);
+        }
+
+        triggerRef(trigger) {
+          this.trigger = trigger;
+        }
+
+        render() {
+          return (
+            <Portal
+              closeOnOutsideClick
+              isOpen
+              openByClickOn={<button ref={this.triggerRef} />}
+              {...this.props}
+            >
+              <p>Hi</p>
+            </Portal>
+          );
+        }
+      }
+
+      const handleClose = spy();
+
+      // Attaches the node to test the document propagation events
+      const div = document.createElement('div');
+      document.body.appendChild(div);
+
+      const instance = render(<Test onClose={handleClose} />, div);
+
+      triggerMouse(instance.trigger, 'mousedown');
+      triggerMouse(instance.trigger, 'click');
+
+      assert(!handleClose.called);
     });
   });
 });
