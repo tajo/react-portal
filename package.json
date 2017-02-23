@@ -2,7 +2,7 @@
   "name": "react-portal",
   "version": "3.0.0",
   "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
-  "main": "build/portal",
+  "main": "lib/portal",
   "files": [
     "*.md",
     "LICENSE",
