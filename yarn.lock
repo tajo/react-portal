@@ -29,17 +29,13 @@ acorn-jsx@^3.0.0:
   dependencies:
     acorn "^3.0.4"
 
-acorn@4.0.4:
+acorn@4.0.4, acorn@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.4.tgz#17a8d6a7a6c4ef538b814ec9abac2779293bf30a"
 
 acorn@^3.0.0, acorn@^3.0.4:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
-
-acorn@^4.0.4:
-  version "4.0.11"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
 
 ajv-keywords@^1.0.0:
   version "1.5.1"
@@ -1503,6 +1499,10 @@ events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
+exenv@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.1.tgz#75de1c8dee02e952b102aa17f8875973e0df14f9"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -2170,7 +2170,11 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jsdom@^9.0.0:
+jsdom-global@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jsdom-global/-/jsdom-global-2.1.1.tgz#47d46fe77f6167baf5d34431d3bb59fc41b0915a"
+
+jsdom@^9.11.0:
   version "9.11.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-9.11.0.tgz#a95b0304e521a2ca5a63c6ea47bf7708a7a84591"
   dependencies:

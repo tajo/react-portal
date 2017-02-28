@@ -12,6 +12,9 @@ describe('react-portal', () => {
     global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
     global.window = document.defaultView;
     global.navigator = { userAgent: 'node.js' };
+    const appElement = document.createElement('div');
+    appElement.setAttribute('id', 'app');
+    global.document.body.appendChild(appElement);
     // Enzyme library uses React
     /*eslint-disable */
     React = require('react');
@@ -29,35 +32,51 @@ describe('react-portal', () => {
     /*eslint-enable */
   });
 
-  it('should append portal with children to the document.body', () => {
-    const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
+  it('should append portal with children to the appElement prop', () => {
+    const appElement = document.getElementById('app');
+    const wrapper = mount(
+      <Portal isOpen appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
     assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
-    assert.equal(document.body.lastElementChild, wrapper.instance().node);
-    assert.equal(document.body.childElementCount, 1);
+    assert.equal(appElement.lastElementChild, wrapper.instance().node);
+    assert.equal(appElement.childElementCount, 1);
   });
 
   it('should open when this.openPortal() is called (used to programmatically open portal)', () => {
-    const wrapper = mount(<Portal><p>Hi</p></Portal>);
-    assert.equal(document.body.childElementCount, 0);
+    const appElement = document.getElementById('app');
+    const wrapper = mount(<Portal appElement={appElement}><p>Hi</p></Portal>);
+    assert.equal(appElement.childElementCount, 0);
     wrapper.instance().openPortal();
     assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
   });
 
   it('when props.isOpen is false and then set to true should open portal', () => {
-    const wrapper = mount(<Portal isOpen={false}><p>Hi</p></Portal>);
-    assert.equal(document.body.childElementCount, 0);
+    const appElement = document.getElementById('app');
+    const wrapper = mount(
+      <Portal isOpen={false} appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.childElementCount, 0);
     // Enzyme docs say it merges previous props but without children, react complains
-    wrapper.setProps({ isOpen: true, children: <p>Hi</p> });
-    assert.equal(document.body.lastElementChild, wrapper.instance().node);
-    assert.equal(document.body.childElementCount, 1);
+    wrapper.setProps({ isOpen: true, children: <p>Hi</p>, appElement });
+    assert.equal(appElement.lastElementChild, wrapper.instance().node);
+    assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
   });
 
   it('when props.isOpen is true and then set to false should close portal', () => {
-    const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild, wrapper.instance().node);
-    assert.equal(document.body.childElementCount, 1);
-    wrapper.setProps({ isOpen: false, children: <p>Hi</p> });
-    assert.equal(document.body.childElementCount, 0);
+    const appElement = document.getElementById('app');
+    const wrapper = mount(
+      <Portal isOpen appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.lastElementChild, wrapper.instance().node);
+    assert.equal(appElement.childElementCount, 1);
+    wrapper.setProps({ isOpen: false, children: <p>Hi</p>, appElement });
+    assert.equal(appElement.childElementCount, 0);
   });
 
   it('should pass Portal.closePortal to child component', () => {
@@ -73,25 +92,47 @@ describe('react-portal', () => {
   });
 
   it('should add className to the portal\'s wrapper', () => {
-    mount(<Portal className="some-class" isOpen><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild.className, 'some-class');
+    const appElement = global.document.body;
+    mount(
+      <Portal isOpen appElement={appElement} className="some-class">
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.lastElementChild.className, 'some-class');
   });
 
-  it('should not add inline style to the portal\'s wrapper', () => {
-    mount(<Portal isOpen style={{ color: 'blue' }}><p>Hi</p></Portal>);
-    assert.notEqual(document.body.lastElementChild.style.color, 'blue');
+  it('should  add inline style to the portal\'s wrapper', () => {
+    const appElement = document.getElementById('app');
+    mount(
+      <Portal isOpen style={{ color: 'blue' }} appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.lastElementChild.style.color, 'blue');
   });
 
-  it('should not update className on the portal\'s wrapper when props.className changes', () => {
-    const wrapper = mount(<Portal className="some-class" isOpen><p>Hi</p></Portal>);
+  it('should update className on the portal\'s wrapper when props.className changes', () => {
+    const appElement = document.getElementById('app');
+    const wrapper = mount(
+      <Portal className="some-class" isOpen appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.lastElementChild.className, 'some-class');
     wrapper.setProps({ className: 'some-other-class', children: <p>Hi</p> });
-    assert.notEqual(document.body.lastElementChild.className, 'some-other-class');
+    assert.equal(appElement.lastElementChild.className, 'some-other-class');
   });
 
-  it('should not update inline style on the portal\'s wrapper when props.style changes', () => {
-    const wrapper = mount(<Portal isOpen style={{ color: 'blue' }}><p>Hi</p></Portal>);
+  it('should update inline style on the portal\'s wrapper when props.style changes', () => {
+    const appElement = document.getElementById('app');
+    const wrapper = mount(
+      <Portal isOpen style={{ color: 'blue' }} appElement={appElement}>
+        <p>Hi</p>
+      </Portal>
+    );
+    assert.equal(appElement.lastElementChild.style.color, 'blue');
     wrapper.setProps({ style: { color: 'red' }, children: <p>Hi</p> });
-    assert.notEqual(document.body.lastElementChild.style.color, 'red');
+    assert.equal(appElement.lastElementChild.style.color, 'red');
   });
 
   describe('callbacks', () => {
@@ -198,43 +239,63 @@ describe('react-portal', () => {
     });
 
     it('should open portal when clicking openByClickOn element', () => {
+      const appElement = document.getElementById('app');
       const openByClickOn = <button>button</button>;
-      const wrapper = mount(<Portal openByClickOn={openByClickOn}><p>Hi</p></Portal>);
+      const wrapper = mount(
+        <Portal appElement={appElement} openByClickOn={openByClickOn}>
+          <p>Hi</p>
+        </Portal>
+      );
       wrapper.find('button').simulate('click');
-      assert.equal(document.body.lastElementChild, wrapper.instance().node);
+      assert.equal(appElement.lastElementChild, wrapper.instance().node);
     });
   });
 
   describe('close actions', () => {
     it('Portal.closePortal()', () => {
-      const wrapper = mount(<Portal isOpen><p>Hi</p></Portal>);
+      const appElement = document.getElementById('app');
+      const wrapper = mount(
+        <Portal isOpen appElement={appElement}>
+          <p>Hi</p>
+        </Portal>
+      );
       wrapper.instance().closePortal();
-      assert.equal(document.body.childElementCount, 0);
+      assert.equal(appElement.childElementCount, 0);
     });
 
     it('closeOnEsc', () => {
-      mount(<Portal closeOnEsc isOpen><p>Hi</p></Portal>);
+      const appElement = document.getElementById('app');
+      mount(
+        <Portal closeOnEsc isOpen appElement={appElement}>
+          <p>Hi</p>
+        </Portal>
+      );
       assert.equal(document.body.childElementCount, 1);
       // Had to use actual event since simulating wasn't working due to subtree
       // rendering and actual component returns null
       const kbEvent = new window.KeyboardEvent('keydown', { keyCode: 27 });
       document.dispatchEvent(kbEvent);
-      assert.equal(document.body.childElementCount, 0);
+      assert.equal(appElement.childElementCount, 0);
     });
 
     it('closeOnOutsideClick', () => {
-      mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
-      assert.equal(document.body.childElementCount, 1);
+      const appElement = document.getElementById('app');
+      mount(
+        <Portal closeOnOutsideClick isOpen appElement={appElement}>
+          <p>Hi</p>
+        </Portal>
+      );
+      assert.equal(appElement.childElementCount, 1);
 
       // Should not close when outside click isn't a main click
       const rightClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 2 });
       document.dispatchEvent(rightClickMouseEvent);
-      assert.equal(document.body.childElementCount, 1);
+      assert.equal(appElement.childElementCount, 1);
 
       // Should close when outside click is a main click (typically left button click)
       const leftClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 0 });
       document.dispatchEvent(leftClickMouseEvent);
-      assert.equal(document.body.childElementCount, 0);
+      assert.equal(appElement.childElementCount, 0);
     });
   });
 });
