@@ -4,6 +4,7 @@ import assert from 'assert';
 import { spy } from 'sinon';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { mount } from 'enzyme';
+import PropTypes from 'prop-types';
 
 describe('react-portal', () => {
   let React;
@@ -19,7 +20,7 @@ describe('react-portal', () => {
   });
 
   it('propTypes.children should be required', () => {
-    assert.equal(Portal.propTypes.children, React.PropTypes.element.isRequired);
+    assert.equal(Portal.propTypes.children, PropTypes.element.isRequired);
   });
 
   it('Portal.node should be undefined if portal is not open', () => {
