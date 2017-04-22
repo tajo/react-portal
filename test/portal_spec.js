@@ -1,4 +1,5 @@
 import jsdom from 'jsdom';
+import PropTypes from 'prop-types';
 import Portal from '../lib/portal';
 import assert from 'assert';
 import { spy } from 'sinon';
@@ -19,7 +20,7 @@ describe('react-portal', () => {
   });
 
   it('propTypes.children should be required', () => {
-    assert.equal(Portal.propTypes.children, React.PropTypes.element.isRequired);
+    assert.equal(Portal.propTypes.children, PropTypes.element.isRequired);
   });
 
   it('Portal.node should be undefined if portal is not open', () => {
