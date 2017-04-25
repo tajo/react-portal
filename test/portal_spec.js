@@ -1,4 +1,5 @@
 import jsdom from 'jsdom';
+import PropTypes from 'prop-types';
 import Portal from '../lib/portal';
 import assert from 'assert';
 import { spy } from 'sinon';
