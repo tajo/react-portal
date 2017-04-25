@@ -157,6 +157,24 @@ describe('react-portal', () => {
       assert(props.onClose.calledOnce);
     });
 
+    it('onClose has named params when closePortal is called directly with named params', () => {
+      const props = { isOpen: true, onClose: spy() };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.instance().closePortal({ namedParam: { propA: 1, propB: 'test' } });
+      assert(props.onClose.calledWith({ namedParam: { propA: 1, propB: 'test' } }));
+    });
+
+    it('onClose has named params when named params were pre bound to onClose', () => {
+      const onCloseFunc = spy();
+      const props = { isOpen: true, onClose: () => onCloseFunc({ namedParam: 'test' }) };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      assert.equal(document.body.lastElementChild, wrapper.instance().node);
+      assert.equal(document.body.childElementCount, 1);
+      wrapper.setProps({ isOpen: false, children: <p>Hi</p> });
+      assert.equal(document.body.childElementCount, 0);
+      assert(onCloseFunc.calledWith({ namedParam: 'test' }));
+    });
+
     it('should call props.onClose() only once when portal closes and then is unmounted', () => {
       const div = document.createElement('div');
       const props = { isOpen: true, onClose: spy() };
@@ -178,8 +196,8 @@ describe('react-portal', () => {
       const div = document.createElement('div');
       const props = { isOpen: true };
       const wrapper = render(<Portal {...props}><p>Hi</p></Portal>, div);
-      spy(wrapper, 'setState');
       unmountComponentAtNode(div);
+      spy(wrapper, 'setState');
       assert.equal(wrapper.setState.callCount, 0);
     });
   });

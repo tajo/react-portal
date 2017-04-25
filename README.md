@@ -14,6 +14,7 @@ React-portal
 - doesn't leave any mess in DOM after closing
 - provides its child with **this.props.closePortal** callback
 - provides **close on ESC** and **close on outside mouse click** out of the box
+- the **close** can be bound to parameters
 - supports absolute positioned components (great for tooltips)
 - **no dependencies**
 - **fully covered by tests**
@@ -106,8 +107,9 @@ This callback is called when the portal is opened and rendered (useful for anima
 #### beforeClose: func(DOMNode, removeFromDOM)
 This callback is called when the closing event is triggered but it prevents normal removal from the DOM. So, you can do some DOMNode animation first and then call removeFromDOM() that removes the portal from DOM.
 
-#### onClose: func
+#### onClose: func(params)
 This callback is called when the portal closes and after beforeClose.
+You can bind parameters to the onClose callback.
 
 #### onUpdate: func
 This callback is called when the portal is (re)rendered.
@@ -136,7 +138,7 @@ also need an access to `this.props.closePortal()`? You can't just use `{this.pro
 
 #### Open modal programmatically
 
-Sometimes you need to open your portal (e.g. modal) automatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
+Sometimes you need to open your portal (e.g. modal) programmatically. There is no button to click on. No problem, because the portal has the `isOpen` prop, so you can just set it to `true` or `false`. However, then it's completely up to you to take care about the portal closing (ESC, outside click, no `this.props.closePortal` callback...).
 
 However, there is a nice trick how to make this happen even without `isOpen`:
 
@@ -153,7 +155,26 @@ this.refs.myPortal.openPortal()
 // opens the portal, yay!
 ```
 
-## Contribution
+#### Close portal programmatically with passtrough parameters
+
+Sometimes you need to close your portal programmatically and pass trough parameters from your portal to the calling instance.
+You have two ways you can do it.
+
+##### Way 1
+You can additionaly add a closure as a passtrough parameter to your onClose callback func.
+```
+render() {
+  const { isOpen, toPassTrough } = this.state;
+  <Portal
+    isOpen={isOpen}
+    onClose={() => onCloseFunc(toPassTrough)}
+  >
+}
+```
+##### Way 2
+Assuming you have passed the closePortal function to the Portal's children - you can call the closePortal func with parameters.
+
+```<button onClick={() => closePortal({ addNew: true })}>Close</button>```## Contribution
 
 Please, create issues and pull requests.
 
