@@ -17,13 +17,19 @@
   "license": "MIT",
   "scripts": {
     "start": "node devServerIndex.js",
-    "build": "mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
+    "build": "npm-run-all build:max build:min",
+    "build:max": "NODE_ENV=production browserify ./lib/portal.js --transform babelify --transform envify --transform [ browserify-global-shim --global ] --standalone Portal > ./build/portal.js",
+    "build:min": "NODE_ENV=production browserify ./lib/portal.js --transform babelify --transform envify --transform [ browserify-global-shim --global ] --transform uglifyify --standalone Portal | uglifyjs > ./build/portal.min.js",
     "build:examples": "npm run clean && npm run build:examples:webpack",
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.babel.js",
     "clean": "rimraf build",
     "test": "mocha",
     "lint": "mocha test/eslint_spec.js",
     "prepublish": "cross-env NODE_ENV=production npm run build"
+  },
+  "browserify-global-shim": {
+    "react": "React",
+    "react-dom": "ReactDOM"
   },
   "tags": [
     "react"
@@ -47,7 +53,12 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-register": "^6.8.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "browserify-global-shim": "^1.0.3",
+    "browserify-shim": "^3.8.12",
     "cross-env": "^1.0.7",
+    "envify": "^3.4.1",
     "enzyme": "^2.3.0",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^9.0.1",
@@ -58,12 +69,15 @@
     "jsdom": "^9.0.0",
     "mocha": "^2.3.4",
     "mocha-eslint": "^2.0.2",
+    "npm-run-all": "^3.1.0",
     "react": "^15.2.0",
     "react-addons-test-utils": "^15.2.0",
     "react-dom": "^15.2.0",
     "rimraf": "^2.5.0",
     "sinon": "^1.17.4",
     "tween.js": "^16.3.1",
+    "uglify-js": "^2.7.3",
+    "uglifyify": "^3.0.3",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0"
