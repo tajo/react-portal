@@ -18,7 +18,7 @@ export default class App extends React.Component {
   }
 
   onClose() {
-    /* eslint no-console: 0 */
+    // eslint-disable-next-line no-console
     console.log('Portal closed');
   }
 
@@ -26,8 +26,9 @@ export default class App extends React.Component {
     new TWEEN.Tween({ opacity: 0 })
       .to({ opacity: 1 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {  // eslint-disable-line
-        node.style.opacity = this.opacity;  // eslint-disable-line
+      .onUpdate(() => {
+        // eslint-disable-next-line no-param-reassign
+        node.style.opacity = this.opacity;
       })
       .start();
   }
@@ -36,8 +37,9 @@ export default class App extends React.Component {
     new TWEEN.Tween({ opacity: 1 })
       .to({ opacity: 0 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {  // eslint-disable-line
-        node.style.opacity = this.opacity; // eslint-disable-line
+      .onUpdate(() => {
+        // eslint-disable-next-line no-param-reassign
+        node.style.opacity = this.opacity;
       })
       .onComplete(removeFromDom)
       .start();

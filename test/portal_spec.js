@@ -14,9 +14,8 @@ describe('react-portal', () => {
     global.window = document.defaultView;
     global.navigator = { userAgent: 'node.js' };
     // Enzyme library uses React
-    /*eslint-disable */
+    // eslint-disable-next-line global-require
     React = require('react');
-    /*eslint-enable */
   });
 
   it('propTypes.children should be required', () => {
@@ -25,9 +24,7 @@ describe('react-portal', () => {
 
   it('Portal.node should be undefined if portal is not open', () => {
     const wrapper = mount(<Portal><p>Hi</p></Portal>);
-    /*eslint-disable */
     assert.equal(wrapper.instance().node, undefined);
-    /*eslint-enable */
   });
 
   it('should append portal with children to the document.body', () => {
@@ -63,12 +60,11 @@ describe('react-portal', () => {
 
   it('should pass Portal.closePortal to child component', () => {
     let closePortal;
-    /*eslint-disable*/
     const Child = (props) => {
+      // eslint-disable-next-line react/prop-types
       closePortal = props.closePortal;
       return <p>Hi</p>;
     };
-    /*eslint-enable*/
     const wrapper = mount(<Portal isOpen><Child /></Portal>);
     assert.equal(closePortal, wrapper.instance().closePortal);
   });

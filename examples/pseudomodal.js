@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class PseudoModal extends React.Component { // eslint-disable-line
+// eslint-disable-next-line react/prefer-stateless-function
+export default class PseudoModal extends React.Component {
   render() {
     return (
       <div style={{ border: '1px solid blue', margin: 10, padding: 10 }}>
