@@ -67,5 +67,8 @@
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.8"
   }
 }

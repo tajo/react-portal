@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class PseudoModal extends React.Component { // eslint-disable-line
   render() {
@@ -12,9 +13,9 @@ export default class PseudoModal extends React.Component { // eslint-disable-lin
 }
 
 PseudoModal.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.element),
-    React.PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
   ]),
-  closePortal: React.PropTypes.func,
+  closePortal: PropTypes.func,
 };
