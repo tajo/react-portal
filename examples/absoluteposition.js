@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class AbsolutePosition extends React.Component { // eslint-disable-line
   render() {
@@ -27,8 +28,8 @@ export default class AbsolutePosition extends React.Component { // eslint-disabl
 }
 
 AbsolutePosition.propTypes = {
-  top: React.PropTypes.number,
-  left: React.PropTypes.number,
-  width: React.PropTypes.number,
-  closePortal: React.PropTypes.func,
+  top: PropTypes.number,
+  left: PropTypes.number,
+  width: PropTypes.number,
+  closePortal: PropTypes.func,
 };
