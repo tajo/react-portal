@@ -228,6 +228,9 @@ describe('react-portal', () => {
       mount(<Portal closeOnOutsideClick isOpen><p>Hi</p></Portal>);
       assert.equal(document.body.childElementCount, 1);
 
+      const clickMouseEvent = new window.MouseEvent('mousedown', { view: window, button: 0 });
+      document.dispatchEvent(clickMouseEvent);
+
       // Should not close when outside click isn't a main click
       const rightClickMouseEvent = new window.MouseEvent('mouseup', { view: window, button: 2 });
       document.dispatchEvent(rightClickMouseEvent);
