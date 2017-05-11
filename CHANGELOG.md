@@ -1,4 +1,8 @@
-# 4.0.0
+# 4.0.1 (May 11, 2017)
+
+- Reduce package size by excluding examples. Brings package down to about 1% of original download size.
+
+# 4.0.0 (May 11, 2017)
 
 > Initial fork from [react-portal](https://github.com/tajo/react-portal).
 
