@@ -1,3 +1,7 @@
+# 4.0.2 (May 11, 2017)
+
+- Bugfix: Fix rerendering when children change.
+
 # 4.0.1 (May 11, 2017)
 
 - Reduce package size by excluding examples. Brings package down to about 1% of original download size.
