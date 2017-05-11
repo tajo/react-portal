@@ -6,7 +6,7 @@ React-Portal-Minimal
 
 ### [Demo](https://strml.github.com/react-portal-minimal/examples/index.html)
 
-React-Portal-Minimal is an extremely minimal version of [React-Portal](https://github.com/tajo/react-portal).
+React-Portal-Minimal is a minimalistic version of [React-Portal](https://github.com/tajo/react-portal).
 
 Compared to React-Portal, it is less than 1/3 the size, has minimal options, and no state.
 
@@ -28,6 +28,13 @@ It is intended as a building block. It does only three things:
 ```shell
 npm install react react-dom react-portal-minimal --save
 ```
+
+## Size
+
+|                | react-portal | react-portal-minimal |
+|----------------|--------------|----------------------|
+| require() size | 7.3kB        | 3.7kB                |
+| tarball size   | 450kB        | 4.2kB                |
 
 ## Usage
 
