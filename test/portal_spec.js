@@ -50,6 +50,14 @@ describe('react-portal', () => {
     assert.equal(document.body.lastElementChild.className, 'some-other-class');
   });
 
+  it('should update children when they change', () => {
+    const inner = <span className="foo">Hi</span>;
+    const wrapper = mount(<Portal isOpen>{inner}</Portal>);
+    assert.equal(document.body.lastElementChild.firstChild.className, 'foo');
+    wrapper.setProps({ children: <span className="bar">Hi</span> });
+    assert.equal(document.body.lastElementChild.firstChild.className, 'bar');
+  });
+
   it('should not update inline style on the portal\'s wrapper when props.style changes', () => {
     const wrapper = mount(<Portal isOpen style={{ color: 'blue' }}><p>Hi</p></Portal>);
     wrapper.setProps({ style: { color: 'red' }, children: <p>Hi</p> });
