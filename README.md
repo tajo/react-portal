@@ -4,6 +4,8 @@ React-Portal-Minimal
 [![npm downloads](https://img.shields.io/npm/dm/react-portal-minimal.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-minimal)
 [![Build Status](https://travis-ci.org/strml/react-portal-minimal.svg?branch=master)](https://travis-ci.org/strml/react-portal-minimal)
 
+### [Demo](https://strml.github.com/react-portal-minimal/examples/index.html)
+
 React-Portal-Minimal is an extremely minimal version of [React-Portal](https://github.com/tajo/react-portal).
 
 Compared to React-Portal, it is less than 1/3 the size, has minimal options, and no state.

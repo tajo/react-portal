@@ -7,7 +7,7 @@ export default {
     './examples/index',
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'examples', 'build'),
     filename: 'examples_bundle.js',
     publicPath: '/static/',
   },

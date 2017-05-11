@@ -17,10 +17,11 @@
   "license": "MIT",
   "scripts": {
     "start": "node devServerIndex.js",
-    "build": "mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
+    "build": "npm run clean && mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
     "build:examples": "npm run clean && npm run build:examples:webpack",
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.babel.js",
     "clean": "rimraf build",
+    "clean:examples": "rimraf examples/build",
     "test": "mocha",
     "lint": "mocha test/eslint_spec.js",
     "prepublish": "cross-env NODE_ENV=production npm run build"
