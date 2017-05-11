@@ -1,6 +1,6 @@
 {
-  "version": "3.0.0",
   "name": "react-portal-minimal",
+  "version": "4.0.0",
   "description": "React component used to hoist components to a new subtree.",
   "main": "build/portal",
   "files": [
