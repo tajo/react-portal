@@ -8,7 +8,7 @@ React-portal
 
 ## Features
 
-- transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
+- transports its child into a new React component and appends it to the **document.body** or custom container (creates a new independent React tree)
 - can be opened by the prop **isOpen**
 - can be opened after a click on an element that you pass through the prop **openByClickOn** (and then it takes care of the open/close state)
 - doesn't leave any mess in DOM after closing
@@ -111,6 +111,9 @@ This callback is called when the portal closes and after beforeClose.
 
 #### onUpdate: func
 This callback is called when the portal is (re)rendered.
+
+#### container: DOMElement
+If specified, the portal will be rendered into this container.
 
 
 ## Tips & Tricks
