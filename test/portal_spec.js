@@ -37,6 +37,16 @@ describe('react-portal', () => {
     assert.equal(document.body.childElementCount, 1);
   });
 
+  it('should append portal with children to the custom container', () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const wrapper = mount(<Portal isOpen container={container}><p>Hi</p></Portal>);
+    assert.equal(document.body.childElementCount, 1);
+    assert.equal(wrapper.instance().node.firstElementChild.tagName, 'P');
+    assert.equal(container.lastElementChild, wrapper.instance().node);
+    assert.equal(container.childElementCount, 1);
+  });
+
   it('should open when this.openPortal() is called (used to programmatically open portal)', () => {
     const wrapper = mount(<Portal><p>Hi</p></Portal>);
     assert.equal(document.body.childElementCount, 0);
