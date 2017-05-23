@@ -13,6 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isPortalOpened: false,
+      isPortalOpenedInCustomContainer: false,
       someValue: 'init',
     };
   }
@@ -45,6 +46,10 @@ export default class App extends React.Component {
 
   toggleLoadingBar() {
     this.setState({ isPortalOpened: !this.state.isPortalOpened });
+  }
+
+  togglePortalInCustomContainer() {
+    this.setState({ isPortalOpenedInCustomContainer: !this.state.isPortalOpenedInCustomContainer });
   }
 
   changeValue() {
@@ -146,6 +151,23 @@ export default class App extends React.Component {
             on both click outside and on esc press</p>
           </div>
         </Portal>
+
+        <div>
+          <button onClick={(e) => this.togglePortalInCustomContainer(e)} style={buttonStyles}>
+            {this.state.isPortalOpenedInCustomContainer
+              ? 'Close portal in custom container'
+              : 'Open portal in custom container'
+            }
+          </button>
+          <Portal
+            isOpen={this.state.isPortalOpenedInCustomContainer}
+            container={document.getElementById('customContainer')}
+          >
+            <div style={{ border: '1px solid orange', margin: 10, padding: 10 }}>
+              <p>Rendered in custom container</p>
+            </div>
+          </Portal>
+        </div>
       </div>
     );
   }
