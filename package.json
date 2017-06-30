@@ -1,7 +1,7 @@
 {
-  "name": "react-portal",
-  "version": "3.0.0",
-  "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
+  "name": "react-portal-minimal",
+  "version": "4.0.2",
+  "description": "React component used to hoist components to a new subtree.",
   "main": "build/portal",
   "files": [
     "*.md",
@@ -11,16 +11,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tajo/react-portal"
+    "url": "https://github.com/strml/react-portal-minimal"
   },
-  "author": "Vojtech Miksu <vojtech@miksu.cz>",
+  "author": "Samuel Reed <samuel.trace.reed@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "node devServerIndex.js",
-    "build": "mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
+    "build": "npm run clean && mkdir -p build && babel ./lib/portal.js --out-file ./build/portal.js",
     "build:examples": "npm run clean && npm run build:examples:webpack",
     "build:examples:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.babel.js",
     "clean": "rimraf build",
+    "clean:examples": "rimraf examples/build",
     "test": "mocha",
     "lint": "mocha test/eslint_spec.js",
     "prepublish": "cross-env NODE_ENV=production npm run build"
@@ -58,11 +59,12 @@
     "jsdom": "^9.0.0",
     "mocha": "^2.3.4",
     "mocha-eslint": "^2.0.2",
+    "pre-commit": "^1.2.2",
     "react": "^15.2.0",
     "react-addons-test-utils": "^15.2.0",
+    "react-document-events": "^1.3.2",
     "react-dom": "^15.2.0",
     "rimraf": "^2.5.0",
-    "sinon": "^1.17.4",
     "tween.js": "^16.3.1",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
