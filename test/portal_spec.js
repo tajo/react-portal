@@ -205,6 +205,18 @@ describe('react-portal', () => {
       wrapper.find('button').simulate('click');
       assert.equal(document.body.lastElementChild, wrapper.instance().node);
     });
+
+    it('should preserve the original onClick event handler of the openByClickOn element', () => {
+      let text = '';
+      const textClicked = 'clicked';
+      const onClick = () => {
+        text = textClicked;
+      };
+      const openByClickOn = <button onClick={onClick}>button</button>;
+      const wrapper = mount(<Portal openByClickOn={openByClickOn}><p>Hi</p></Portal>);
+      wrapper.find('button').simulate('click');
+      assert.equal(text, textClicked);
+    });
   });
 
   describe('close actions', () => {
