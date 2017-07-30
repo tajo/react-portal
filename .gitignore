@@ -1,5 +1,3 @@
-.DS_Store
-node_modules/
-build/
+node_modules
+examples/bundle.js
 npm-debug.log
-
