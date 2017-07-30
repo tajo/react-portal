@@ -23,6 +23,7 @@
     "build-cjs": "BABEL_ENV=commonjs babel ./src --out-dir ./lib",
     "build:examples": "cross-env NODE_ENV=production webpack",
     "prepublish": "cross-env NODE_ENV=production npm run build",
+    "lint": "eslint webpack.config.js src/**/*.js",
     "prettier": "prettier --single-quote --write \"{webpack.config.js,{src,examples}/**/*.js}\"",
     "test": "cross-env BABEL_ENV=commonjs jest"
   },
@@ -41,6 +42,7 @@
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-core": "^6.8.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",

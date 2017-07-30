@@ -1,5 +1,5 @@
 node_modules
-examples/bundle.js
+build
 npm-debug.log
 lib
 es

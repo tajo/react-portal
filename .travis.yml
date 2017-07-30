@@ -3,6 +3,7 @@ node_js:
   - "node"
   - "6"
 script:
+  - yarn lint
   - yarn test -- --runInBand
   - yarn build
   - yarn build:examples
