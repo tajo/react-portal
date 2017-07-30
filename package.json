@@ -23,7 +23,7 @@
     "build-cjs": "BABEL_ENV=commonjs babel ./src --out-dir ./lib",
     "build:examples": "cross-env NODE_ENV=production webpack",
     "prepublish": "cross-env NODE_ENV=production npm run build",
-    "test": "jest"
+    "test": "cross-env BABEL_ENV=commonjs jest"
   },
   "tags": [
     "react"
