@@ -23,6 +23,7 @@
     "build-cjs": "BABEL_ENV=commonjs babel ./src --out-dir ./lib",
     "build:examples": "cross-env NODE_ENV=production webpack",
     "prepublish": "cross-env NODE_ENV=production npm run build",
+    "prettier": "prettier --single-quote --write \"{webpack.config.js,{src,examples}/**/*.js}\"",
     "test": "cross-env BABEL_ENV=commonjs jest"
   },
   "tags": [
@@ -47,7 +48,10 @@
     "babel-preset-react": "^6.3.13",
     "cross-env": "^5.0.1",
     "enzyme": "^2.3.0",
+    "eslint": "^4.3.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "jest": "^20.0.4",
+    "prettier": "^1.5.3",
     "react": "^15.2.0",
     "react-addons-test-utils": "^15.2.0",
     "react-dom": "^15.2.0",
