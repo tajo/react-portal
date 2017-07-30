@@ -8,12 +8,11 @@ import TWEEN from 'tween.js';
 
 // Main React app component
 export default class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isPortalOpened: false,
-      someValue: 'init',
+      someValue: 'init'
     };
   }
 
@@ -26,8 +25,9 @@ export default class App extends React.Component {
     new TWEEN.Tween({ opacity: 0 })
       .to({ opacity: 1 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {  // eslint-disable-line
-        node.style.opacity = this.opacity;  // eslint-disable-line
+      .onUpdate(function() {
+        // eslint-disable-line
+        node.style.opacity = this.opacity; // eslint-disable-line
       })
       .start();
   }
@@ -36,7 +36,8 @@ export default class App extends React.Component {
     new TWEEN.Tween({ opacity: 1 })
       .to({ opacity: 0 }, 500)
       .easing(TWEEN.Easing.Cubic.In)
-      .onUpdate(function() {  // eslint-disable-line
+      .onUpdate(function() {
+        // eslint-disable-line
         node.style.opacity = this.opacity; // eslint-disable-line
       })
       .onComplete(removeFromDom)
@@ -55,7 +56,7 @@ export default class App extends React.Component {
     const buttonStyles = {
       padding: 10,
       fontSize: 20,
-      marginBottom: 10,
+      marginBottom: 10
     };
     function animate(time) {
       requestAnimationFrame(animate);
@@ -63,18 +64,20 @@ export default class App extends React.Component {
     }
     requestAnimationFrame(animate);
 
-    const button1 = <button style={buttonStyles}>Open portal with pseudo modal</button>;
+    const button1 = (
+      <button style={buttonStyles}>Open portal with pseudo modal</button>
+    );
     const button2 = <button style={buttonStyles}>Another portal</button>;
     const button3 = (
       <button
-        onClick={(e) => {
+        onClick={e => {
           const bodyRect = document.body.getBoundingClientRect();
           const targetRect = e.target.getBoundingClientRect();
           this.setState({
             isOpen: true,
             top: targetRect.top - bodyRect.top,
             left: targetRect.left - bodyRect.left,
-            width: targetRect.width,
+            width: targetRect.width
           });
         }}
         style={buttonStyles}
@@ -87,27 +90,52 @@ export default class App extends React.Component {
     return (
       <div style={{ border: '2px solid red', margin: 10, padding: 10 }}>
         <h1>React portal examples</h1>
-        <a href="https://github.com/tajo/react-portal">https://github.com/tajo/react-portal</a>
+        <a href="https://github.com/tajo/react-portal">
+          https://github.com/tajo/react-portal
+        </a>
         <p> </p>
 
-        <Portal closeOnEsc openByClickOn={button1} testProp={this.state.someValue}>
+        <Portal
+          closeOnEsc
+          openByClickOn={button1}
+          testProp={this.state.someValue}
+        >
           <PseudoModal>
             <h2>Pseudo Modal</h2>
             <p>This react component is appended to the document body.</p>
-            <p>This is <strong>great for a modal, lightbox, loading bar ... etc.</strong>.</p>
-            <p>Close this by pressing <strong>ESC</strong>.</p>
-            <p><strong>Why psuedo?</strong> Because the proper CSS styles are up to you. ;-)</p>
+            <p>
+              This is{' '}
+              <strong>
+                great for a modal, lightbox, loading bar ... etc.
+              </strong>.
+            </p>
+            <p>
+              Close this by pressing <strong>ESC</strong>.
+            </p>
+            <p>
+              <strong>Why psuedo?</strong> Because the proper CSS styles are up
+              to you. ;-)
+            </p>
           </PseudoModal>
         </Portal>
 
-        <button onClick={(e) => this.toggleLoadingBar(e)} style={buttonStyles}>
-          {this.state.isPortalOpened ? 'Close the second portal' : 'Open the second portal'}
+        <button onClick={e => this.toggleLoadingBar(e)} style={buttonStyles}>
+          {this.state.isPortalOpened
+            ? 'Close the second portal'
+            : 'Open the second portal'}
         </button>
-        <Portal isOpen={this.state.isPortalOpened} testProp={this.state.someValue}>
+        <Portal
+          isOpen={this.state.isPortalOpened}
+          testProp={this.state.someValue}
+        >
           <LoadingBar />
         </Portal>
 
-        <Portal closeOnOutsideClick onClose={this.onClose} openByClickOn={button2}>
+        <Portal
+          closeOnOutsideClick
+          onClose={this.onClose}
+          openByClickOn={button2}
+        >
           <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
             <p>Click anywhere outside of this portal to close it.</p>
           </div>
@@ -118,7 +146,10 @@ export default class App extends React.Component {
           <Portal
             closeOnOutsideClick
             isOpen={this.state.isOpen}
-            onClose={() => { this.setState({ isOpen: false }); this.onClose(); }}
+            onClose={() => {
+              this.setState({ isOpen: false });
+              this.onClose();
+            }}
           >
             <AbsolutePosition
               left={this.state.left}
@@ -128,7 +159,7 @@ export default class App extends React.Component {
           </Portal>
         </div>
 
-        <button onClick={(e) => this.changeValue(e)} style={buttonStyles}>
+        <button onClick={e => this.changeValue(e)} style={buttonStyles}>
           Change randomly value: {this.state.someValue}
         </button>
 
@@ -141,9 +172,11 @@ export default class App extends React.Component {
           style={{ opacity: 0 }}
         >
           <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
-            <p>Trigger Animations, or any arbitrary function,{' '}
-            before removing the portal from the DOM, animates out{' '}
-            on both click outside and on esc press</p>
+            <p>
+              Trigger Animations, or any arbitrary function, before removing the
+              portal from the DOM, animates out on both click outside and on esc
+              press
+            </p>
           </div>
         </Portal>
       </div>

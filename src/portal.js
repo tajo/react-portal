@@ -3,11 +3,10 @@ import ReactDOM, { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 
 const KEYCODES = {
-  ESCAPE: 27,
+  ESCAPE: 27
 };
 
 export default class Portal extends React.Component {
-
   constructor() {
     super();
     this.state = { active: false };
@@ -71,7 +70,9 @@ export default class Portal extends React.Component {
   handleWrapperClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (this.state.active) { return; }
+    if (this.state.active) {
+      return;
+    }
     this.openPortal();
   }
 
@@ -105,10 +106,14 @@ export default class Portal extends React.Component {
   }
 
   handleOutsideMouseClick(e) {
-    if (!this.state.active) { return; }
+    if (!this.state.active) {
+      return;
+    }
 
     const root = findDOMNode(this.portal);
-    if (root.contains(e.target) || (e.button && e.button !== 0)) { return; }
+    if (root.contains(e.target) || (e.button && e.button !== 0)) {
+      return;
+    }
 
     e.stopPropagation();
     this.closePortal();
@@ -133,7 +138,9 @@ export default class Portal extends React.Component {
     let children = props.children;
     // https://gist.github.com/jimfb/d99e0678e9da715ccf6454961ef04d1b
     if (typeof props.children.type === 'function') {
-      children = React.cloneElement(props.children, { closePortal: this.closePortal });
+      children = React.cloneElement(props.children, {
+        closePortal: this.closePortal
+      });
     }
 
     this.portal = ReactDOM.unstable_renderSubtreeIntoContainer(
@@ -146,7 +153,9 @@ export default class Portal extends React.Component {
 
   render() {
     if (this.props.openByClickOn) {
-      return React.cloneElement(this.props.openByClickOn, { onClick: this.handleWrapperClick });
+      return React.cloneElement(this.props.openByClickOn, {
+        onClick: this.handleWrapperClick
+      });
     }
     return null;
   }
@@ -161,7 +170,7 @@ Portal.propTypes = {
   isOpened: (props, propName, componentName) => {
     if (typeof props[propName] !== 'undefined') {
       return new Error(
-          `Prop \`${propName}\` supplied to \`${componentName}\` was renamed to \`isOpen\`.
+        `Prop \`${propName}\` supplied to \`${componentName}\` was renamed to \`isOpen\`.
           https://github.com/tajo/react-portal/pull/82.`
       );
     }
@@ -170,11 +179,11 @@ Portal.propTypes = {
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
   beforeClose: PropTypes.func,
-  onUpdate: PropTypes.func,
+  onUpdate: PropTypes.func
 };
 
 Portal.defaultProps = {
   onOpen: () => {},
   onClose: () => {},
-  onUpdate: () => {},
+  onUpdate: () => {}
 };

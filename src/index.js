@@ -1,5 +1,3 @@
 import Portal from './portal';
 
-export {
-  Portal
-};
+export { Portal };
