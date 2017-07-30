@@ -1,12 +1,8 @@
 sudo: false
 language: node_js
-cache:
-  directories:
-  - node_modules
 node_js:
+  - "node"
   - "6"
-  - "5"
-  - "4"
 script:
   - npm test
   - npm run build

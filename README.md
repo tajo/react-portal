@@ -6,6 +6,10 @@ React-portal
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its child into it. That's necessary for proper styling (especially positioning).
 
+***
+**react-portal is being rewritten, you are reading v3.x.x documentation**
+***
+
 ## Features
 
 - transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
