@@ -7,8 +7,8 @@ const KEYCODES = {
 };
 
 export default class Portal extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { active: false };
     this.handleWrapperClick = this.handleWrapperClick.bind(this);
     this.closePortal = this.closePortal.bind(this);
