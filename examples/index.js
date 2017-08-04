@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Portal from '../src/portal.js';
+import Portal, { PortalTarget } from '../src/portal.js';
 import PseudoModal from './pseudomodal';
 import LoadingBar from './loadingbar';
 import AbsolutePosition from './absoluteposition';
@@ -86,6 +86,7 @@ export default class App extends React.Component {
       </button>
     );
     const button4 = <button style={buttonStyles}>Animation Example</button>;
+    const button5 = <button style={buttonStyles}>Console</button>;
 
     return (
       <div style={{ border: '2px solid red', margin: 10, padding: 10 }}>
@@ -121,10 +122,11 @@ export default class App extends React.Component {
 
         <button onClick={e => this.toggleLoadingBar(e)} style={buttonStyles}>
           {this.state.isPortalOpened
-            ? 'Close the second portal'
-            : 'Open the second portal'}
+            ? 'Close the sidebar portal'
+            : 'Open the sidebar portal'}
         </button>
         <Portal
+          target="sidebar"
           isOpen={this.state.isPortalOpened}
           testProp={this.state.someValue}
         >
@@ -138,6 +140,18 @@ export default class App extends React.Component {
         >
           <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
             <p>Click anywhere outside of this portal to close it.</p>
+          </div>
+        </Portal>
+
+        <Portal
+          target="console"
+          className="console-portal"
+          closeOnEsc
+          onClose={this.onClose}
+          openByClickOn={button5}
+        >
+          <div style={{ border: '1px solid black', margin: 10, padding: 10 }}>
+            <p>Hit ESC to close.</p>
           </div>
         </Portal>
 
@@ -179,6 +193,31 @@ export default class App extends React.Component {
             </p>
           </div>
         </Portal>
+
+        <PortalTarget
+          name="sidebar"
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            maxWidth: 250,
+            background: '#eee',
+            zIndex: 100
+          }}
+        />
+        <PortalTarget
+          className="console"
+          name="console"
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: '#eee',
+            zIndex: 100
+          }}
+        />
       </div>
     );
   }

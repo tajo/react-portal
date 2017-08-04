@@ -12,7 +12,7 @@ React-portal
 
 ## Features
 
-- transports its child into a new React component and appends it to the **document.body** (creates a new independent React tree)
+- transports its child into a new React component and appends it to the **document.body** or a custom container (creates a new independent React tree)
 - can be opened by the prop **isOpened**
 - can be opened after a click on an element that you pass through the prop **openByClickOn** (and then it takes care of the open/close state)
 - doesn't leave any mess in DOM after closing
@@ -116,6 +116,24 @@ This callback is called when the portal closes and after beforeClose.
 #### onUpdate: func
 This callback is called when the portal is (re)rendered.
 
+#### target: string
+Pass to render popup in a custom container instead of `document.body`. The container should be found by data attribute `[data-portaltarget=${props.target}]`. There's also a helper component `PortalTarget` which creates an element with `data-portaltarget={props.name}`:
+
+```js
+import React from 'react';
+import Portal, {PortalTarget} from 'react-portal';
+
+function App() {
+  return (
+    <div>
+        <PortalTarget name="target-id" />
+        
+        // renders inside PortalTarget
+        <Popup target="target-id" />
+    </div>
+  );
+}
+```
 
 ## Tips & Tricks
 - Does your modal have a fullscreen overlay and the `closeOnOutsideClick` doesn't work? [There is a simple solution](https://github.com/tajo/react-portal/issues/2#issuecomment-92058826).

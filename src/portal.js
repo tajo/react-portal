@@ -85,7 +85,7 @@ export default class Portal extends React.Component {
     const resetPortalState = () => {
       if (this.node) {
         ReactDOM.unmountComponentAtNode(this.node);
-        document.body.removeChild(this.node);
+        this.node.parentNode.removeChild(this.node);
       }
       this.portal = null;
       this.node = null;
@@ -128,7 +128,16 @@ export default class Portal extends React.Component {
   renderPortal(props, isOpening) {
     if (!this.node) {
       this.node = document.createElement('div');
-      document.body.appendChild(this.node);
+      if (props.target) {
+        const targetElement = document.querySelector(
+          `[data-portaltarget=${props.target}]`
+        );
+        if (targetElement) {
+          targetElement.appendChild(this.node);
+        }
+      } else {
+        document.body.appendChild(this.node);
+      }
     }
 
     if (isOpening) {
@@ -187,3 +196,5 @@ Portal.defaultProps = {
   onClose: () => {},
   onUpdate: () => {}
 };
+
+export { default as PortalTarget } from './portaltarget';
