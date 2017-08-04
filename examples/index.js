@@ -203,7 +203,7 @@ export default class App extends React.Component {
             bottom: 0,
             maxWidth: 250,
             background: '#eee',
-            zIndex: 100,
+            zIndex: 100
           }}
         />
         <PortalTarget
@@ -215,7 +215,7 @@ export default class App extends React.Component {
             left: 0,
             right: 0,
             background: '#eee',
-            zIndex: 100,
+            zIndex: 100
           }}
         />
       </div>
