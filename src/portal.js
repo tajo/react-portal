@@ -24,8 +24,7 @@ export default class Portal extends React.Component {
     }
 
     if (this.props.closeOnOutsideClick) {
-      document.addEventListener('mouseup', this.handleOutsideMouseClick);
-      document.addEventListener('touchstart', this.handleOutsideMouseClick);
+      this.enableOutsideClickHandler()
     }
 
     if (this.props.isOpen) {
@@ -52,6 +51,14 @@ export default class Portal extends React.Component {
     if (typeof newProps.isOpen === 'undefined' && this.state.active) {
       this.renderPortal(newProps);
     }
+
+    if (this.props.closeOnOutsideClick !== newProps.closeOnOutsideClick) {
+      if (newProps.closeOnOutsideClick) {
+        this.enableOutsideClickHandler()
+      } else {
+        this.disableOutsideClickHandler()
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -60,11 +67,20 @@ export default class Portal extends React.Component {
     }
 
     if (this.props.closeOnOutsideClick) {
-      document.removeEventListener('mouseup', this.handleOutsideMouseClick);
-      document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+      this.disableOutsideClickHandler()
     }
 
     this.closePortal(true);
+  }
+
+  enableOutsideClickHandler() {
+      document.addEventListener('mouseup', this.handleOutsideMouseClick);
+      document.addEventListener('touchstart', this.handleOutsideMouseClick);
+  }
+
+  disableOutsideClickHandler() {
+      document.removeEventListener('mouseup', this.handleOutsideMouseClick);
+      document.removeEventListener('touchstart', this.handleOutsideMouseClick);
   }
 
   handleWrapperClick(e) {
