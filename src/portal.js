@@ -20,7 +20,7 @@ export default class Portal extends React.Component {
 
   componentDidMount() {
     if (this.props.closeOnEsc) {
-      document.addEventListener('keydown', this.handleKeydown);
+      this.enableEscHandler()
     }
 
     if (this.props.closeOnOutsideClick) {
@@ -59,11 +59,19 @@ export default class Portal extends React.Component {
         this.disableOutsideClickHandler()
       }
     }
+
+    if (this.props.closeOnEsc !== newProps.closeOnEsc) {
+      if (newProps.closeOnEsc) {
+        this.enableEscHandler()
+      } else {
+        this.disableEscHandler()
+      }
+    }
   }
 
   componentWillUnmount() {
     if (this.props.closeOnEsc) {
-      document.removeEventListener('keydown', this.handleKeydown);
+      this.disableEscHandler()
     }
 
     if (this.props.closeOnOutsideClick) {
@@ -81,6 +89,14 @@ export default class Portal extends React.Component {
   disableOutsideClickHandler() {
       document.removeEventListener('mouseup', this.handleOutsideMouseClick);
       document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+  }
+
+  enableEscHandler() {
+    document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  disableEscHandler() {
+    document.removeEventListener('keydown', this.handleKeydown);
   }
 
   handleWrapperClick(e) {
