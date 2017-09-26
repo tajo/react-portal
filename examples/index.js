@@ -49,7 +49,11 @@ export default class App extends React.Component {
   }
 
   changeValue() {
-    this.setState({ someValue: Math.random().toString(36).substring(7) });
+    this.setState({
+      someValue: Math.random()
+        .toString(36)
+        .substring(7)
+    });
   }
 
   render() {

@@ -24,7 +24,7 @@
     "build:examples": "cross-env NODE_ENV=production webpack",
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "lint": "eslint webpack.config.js src/**/*.js",
-    "prettier": "prettier --single-quote --write \"{webpack.config.js,{src,examples}/**/*.js}\"",
+    "format": "prettier --write \"**/*.js\"",
     "test": "cross-env BABEL_ENV=commonjs jest"
   },
   "tags": [
