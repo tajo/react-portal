@@ -20,12 +20,11 @@ export default class Portal extends React.Component {
 
   componentDidMount() {
     if (this.props.closeOnEsc) {
-      document.addEventListener('keydown', this.handleKeydown);
+      this.enableEscHandler()
     }
 
     if (this.props.closeOnOutsideClick) {
-      document.addEventListener('mouseup', this.handleOutsideMouseClick);
-      document.addEventListener('touchstart', this.handleOutsideMouseClick);
+      this.enableOutsideClickHandler()
     }
 
     if (this.props.isOpen) {
@@ -52,19 +51,52 @@ export default class Portal extends React.Component {
     if (typeof newProps.isOpen === 'undefined' && this.state.active) {
       this.renderPortal(newProps);
     }
+
+    if (this.props.closeOnOutsideClick !== newProps.closeOnOutsideClick) {
+      if (newProps.closeOnOutsideClick) {
+        this.enableOutsideClickHandler()
+      } else {
+        this.disableOutsideClickHandler()
+      }
+    }
+
+    if (this.props.closeOnEsc !== newProps.closeOnEsc) {
+      if (newProps.closeOnEsc) {
+        this.enableEscHandler()
+      } else {
+        this.disableEscHandler()
+      }
+    }
   }
 
   componentWillUnmount() {
     if (this.props.closeOnEsc) {
-      document.removeEventListener('keydown', this.handleKeydown);
+      this.disableEscHandler()
     }
 
     if (this.props.closeOnOutsideClick) {
-      document.removeEventListener('mouseup', this.handleOutsideMouseClick);
-      document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+      this.disableOutsideClickHandler()
     }
 
     this.closePortal(true);
+  }
+
+  enableOutsideClickHandler() {
+      document.addEventListener('mouseup', this.handleOutsideMouseClick);
+      document.addEventListener('touchstart', this.handleOutsideMouseClick);
+  }
+
+  disableOutsideClickHandler() {
+      document.removeEventListener('mouseup', this.handleOutsideMouseClick);
+      document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+  }
+
+  enableEscHandler() {
+    document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  disableEscHandler() {
+    document.removeEventListener('keydown', this.handleKeydown);
   }
 
   handleWrapperClick(e) {
