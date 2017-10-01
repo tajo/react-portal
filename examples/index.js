@@ -1,52 +1,70 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DummyPortal from '../src/dummyportal.js';
-import PseudoModal from './pseudomodal';
+import Portal from '../src/Portal.js';
+import PortalWithState from '../src/PortalWithState.js';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPortalActive: false
+      isPortalOneActive: false,
+      isPortalTwoActive: false
     };
   }
 
   render() {
     return (
       <div>
-        <h1>React portal examples</h1>
-        <a href="https://github.com/tajo/react-portal">
-          https://github.com/tajo/react-portal
-        </a>
+        <h1>React Portal Examples</h1>
+        <p>
+          <a href="https://github.com/tajo/react-portal">
+            https://github.com/tajo/react-portal
+          </a>
+        </p>
+
+        <h2>Portal (stateless)</h2>
         <button
           onClick={() =>
             this.setState(prevState => ({
-              isPortalActive: !prevState.isPortalActive
+              isPortalOneActive: !prevState.isPortalOneActive
             }))}
         >
           Toggle
         </button>
-        {this.state.isPortalActive && (
-          <DummyPortal>
-            <PseudoModal>
-              <h2>Pseudo Modal</h2>
-              <p>This react component is appended to the document bodyyy.</p>
-              <p>
-                This is{' '}
-                <strong>
-                  great for a modal, lightbox, loading bar ... etc.
-                </strong>.
-              </p>
-              <p>
-                Close this by pressing <strong>ESC</strong>.
-              </p>
-              <p>
-                <strong>Why psuedo?</strong> Because the proper CSS styles are
-                up to you. ;-)
-              </p>
-            </PseudoModal>
-          </DummyPortal>
+        {this.state.isPortalOneActive && (
+          <Portal>
+            <p>This thing was portaled!</p>
+          </Portal>
         )}
+
+        <h2>Portal (stateless, custom node)</h2>
+        <button
+          onClick={() =>
+            this.setState(prevState => ({
+              isPortalTwoActive: !prevState.isPortalTwoActive
+            }))}
+        >
+          Toggle
+        </button>
+        {this.state.isPortalTwoActive && (
+          <Portal node={document && document.getElementById('user-node')}>
+            <p>This thing was portaled!</p>
+          </Portal>
+        )}
+
+        <h2>PortalWithState</h2>
+        <PortalWithState closeOnOutsideClick closeOnEsc>
+          {({ openPortal, closePortal, isOpen, portal }) => [
+            !isOpen && <button onClick={openPortal}>Open Portal</button>,
+            portal(
+              <p>
+                This is more advanced Portal. It handles its own state.{' '}
+                <button onClick={closePortal}>Close me!</button>, hit ESC or
+                click outside of me.
+              </p>
+            )
+          ]}
+        </PortalWithState>
       </div>
     );
   }

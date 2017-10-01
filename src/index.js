@@ -1,4 +1,4 @@
-import Portal from './portal';
-import DummyPortal from './dummyportal';
+import Portal from './Portal';
+import PortalWithState from './PortalWithState';
 
-export { Portal, DummyPortal };
+export { Portal, PortalWithState };
