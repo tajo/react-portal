@@ -15,7 +15,7 @@ React-portal
 - supports server-side rendering
 - **uses React v16 and its official API for creating portals**
 - supports returning arrays (no wrapper divs needed)
-- `<Portal />` and `<PortalWithState />` so there is no compromise between flexibility and conveniece
+- `<Portal />` and `<PortalWithState />` so there is no compromise between flexibility and convenience
 - doesn't produce any DOM mess
 - provides **close on ESC** and **close on outside mouse click** out of the box
 - **no dependencies**, minimalistic
