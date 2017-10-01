@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Portal from '../src/Portal.js';
-import PortalWithState from '../src/PortalWithState.js';
+import Portal from '../src/Portal';
+import PortalWithState from '../src/PortalWithState';
 
 export default class App extends React.Component {
   constructor(props) {
