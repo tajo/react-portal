@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal, unmountComponentAtNode } from 'react-dom';
+import { createPortal } from 'react-dom';
 
 const canUseDOM = !!(
   typeof window !== 'undefined' &&
@@ -11,7 +11,6 @@ const canUseDOM = !!(
 class Portal extends React.Component {
   componentWillUnmount() {
     if (this.defaultNode) {
-      unmountComponentAtNode(this.defaultNode);
       document.body.removeChild(this.defaultNode);
     }
     this.defaultNode = null;

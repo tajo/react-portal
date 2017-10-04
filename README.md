@@ -57,10 +57,14 @@ import { PortalWithState } from 'react-portal';
 
 <PortalWithState closeOnOutsideClick closeOnEsc>
   {({ openPortal, closePortal, isOpen, portal }) => [
-    !isOpen && <button onClick={openPortal}>Open Portal</button>,
+    !isOpen && (
+      <button key="foo" onClick={openPortal}>
+        Open Portal
+      </button>
+    ),
     portal(
       <p>
-        This is more advanced Portal. It handles its own state.
+        This is more advanced Portal. It handles its own state.{' '}
         <button onClick={closePortal}>Close me!</button>, hit ESC or
         click outside of me.
       </p>

@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const ENV = process.env.NODE_ENV || 'production';
+
 module.exports = {
   entry: ['./examples/index'],
   output: {
@@ -19,7 +21,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify(ENV)
       }
     }),
     new webpack.optimize.UglifyJsPlugin()
