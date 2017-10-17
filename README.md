@@ -102,7 +102,9 @@ If true, the portal can be closed by the outside mouse click.
 This callback is called when the portal is opened and rendered (useful for animating the DOMNode).
 
 #### beforeClose: func(DOMNode, removeFromDOM)
-This callback is called when the closing event is triggered but it prevents normal removal from the DOM. So, you can do some DOMNode animation first and then call removeFromDOM() that removes the portal from DOM.
+This callback is called when the closing event is triggered but it prevents normal removal from the DOM. So, you can do some DOMNode animation first and then call `removeFromDOM()` that removes the portal from DOM.
+
+If you'd like to execute some async logic in beforeClose, you should pass `isUnmounted:boolean` to `removeFromDom(isUnmounted)`.
 
 #### onClose: func
 This callback is called when the portal closes and after beforeClose.
