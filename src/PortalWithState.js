@@ -53,7 +53,7 @@ class PortalWithState extends React.Component {
     }
     return (
       <Portal
-        node={this.node}
+        node={this.props.node}
         key="react-portal"
         ref={portalNode => (this.portalNode = portalNode)}
       >
