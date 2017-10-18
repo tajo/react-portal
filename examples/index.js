@@ -55,11 +55,9 @@ export default class App extends React.Component {
         <h2>PortalWithState</h2>
         <PortalWithState closeOnOutsideClick closeOnEsc>
           {({ openPortal, closePortal, isOpen, portal }) => [
-            !isOpen && (
-              <button key="foo" onClick={openPortal}>
-                Open Portal
-              </button>
-            ),
+            <button key="foo" onClick={openPortal}>
+              Open Portal {isOpen && '(this counts as an outised click)'}
+            </button>,
             portal(
               <p>
                 This is more advanced Portal. It handles its own state.{' '}

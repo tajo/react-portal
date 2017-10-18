@@ -24,8 +24,7 @@ class PortalWithState extends React.Component {
       document.addEventListener('keydown', this.handleKeydown);
     }
     if (this.props.closeOnOutsideClick) {
-      document.addEventListener('mouseup', this.handleOutsideMouseClick);
-      document.addEventListener('touchstart', this.handleOutsideMouseClick);
+      document.addEventListener('click', this.handleOutsideMouseClick);
     }
   }
 
@@ -34,16 +33,22 @@ class PortalWithState extends React.Component {
       document.removeEventListener('keydown', this.handleKeydown);
     }
     if (this.props.closeOnOutsideClick) {
-      document.removeEventListener('mouseup', this.handleOutsideMouseClick);
-      document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+      document.removeEventListener('click', this.handleOutsideMouseClick);
     }
   }
 
-  openPortal() {
+  openPortal(e) {
+    if (this.state.active) {
+      return;
+    }
+    e.nativeEvent.stopImmediatePropagation();
     this.setState({ active: true }, this.props.onOpen);
   }
 
   closePortal() {
+    if (!this.state.active) {
+      return;
+    }
     this.setState({ active: false }, this.props.onClose);
   }
 
