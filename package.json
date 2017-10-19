@@ -32,6 +32,12 @@
   "tags": [
     "react"
   ],
+  "jest": {
+    "setupFiles": [
+      "raf/polyfill",
+      "./testSetup.js"
+    ]
+  },
   "keywords": [
     "react",
     "react-component",
@@ -48,17 +54,21 @@
     "babel-cli": "^6.8.0",
     "babel-core": "^6.8.0",
     "babel-eslint": "^8.0.1",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.3.13",
     "cross-env": "^5.0.1",
     "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "eslint": "^4.3.0",
     "eslint-plugin-prettier": "^2.1.2",
     "jest": "^21.2.1",
     "prettier": "^1.5.3",
+    "raf": "^3.4.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "rimraf": "^2.5.0",
     "webpack": "^3.4.1"
   },
