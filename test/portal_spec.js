@@ -113,6 +113,45 @@ describe('react-portal', () => {
       assert(props.beforeClose.calledOnce);
     });
 
+    it('should not call setState when closePortal is called with isUnmounted = true', () => {
+      const props = { isOpened: true, beforeClose: spy((node, cb) => cb()) };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      const instance = wrapper.instance();
+      spy(instance, 'setState');
+      const isUnmounted = true;
+      instance.closePortal(isUnmounted);
+      assert.equal(instance.setState.callCount, 0);
+    });
+
+    it('should not call setState if removeFromDOM is called with isUnmounted = true', () => {
+      const isUnmounted = true;
+      const props = {
+        isOpened: true,
+        beforeClose: spy((node, removeFromDOM) => removeFromDOM(isUnmounted)),
+      };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      const instance = wrapper.instance();
+      spy(instance, 'setState');
+      instance.closePortal();
+      assert.equal(instance.setState.callCount, 0);
+    });
+
+    it('should use isUnmounted from removeFromDOM over isUnmounted from closePortal', () => {
+      const props = {
+        isOpened: true,
+        beforeClose: spy((node, removeFromDOM) => {
+          const isUnmounted = true;
+          removeFromDOM(isUnmounted);
+        }),
+      };
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      const instance = wrapper.instance();
+      spy(instance, 'setState');
+      const isUnmounted = false;
+      instance.closePortal(isUnmounted);
+      assert.equal(instance.setState.callCount, 0);
+    });
+
     it('should call props.onOpen() when portal opens', () => {
       const props = { isOpened: true, onOpen: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
