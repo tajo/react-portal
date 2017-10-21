@@ -27,15 +27,14 @@
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "lint": "eslint webpack.config.js src/**/*.js",
     "format": "prettier --write \"**/*.js\"",
-    "test": "cross-env BABEL_ENV=commonjs jest"
+    "test": "cross-env BABEL_ENV=commonjs jest --no-cache"
   },
   "tags": [
     "react"
   ],
   "jest": {
     "setupFiles": [
-      "raf/polyfill",
-      "./testSetup.js"
+      "raf/polyfill"
     ]
   },
   "keywords": [
