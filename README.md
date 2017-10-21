@@ -6,7 +6,7 @@ React-portal
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
 
-*This is documentation for React-portal v4+ (currently beta). It works only with React v16+. For v3, please check [this document](READMEv3.MD). The final API can change. The test suite needs to be rebuilt.*
+*This is a documentation for React-portal v4+ (currently RC). It works only with React v16+. For v3, please check [this document](READMEv3.MD).*
 
 ## Features
 
@@ -48,7 +48,9 @@ That's it! Do you want to toggle portal? It's a plain React component, so you ca
 {isOpen && <Portal>Sometimes portaled?</Portal>}
 ```
 
-**This gives you absolute flexibility and control**. But what if you typically use React-portal just to open modals and you want to cut some boilerplate? In other words, **you are ok with giving up some flexibility for convenience**. Let React-portal handle its own state!
+**This gives you absolute flexibility and control** and I would recommend you to use it a basic building block for your components as modals or notifications. **This code also works with server-side rendering**. If you think about just using official `ReactDOM.createPortal()`, you would have to check for existence of DOM environment.
+
+React-portal used to come packed with some extra goodies because sometimes **you are ok with giving up some flexibility for convenience**. For that case, V4 introduces another component that handles its own state for you:
 
 ### PortalWithState
 
@@ -57,11 +59,9 @@ import { PortalWithState } from 'react-portal';
 
 <PortalWithState closeOnOutsideClick closeOnEsc>
   {({ openPortal, closePortal, isOpen, portal }) => [
-    !isOpen && (
-      <button key="foo" onClick={openPortal}>
-        Open Portal
-      </button>
-    ),
+    <button key="foo" onClick={openPortal}>
+      Open Portal
+    </button>,
     portal(
       <p>
         This is more advanced Portal. It handles its own state.{' '}
@@ -92,6 +92,8 @@ Don't let this example to intimidate you! `PortalWithState` **expects one child,
 - **onClose** - function, will get triggered after portal is closed
 
 Also notice, that **the example returns an array since React v16 supports it**! You can also return a single component. In that case, the example would be wrapped by a div as you were used to.
+
+If you start running into limits of `<PortalWithState />` (complex animations), you probably want to use `<Portal />` instead and build a component tailored to your specific taste.
 
 ## Run Examples
 
