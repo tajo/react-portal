@@ -15,6 +15,12 @@ class PortalWithState extends React.Component {
     this.openPortal = this.openPortal.bind(this);
     this.closePortal = this.closePortal.bind(this);
     this.wrapWithPortal = this.wrapWithPortal.bind(this);
+    this.enableEscHandler = this.enableEscHandler.bind(this);
+    this.disableEscHandler = this.disableEscHandler.bind(this);
+    this.enableOutsideClickHandler = this.enableOutsideClickHandler.bind(this);
+    this.disableOutsideClickHandler = this.disableOutsideClickHandler.bind(
+      this
+    );
     this.handleOutsideMouseClick = this.handleOutsideMouseClick.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
   }
