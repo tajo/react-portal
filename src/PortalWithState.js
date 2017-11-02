@@ -21,19 +21,37 @@ class PortalWithState extends React.Component {
 
   componentDidMount() {
     if (this.props.closeOnEsc) {
-      document.addEventListener('keydown', this.handleKeydown);
+      this.enableEscHandler();
     }
     if (this.props.closeOnOutsideClick) {
-      document.addEventListener('click', this.handleOutsideMouseClick);
+      this.enableOutsideClickHandler();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.closeOnEsc !== prevProps.closeOnEsc) {
+      if (this.props.closeOnEsc) {
+        this.enableEscHandler();
+      } else {
+        this.disableEscHandler();
+      }
+    }
+
+    if (this.props.closeOnOutsideClick !== prevProps.closeOnOutsideClick) {
+      if (this.props.closeOnOutsideClick) {
+        this.enableOutsideClickHandler();
+      } else {
+        this.disableOutsideClickHandler();
+      }
     }
   }
 
   componentWillUnmount() {
     if (this.props.closeOnEsc) {
-      document.removeEventListener('keydown', this.handleKeydown);
+      this.disableEscHandler();
     }
     if (this.props.closeOnOutsideClick) {
-      document.removeEventListener('click', this.handleOutsideMouseClick);
+      this.disableOutsideClickHandler();
     }
   }
 
@@ -65,6 +83,22 @@ class PortalWithState extends React.Component {
         {children}
       </Portal>
     );
+  }
+
+  enableEscHandler() {
+    document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  disableEscHandler() {
+    document.removeEventListener('keydown', this.handleKeydown);
+  }
+
+  enableOutsideClickHandler() {
+    document.addEventListener('click', this.handleOutsideMouseClick);
+  }
+
+  disableOutsideClickHandler() {
+    document.removeEventListener('click', this.handleOutsideMouseClick);
   }
 
   handleOutsideMouseClick(e) {
