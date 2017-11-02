@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PortalWithState from '../src/PortalWithState';
 
+const KEYCODES = {
+  ESCAPE: 27
+};
+
 beforeEach(() => {
   document.body.innerHTML = '<div id="root"></div>';
 });
@@ -77,3 +81,40 @@ test('should close portal after calling closePortal', () => {
   );
 });
 
+test('should close portal after escape key is pressed with closeOnEsc', () => {
+  ReactDOM.render(
+    <PortalWithState defaultOpen closeOnEsc>
+      {({ portal }) => portal('Foo')}
+    </PortalWithState>,
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
+  expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
+  const event = new KeyboardEvent('keydown', { keyCode: KEYCODES.ESCAPE });
+  document.dispatchEvent(event);
+  expect(document.body.lastChild.outerHTML).toBe(
+    document.body.firstChild.outerHTML
+  );
+});
+
+test('should close portal after outside click with closeOnOutsideClick', () => {
+  ReactDOM.render(
+    [
+      <button key="trigger" id="trigger">
+        Outside
+      </button>,
+      <PortalWithState key="portal" defaultOpen closeOnOutsideClick>
+        {({ portal }) => portal('Foo')}
+      </PortalWithState>
+    ],
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe(
+    '<div id="root"><button id="trigger">Outside</button></div>'
+  );
+  expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
+  document.getElementById('trigger').click();
+  expect(document.body.lastChild.outerHTML).toBe(
+    document.body.firstChild.outerHTML
+  );
+});
