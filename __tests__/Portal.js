@@ -38,7 +38,7 @@ ifReact('< 16', test, test.skip)(
 );
 
 ifReact('>= 16', test, test.skip)(
-  'should append portal to the document.body',
+  'should append portal to a custom node',
   () => {
     document.body.innerHTML = '<div id="root"></div><div id="custom"></div>';
     ReactDOM.render(
@@ -53,7 +53,7 @@ ifReact('>= 16', test, test.skip)(
 );
 
 ifReact('< 16', test, test.skip)(
-  'should append portal to the document.body',
+  'should append portal to a custom element',
   () => {
     document.body.innerHTML = '<div id="root"></div><div id="custom"></div>';
     ReactDOM.render(
