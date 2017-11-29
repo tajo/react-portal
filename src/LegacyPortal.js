@@ -13,6 +13,14 @@ const canUseDOM = !!(
 );
 
 export default class Portal extends React.Component {
+  componentDidMount() {
+    this.renderPortal();
+  }
+
+  componentWillReceiveProps(props) {
+    this.renderPortal();
+  }
+
   componentWillUnmount() {
     if (this.props.node) {
       document.body.removeChild(this.props.node);
@@ -44,12 +52,6 @@ export default class Portal extends React.Component {
   }
 
   render() {
-    if (!canUseDOM) {
-      return null;
-    }
-
-    this.renderPortal();
-
     return null;
   }
 }
