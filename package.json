@@ -27,7 +27,8 @@
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "lint": "eslint webpack.config.js src/**/*.js",
     "format": "prettier --write \"**/*.js\"",
-    "test": "cross-env BABEL_ENV=commonjs jest --no-cache"
+    "test": "cross-env BABEL_ENV=commonjs jest --no-cache",
+    "react": "enzyme-adapter-react-install 16.2.0"
   },
   "tags": [
     "react"
@@ -59,19 +60,18 @@
     "babel-preset-react": "^6.3.13",
     "cross-env": "^5.0.1",
     "enzyme": "^3.1.0",
-    "enzyme-adapter-react-16": "^1.0.2",
+    "enzyme-adapter-react-helper": "^1.2.1",
     "eslint": "^4.3.0",
     "eslint-plugin-prettier": "^2.1.2",
     "jest": "^21.2.1",
     "prettier": "^1.5.3",
     "raf": "^3.4.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0",
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0",
     "rimraf": "^2.5.0",
     "webpack": "^3.4.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0-0 || ^17.0.0-0"
+    "react": "^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0"
   }
 }
