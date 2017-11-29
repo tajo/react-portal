@@ -8,7 +8,7 @@ const canUseDOM = !!(
   window.document.createElement
 );
 
-class Portalv4 extends React.Component {
+class Portal extends React.Component {
   componentWillUnmount() {
     if (this.defaultNode) {
       document.body.removeChild(this.defaultNode);
@@ -31,9 +31,9 @@ class Portalv4 extends React.Component {
   }
 }
 
-Portalv4.propTypes = {
+Portal.propTypes = {
   children: PropTypes.node.isRequired,
   node: PropTypes.any
 };
 
-export default Portalv4;
+export default Portal;
