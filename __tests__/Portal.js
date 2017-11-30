@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ifReact from 'enzyme-adapter-react-helper/build/ifReact';
-import Portal from '../src/PortalUtil';
+import Portal from '../src/PortalCompat';
 
 afterEach(() => {
   ReactDOM.unmountComponentAtNode(document.getElementById('root'));

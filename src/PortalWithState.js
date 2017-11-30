@@ -1,7 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
-import Portal from './PortalUtil';
+import Portal from './PortalCompat';
 
 const KEYCODES = {
   ESCAPE: 27
