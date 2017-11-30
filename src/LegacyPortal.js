@@ -1,16 +1,10 @@
+// This file is a fallback for a consumer who is not yet on React 16
+// as createPortal was introduced in React 16
+
 import React from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
-const KEYCODES = {
-  ESCAPE: 27
-};
-
-const canUseDOM = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
+import { canUseDOM } from './utils';
 
 export default class Portal extends React.Component {
   componentDidMount() {
