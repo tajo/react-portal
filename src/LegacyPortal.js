@@ -4,7 +4,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { canUseDOM } from './utils';
 
 export default class Portal extends React.Component {
   componentDidMount() {
