@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Portal from '../src/Portal';
+import ifReact from 'enzyme-adapter-react-helper/build/ifReact';
+import Portal from '../src/PortalCompat';
 import PortalWithState from '../src/PortalWithState';
 
 export default class App extends React.Component {
@@ -27,7 +28,8 @@ export default class App extends React.Component {
           onClick={() =>
             this.setState(prevState => ({
               isPortalOneActive: !prevState.isPortalOneActive
-            }))}
+            }))
+          }
         >
           Toggle
         </button>
@@ -42,7 +44,8 @@ export default class App extends React.Component {
           onClick={() =>
             this.setState(prevState => ({
               isPortalTwoActive: !prevState.isPortalTwoActive
-            }))}
+            }))
+          }
         >
           Toggle
         </button>
@@ -54,18 +57,35 @@ export default class App extends React.Component {
 
         <h2>PortalWithState</h2>
         <PortalWithState closeOnOutsideClick closeOnEsc>
-          {({ openPortal, closePortal, isOpen, portal }) => [
-            <button key="foo" onClick={openPortal}>
-              Open Portal {isOpen && '(this counts as an outised click)'}
-            </button>,
-            portal(
-              <p>
-                This is more advanced Portal. It handles its own state.{' '}
-                <button onClick={closePortal}>Close me!</button>, hit ESC or
-                click outside of me.
-              </p>
-            )
-          ]}
+          {ifReact(
+            '< 16',
+            ({ openPortal, closePortal, isOpen, portal }) => (
+              <div>
+                <button key="foo" onClick={openPortal}>
+                  Open Portal {isOpen && '(this counts as an outised click)'}
+                </button>
+                {portal(
+                  <p>
+                    This is more advanced Portal. It handles its own state.{' '}
+                    <button onClick={closePortal}>Close me!</button>, hit ESC or
+                    click outside of me.
+                  </p>
+                )}
+              </div>
+            ),
+            ({ openPortal, closePortal, isOpen, portal }) => [
+              <button key="foo" onClick={openPortal}>
+                Open Portal {isOpen && '(this counts as an outised click)'}
+              </button>,
+              portal(
+                <p>
+                  This is more advanced Portal. It handles its own state.{' '}
+                  <button onClick={closePortal}>Close me!</button>, hit ESC or
+                  click outside of me.
+                </p>
+              )
+            ]
+          )}
         </PortalWithState>
       </div>
     );
