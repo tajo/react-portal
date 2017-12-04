@@ -62,7 +62,7 @@ export default class App extends React.Component {
             ({ openPortal, closePortal, isOpen, portal }) => (
               <div>
                 <button key="foo" onClick={openPortal}>
-                  Open Portal {isOpen && '(this counts as an outised click)'}
+                  Open Portal {isOpen && '(this counts as an outside click)'}
                 </button>
                 {portal(
                   <p>
@@ -75,7 +75,7 @@ export default class App extends React.Component {
             ),
             ({ openPortal, closePortal, isOpen, portal }) => [
               <button key="foo" onClick={openPortal}>
-                Open Portal {isOpen && '(this counts as an outised click)'}
+                Open Portal {isOpen && '(this counts as an outside click)'}
               </button>,
               portal(
                 <p>
