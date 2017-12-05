@@ -1,5 +1,4 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import Portal from './PortalCompat';
 
@@ -73,7 +72,7 @@ class PortalWithState extends React.Component {
     if (!this.state.active) {
       return;
     }
-    const root = findDOMNode(this.portalNode);
+    const root = this.portalNode.defaultNode;
     if (!root || root.contains(e.target) || (e.button && e.button !== 0)) {
       return;
     }
