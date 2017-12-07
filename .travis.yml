@@ -2,8 +2,14 @@ language: node_js
 node_js:
   - "node"
   - "6"
+before_script:
+  - 'if [ -n "${REACT-}" ]; then npm run react && (npm ls >/dev/null || echo "temporary bypass"); fi'
 script:
   - yarn lint
   - yarn test -- --runInBand
   - yarn build
   - yarn build:examples
+env:
+  matrix:
+    - REACT=15
+    - REACT=16
