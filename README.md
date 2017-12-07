@@ -6,14 +6,15 @@ React-portal
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
 
-⚠️️ **V4+ works only with React v16+**. For V3 documentation, go [here](READMEv3.MD). ️⚠️
+*Looking for v3 documentation? Go [here](READMEv3.MD).*
 
 ## Features
 
+- **uses React v16 and its official API for creating portals**
+- **has a fallback for React v15**
 - transports its children into a new React Portal which is appended by default to **document.body**
 - can target user specified DOM element
 - supports server-side rendering
-- **uses React v16 and its official API for creating portals**
 - supports returning arrays (no wrapper divs needed)
 - `<Portal />` and `<PortalWithState />` so there is no compromise between flexibility and convenience
 - doesn't produce any DOM mess
