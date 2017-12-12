@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from './PortalCompat';
 
-const KEYCODES = {
-  ESCAPE: 27
-};
+const KEYCODES = { ESCAPE: 27 };
 
 class PortalWithState extends React.Component {
   constructor(props) {
@@ -15,6 +13,9 @@ class PortalWithState extends React.Component {
     this.closePortal = this.closePortal.bind(this);
     this.wrapWithPortal = this.wrapWithPortal.bind(this);
     this.handleOutsideMouseClick = this.handleOutsideMouseClick.bind(this);
+    this.handleOutsideMouseRightClick = this.handleOutsideMouseRightClick.bind(
+      this
+    );
     this.handleKeydown = this.handleKeydown.bind(this);
   }
 
@@ -25,6 +26,12 @@ class PortalWithState extends React.Component {
     if (this.props.closeOnOutsideClick) {
       document.addEventListener('click', this.handleOutsideMouseClick);
     }
+    if (this.props.closeOnOutsideRightClick) {
+      document.addEventListener(
+        'contextmenu',
+        this.handleOutsideMouseRightClick
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -33,6 +40,12 @@ class PortalWithState extends React.Component {
     }
     if (this.props.closeOnOutsideClick) {
       document.removeEventListener('click', this.handleOutsideMouseClick);
+    }
+    if (this.props.closeOnOutsideRightClick) {
+      document.removeEventListener(
+        'contextmenu',
+        this.handleOutsideMouseRightClick
+      );
     }
   }
 
@@ -79,6 +92,17 @@ class PortalWithState extends React.Component {
     this.closePortal();
   }
 
+  handleOutsideMouseRightClick(e) {
+    if (!this.state.active) {
+      return;
+    }
+    const root = this.portalNode.defaultNode;
+    if (!root || root.contains(e.target) || (e.button && e.button !== 2)) {
+      return;
+    }
+    this.closePortal();
+  }
+
   handleKeydown(e) {
     if (e.keyCode === KEYCODES.ESCAPE && this.state.active) {
       this.closePortal();
@@ -102,6 +126,7 @@ PortalWithState.propTypes = {
   openByClickOn: PropTypes.element,
   closeOnEsc: PropTypes.bool,
   closeOnOutsideClick: PropTypes.bool,
+  closeOnOutsideRightClick: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func
 };
