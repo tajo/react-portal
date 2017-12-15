@@ -15,9 +15,6 @@ export default class Portal extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.props.node) {
-      document.body.removeChild(this.props.node);
-    }
     if (this.defaultNode) {
       document.body.removeChild(this.defaultNode);
     }
