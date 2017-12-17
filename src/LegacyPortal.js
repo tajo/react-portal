@@ -10,7 +10,7 @@ export default class Portal extends React.Component {
     this.renderPortal();
   }
 
-  componentWillReceiveProps(props) {
+  componentDidUpdate(props) {
     this.renderPortal();
   }
 
