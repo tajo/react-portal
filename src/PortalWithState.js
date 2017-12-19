@@ -72,7 +72,7 @@ class PortalWithState extends React.Component {
     if (!this.state.active) {
       return;
     }
-    const root = this.portalNode.props.node || this.protalNode.defaultNode;
+    const root = this.portalNode.props.node || this.portalNode.defaultNode;
     if (!root || root.contains(e.target) || (e.button && e.button !== 0)) {
       return;
     }
