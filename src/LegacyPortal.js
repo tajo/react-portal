@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default class Portal extends React.Component {
+export default class Portal extends React.PureComponent {
   componentDidMount() {
     this.renderPortal();
   }

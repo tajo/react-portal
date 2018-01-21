@@ -6,7 +6,7 @@ const KEYCODES = {
   ESCAPE: 27
 };
 
-class PortalWithState extends React.Component {
+class PortalWithState extends React.PureComponent {
   constructor(props) {
     super(props);
     this.portalNode = null;
