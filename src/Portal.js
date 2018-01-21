@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { canUseDOM } from './utils';
 
-class Portal extends React.Component {
+class Portal extends React.PureComponent {
   componentWillUnmount() {
     if (this.defaultNode) {
       document.body.removeChild(this.defaultNode);
