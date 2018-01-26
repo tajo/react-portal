@@ -9,7 +9,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isPortalOneActive: false,
-      isPortalTwoActive: false,
+      isPortalTwoActive: false
     };
   }
 
@@ -27,9 +27,8 @@ export default class App extends React.Component {
         <button
           onClick={() =>
             this.setState(prevState => ({
-              isPortalOneActive: !prevState.isPortalOneActive,
-            }))
-          }
+              isPortalOneActive: !prevState.isPortalOneActive
+            }))}
         >
           Toggle
         </button>
@@ -43,9 +42,8 @@ export default class App extends React.Component {
         <button
           onClick={() =>
             this.setState(prevState => ({
-              isPortalTwoActive: !prevState.isPortalTwoActive,
-            }))
-          }
+              isPortalTwoActive: !prevState.isPortalTwoActive
+            }))}
         >
           Toggle
         </button>

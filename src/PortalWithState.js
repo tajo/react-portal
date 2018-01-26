@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Portal from './PortalCompat';
 
 const KEYCODES = {
-  ESCAPE: 27,
+  ESCAPE: 27
 };
 
 class PortalWithState extends React.Component {
@@ -90,7 +90,7 @@ class PortalWithState extends React.Component {
       openPortal: this.openPortal,
       closePortal: this.closePortal,
       Portal: this.Portal,
-      isOpen: this.state.active,
+      isOpen: this.state.active
     });
   }
 }
@@ -103,12 +103,12 @@ PortalWithState.propTypes = {
   closeOnEsc: PropTypes.bool,
   closeOnOutsideClick: PropTypes.bool,
   onOpen: PropTypes.func,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func
 };
 
 PortalWithState.defaultProps = {
   onOpen: () => {},
-  onClose: () => {},
+  onClose: () => {}
 };
 
 export default PortalWithState;
