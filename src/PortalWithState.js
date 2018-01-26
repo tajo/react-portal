@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Portal from './PortalCompat';
 
 const KEYCODES = {
-  ESCAPE: 27
+  ESCAPE: 27,
 };
 
 class PortalWithState extends React.Component {
@@ -13,7 +13,7 @@ class PortalWithState extends React.Component {
     this.state = { active: !!props.defaultOpen };
     this.openPortal = this.openPortal.bind(this);
     this.closePortal = this.closePortal.bind(this);
-    this.wrapWithPortal = this.wrapWithPortal.bind(this);
+    this.Portal = this.Portal.bind(this);
     this.handleOutsideMouseClick = this.handleOutsideMouseClick.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
   }
@@ -53,7 +53,7 @@ class PortalWithState extends React.Component {
     this.setState({ active: false }, this.props.onClose);
   }
 
-  wrapWithPortal(children) {
+  Portal({ children }) {
     if (!this.state.active) {
       return null;
     }
@@ -89,8 +89,8 @@ class PortalWithState extends React.Component {
     return this.props.children({
       openPortal: this.openPortal,
       closePortal: this.closePortal,
-      portal: this.wrapWithPortal,
-      isOpen: this.state.active
+      Portal: this.Portal,
+      isOpen: this.state.active,
     });
   }
 }
@@ -103,12 +103,12 @@ PortalWithState.propTypes = {
   closeOnEsc: PropTypes.bool,
   closeOnOutsideClick: PropTypes.bool,
   onOpen: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 };
 
 PortalWithState.defaultProps = {
   onOpen: () => {},
-  onClose: () => {}
+  onClose: () => {},
 };
 
 export default PortalWithState;

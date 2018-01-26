@@ -9,7 +9,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isPortalOneActive: false,
-      isPortalTwoActive: false
+      isPortalTwoActive: false,
     };
   }
 
@@ -27,7 +27,7 @@ export default class App extends React.Component {
         <button
           onClick={() =>
             this.setState(prevState => ({
-              isPortalOneActive: !prevState.isPortalOneActive
+              isPortalOneActive: !prevState.isPortalOneActive,
             }))
           }
         >
@@ -43,7 +43,7 @@ export default class App extends React.Component {
         <button
           onClick={() =>
             this.setState(prevState => ({
-              isPortalTwoActive: !prevState.isPortalTwoActive
+              isPortalTwoActive: !prevState.isPortalTwoActive,
             }))
           }
         >
@@ -59,32 +59,36 @@ export default class App extends React.Component {
         <PortalWithState closeOnOutsideClick closeOnEsc>
           {ifReact(
             '< 16',
-            ({ openPortal, closePortal, isOpen, portal }) => (
+            ({ openPortal, closePortal, isOpen, Portal }) => (
               <div>
                 <button key="foo" onClick={openPortal}>
                   Open Portal {isOpen && '(this counts as an outside click)'}
                 </button>
-                {portal(
+                {
+                  <Portal>
+                    <p>
+                      This is more advanced Portal. It handles its own state.{' '}
+                      <button onClick={closePortal}>Close me!</button>, hit ESC
+                      or click outside of me.
+                    </p>
+                  </Portal>
+                }
+              </div>
+            ),
+            ({ openPortal, closePortal, isOpen, Portal }) => (
+              <React.Fragment>
+                <button key="foo" onClick={openPortal}>
+                  Open Portal {isOpen && '(this counts as an outside click)'}
+                </button>
+                <Portal>
                   <p>
                     This is more advanced Portal. It handles its own state.{' '}
                     <button onClick={closePortal}>Close me!</button>, hit ESC or
                     click outside of me.
                   </p>
-                )}
-              </div>
-            ),
-            ({ openPortal, closePortal, isOpen, portal }) => [
-              <button key="foo" onClick={openPortal}>
-                Open Portal {isOpen && '(this counts as an outside click)'}
-              </button>,
-              portal(
-                <p>
-                  This is more advanced Portal. It handles its own state.{' '}
-                  <button onClick={closePortal}>Close me!</button>, hit ESC or
-                  click outside of me.
-                </p>
-              )
-            ]
+                </Portal>
+              </React.Fragment>
+            )
           )}
         </PortalWithState>
       </div>
