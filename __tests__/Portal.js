@@ -70,3 +70,19 @@ ifReact('< 16', test, test.skip)(
     );
   }
 );
+
+ifReact(
+  '< 16',
+  test,
+  test.skip
+)('should remove portal content from custom node', () => {
+  document.body.innerHTML = '<div id="root"></div><div id="custom"></div>';
+  ReactDOM.render(
+    <Portal node={document.getElementById('custom')}>
+      <div>Foo</div>
+    </Portal>,
+    document.getElementById('root')
+  );
+  ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+  expect(document.getElementById('custom').innerHTML).toBe('');
+});

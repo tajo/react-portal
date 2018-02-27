@@ -51,7 +51,7 @@ export default class App extends React.Component {
         </button>
         {this.state.isPortalTwoActive && (
           <Portal node={document && document.getElementById('user-node')}>
-            <p>This thing was portaled!</p>
+            <p>This thing was portaled with custom node!</p>
           </Portal>
         )}
 
