@@ -53,24 +53,26 @@ That's it! Do you want to toggle portal? It's a plain React component, so you ca
 
 React-portal used to come packed with some extra goodies because sometimes **you are ok with giving up some flexibility for convenience**. For that case, V4 introduces another component that handles its own state for you:
 
-### PortalWithState
+### PortalWithState (using React.Fragment)
 
 ```jsx 
 import { PortalWithState } from 'react-portal';
 
 <PortalWithState closeOnOutsideClick closeOnEsc>
-  {({ openPortal, closePortal, isOpen, portal }) => [
-    <button key="foo" onClick={openPortal}>
-      Open Portal
-    </button>,
-    portal(
-      <p>
-        This is more advanced Portal. It handles its own state.{' '}
-        <button onClick={closePortal}>Close me!</button>, hit ESC or
-        click outside of me.
-      </p>
-    )
-  ]}
+  {({ openPortal, closePortal, isOpen, portal }) => (
+    <>
+      <button onClick={openPortal}>
+        Open Portal
+      </button>,
+      {portal(
+        <p>
+          This is more advanced Portal. It handles its own state.{' '}
+          <button onClick={closePortal}>Close me!</button>, hit ESC or
+          click outside of me.
+        </p>
+      )}
+    </>
+  )}
 </PortalWithState>
 ```
 
@@ -92,7 +94,9 @@ Don't let this example to intimidate you! `PortalWithState` **expects one child,
 - **onOpen** - function, will get triggered after portal is open
 - **onClose** - function, will get triggered after portal is closed
 
-Also notice, that **the example returns an array since React v16 supports it**! You can also return a single component. In that case, the example would be wrapped by a div as you were used to.
+Also notice, that **the example returns a [Fragment](https://reactjs.org/docs/fragments.html) since React 16.2 supports it**! You can also return:
+- an array - available from React v16, remember to add `key` attribute
+- regular component - the example would be wrapped by a div, not a fragment
 
 If you start running into limits of `<PortalWithState />` (complex animations), you probably want to use `<Portal />` instead and build a component tailored to your specific taste.
 
