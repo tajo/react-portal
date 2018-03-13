@@ -53,7 +53,7 @@ That's it! Do you want to toggle portal? It's a plain React component, so you ca
 
 React-portal used to come packed with some extra goodies because sometimes **you are ok with giving up some flexibility for convenience**. For that case, V4 introduces another component that handles its own state for you:
 
-### PortalWithState (using React.Fragment)
+### PortalWithState
 
 ```jsx 
 import { PortalWithState } from 'react-portal';
