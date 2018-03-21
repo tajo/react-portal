@@ -14,7 +14,7 @@ afterEach(() => {
 
 ifReact('>= 16', test, test.skip)('should not mount portal by default', () => {
   ReactDOM.render(
-    <PortalWithState>{({ portal }) => portal('Foo')}</PortalWithState>,
+    <PortalWithState>{({ Portal }) => <Portal>Foo</Portal>}</PortalWithState>,
     document.getElementById('root')
   );
   expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
@@ -25,7 +25,7 @@ ifReact('>= 16', test, test.skip)('should not mount portal by default', () => {
 
 ifReact('< 16', test, test.skip)('should not mount portal by default', () => {
   ReactDOM.render(
-    <PortalWithState>{({ portal }) => portal('Foo')}</PortalWithState>,
+    <PortalWithState>{({ Portal }) => <Portal>Foo</Portal>}</PortalWithState>,
     document.getElementById('root')
   );
   expect(document.body.firstChild.outerHTML).toBe(
@@ -36,49 +36,57 @@ ifReact('< 16', test, test.skip)('should not mount portal by default', () => {
   );
 });
 
-ifReact('>= 16', test, test.skip)(
-  'should mount portal by default with defaultOpen',
-  () => {
-    ReactDOM.render(
-      <PortalWithState defaultOpen>
-        {({ portal }) => portal('Foo')}
-      </PortalWithState>,
-      document.getElementById('root')
-    );
-    expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
-    expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
-  }
-);
+ifReact(
+  '>= 16',
+  test,
+  test.skip
+)('should mount portal by default with defaultOpen', () => {
+  ReactDOM.render(
+    <PortalWithState defaultOpen>
+      {({ Portal }) => <Portal>Foo</Portal>}
+    </PortalWithState>,
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
+  expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
+});
 
-ifReact('< 16', test, test.skip)(
-  'should mount portal by default with defaultOpen',
-  () => {
-    ReactDOM.render(
-      <PortalWithState defaultOpen>
-        {({ portal }) => portal(<div>Foo</div>)}
-      </PortalWithState>,
-      document.getElementById('root')
-    );
-    expect(document.body.firstChild.outerHTML).toBe(
-      '<div id="root"><!-- react-empty: 1 --></div>'
-    );
-    expect(document.body.lastChild.outerHTML).toBe(
-      '<div><div data-reactroot="">Foo</div></div>'
-    );
-  }
-);
+ifReact(
+  '< 16',
+  test,
+  test.skip
+)('should mount portal by default with defaultOpen', () => {
+  ReactDOM.render(
+    <PortalWithState defaultOpen>
+      {({ Portal }) => (
+        <Portal>
+          <div>Foo</div>
+        </Portal>
+      )}
+    </PortalWithState>,
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe(
+    '<div id="root"><!-- react-empty: 1 --></div>'
+  );
+  expect(document.body.lastChild.outerHTML).toBe(
+    '<div><div data-reactroot="">Foo</div></div>'
+  );
+});
 
 ifReact('>= 16', test, test.skip)(
   'should open portal after calling openPortal',
   () => {
     ReactDOM.render(
       <PortalWithState>
-        {({ portal, openPortal }) => [
-          <button key="trigger" id="trigger" onClick={openPortal}>
-            Open
-          </button>,
-          portal('Foo')
-        ]}
+        {({ Portal, openPortal }) => (
+          <React.Fragment>
+            <button key="trigger" id="trigger" onClick={openPortal}>
+              Open
+            </button>
+            <Portal>Foo</Portal>
+          </React.Fragment>
+        )}
       </PortalWithState>,
       document.getElementById('root')
     );
@@ -98,12 +106,16 @@ ifReact('< 16', test, test.skip)(
   () => {
     ReactDOM.render(
       <PortalWithState>
-        {({ portal, openPortal }) => (
+        {({ Portal, openPortal }) => (
           <div>
             <button key="trigger" id="trigger" onClick={openPortal}>
               Open
             </button>
-            {portal(<div>Foo</div>)}
+            {
+              <Portal>
+                <div>Foo</div>
+              </Portal>
+            }
           </div>
         )}
       </PortalWithState>,
@@ -126,56 +138,64 @@ ifReact('< 16', test, test.skip)(
   }
 );
 
-ifReact('>= 16', test, test.skip)(
-  'should close portal after calling closePortal',
-  () => {
-    ReactDOM.render(
-      <PortalWithState defaultOpen>
-        {({ portal, closePortal }) => [
+ifReact(
+  '>= 16',
+  test,
+  test.skip
+)('should close portal after calling closePortal', () => {
+  ReactDOM.render(
+    <PortalWithState defaultOpen>
+      {({ Portal, closePortal }) => (
+        <React.Fragment>
           <button key="trigger" id="trigger" onClick={closePortal}>
             Close
-          </button>,
-          portal('Foo')
-        ]}
-      </PortalWithState>,
-      document.getElementById('root')
-    );
-    expect(document.body.firstChild.outerHTML).toBe(
-      '<div id="root"><button id="trigger">Close</button></div>'
-    );
-    expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
-    document.getElementById('trigger').click();
-    expect(document.body.lastChild.outerHTML).toBe(
-      document.body.firstChild.outerHTML
-    );
-  }
-);
+          </button>
+          <Portal>Foo</Portal>
+        </React.Fragment>
+      )}
+    </PortalWithState>,
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe(
+    '<div id="root"><button id="trigger">Close</button></div>'
+  );
+  expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
+  document.getElementById('trigger').click();
+  expect(document.body.lastChild.outerHTML).toBe(
+    document.body.firstChild.outerHTML
+  );
+});
 
-ifReact('< 16', test, test.skip)(
-  'should close portal after calling closePortal',
-  () => {
-    ReactDOM.render(
-      <PortalWithState defaultOpen>
-        {({ portal, closePortal }) => (
-          <div>
-            <button key="trigger" id="trigger" onClick={closePortal}>
-              Close
-            </button>
-            {portal(<div>Foo</div>)}
-          </div>
-        )}
-      </PortalWithState>,
-      document.getElementById('root')
-    );
-    expect(document.body.firstChild.outerHTML).toBe(
-      '<div id="root"><div data-reactroot=""><button id="trigger">Close</button><!-- react-empty: 3 --></div></div>'
-    );
-    expect(document.body.lastChild.outerHTML).toBe(
-      '<div><div data-reactroot="">Foo</div></div>'
-    );
-    document.getElementById('trigger').click();
-    expect(document.body.lastChild.outerHTML).toBe(
-      document.body.firstChild.outerHTML
-    );
-  }
-);
+ifReact(
+  '< 16',
+  test,
+  test.skip
+)('should close portal after calling closePortal', () => {
+  ReactDOM.render(
+    <PortalWithState defaultOpen>
+      {({ Portal, closePortal }) => (
+        <div>
+          <button key="trigger" id="trigger" onClick={closePortal}>
+            Close
+          </button>
+          {
+            <Portal>
+              <div>Foo</div>
+            </Portal>
+          }
+        </div>
+      )}
+    </PortalWithState>,
+    document.getElementById('root')
+  );
+  expect(document.body.firstChild.outerHTML).toBe(
+    '<div id="root"><div data-reactroot=""><button id="trigger">Close</button><!-- react-empty: 3 --></div></div>'
+  );
+  expect(document.body.lastChild.outerHTML).toBe(
+    '<div><div data-reactroot="">Foo</div></div>'
+  );
+  document.getElementById('trigger').click();
+  expect(document.body.lastChild.outerHTML).toBe(
+    document.body.firstChild.outerHTML
+  );
+});

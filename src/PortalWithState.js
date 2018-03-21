@@ -13,7 +13,7 @@ class PortalWithState extends React.Component {
     this.state = { active: !!props.defaultOpen };
     this.openPortal = this.openPortal.bind(this);
     this.closePortal = this.closePortal.bind(this);
-    this.wrapWithPortal = this.wrapWithPortal.bind(this);
+    this.Portal = this.Portal.bind(this);
     this.handleOutsideMouseClick = this.handleOutsideMouseClick.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
   }
@@ -53,7 +53,7 @@ class PortalWithState extends React.Component {
     this.setState({ active: false }, this.props.onClose);
   }
 
-  wrapWithPortal(children) {
+  Portal({ children }) {
     if (!this.state.active) {
       return null;
     }
@@ -89,7 +89,7 @@ class PortalWithState extends React.Component {
     return this.props.children({
       openPortal: this.openPortal,
       closePortal: this.closePortal,
-      portal: this.wrapWithPortal,
+      Portal: this.Portal,
       isOpen: this.state.active
     });
   }
