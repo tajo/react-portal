@@ -28,8 +28,7 @@ export default class App extends React.Component {
           onClick={() =>
             this.setState(prevState => ({
               isPortalOneActive: !prevState.isPortalOneActive
-            }))
-          }
+            }))}
         >
           Toggle
         </button>
@@ -44,8 +43,7 @@ export default class App extends React.Component {
           onClick={() =>
             this.setState(prevState => ({
               isPortalTwoActive: !prevState.isPortalTwoActive
-            }))
-          }
+            }))}
         >
           Toggle
         </button>
