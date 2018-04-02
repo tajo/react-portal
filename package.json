@@ -21,7 +21,7 @@
   "scripts": {
     "build": "npm run clean && npm run build-es && npm run build-cjs",
     "build-es": "babel ./src --out-dir ./es",
-    "build-cjs": "BABEL_ENV=commonjs babel ./src --out-dir ./lib",
+    "build-cjs": "cross-env BABEL_ENV=commonjs babel ./src --out-dir ./lib",
     "build:examples": "cross-env webpack",
     "clean": "rimraf es lib build",
     "prepublish": "cross-env NODE_ENV=production npm run build",
