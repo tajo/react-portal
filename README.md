@@ -60,7 +60,7 @@ import { PortalWithState } from 'react-portal';
 
 <PortalWithState closeOnOutsideClick closeOnEsc>
   {({ openPortal, closePortal, isOpen, portal }) => (
-    <>
+    <React.Fragment>
       <button onClick={openPortal}>
         Open Portal
       </button>,
@@ -71,7 +71,7 @@ import { PortalWithState } from 'react-portal';
           click outside of me.
         </p>
       )}
-    </>
+    </React.Fragment>
   )}
 </PortalWithState>
 ```
