@@ -63,7 +63,7 @@ import { PortalWithState } from 'react-portal';
     <React.Fragment>
       <button onClick={openPortal}>
         Open Portal
-      </button>,
+      </button>
       {portal(
         <p>
           This is more advanced Portal. It handles its own state.{' '}
