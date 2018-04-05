@@ -58,7 +58,7 @@ export default class App extends React.Component {
         <h2>PortalWithState</h2>
         <PortalWithState closeOnOutsideClick closeOnEsc>
           {ifReact(
-            '< 16',
+            '< 16.2',
             ({ openPortal, closePortal, isOpen, portal }) => (
               <div>
                 <button key="foo" onClick={openPortal}>
@@ -73,18 +73,20 @@ export default class App extends React.Component {
                 )}
               </div>
             ),
-            ({ openPortal, closePortal, isOpen, portal }) => [
-              <button key="foo" onClick={openPortal}>
-                Open Portal {isOpen && '(this counts as an outside click)'}
-              </button>,
-              portal(
-                <p>
-                  This is more advanced Portal. It handles its own state.{' '}
-                  <button onClick={closePortal}>Close me!</button>, hit ESC or
-                  click outside of me.
-                </p>
-              )
-            ]
+            ({ openPortal, closePortal, isOpen, portal }) => (
+              <React.Fragment>
+                <button onClick={openPortal}>
+                  Open Portal {isOpen && '(this counts as an outside click)'}
+                </button>
+                {portal(
+                  <p>
+                    This is more advanced Portal. It handles its own state.{' '}
+                    <button onClick={closePortal}>Close me!</button>, hit ESC or
+                    click outside of me.
+                  </p>
+                )}
+              </React.Fragment>
+            )
           )}
         </PortalWithState>
       </div>
