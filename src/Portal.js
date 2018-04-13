@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { canUseDOM } from './utils';
 
 class Portal extends React.Component {
@@ -19,7 +19,7 @@ class Portal extends React.Component {
       this.defaultNode = document.createElement('div');
       document.body.appendChild(this.defaultNode);
     }
-    return createPortal(
+    return ReactDOM.createPortal(
       this.props.children,
       this.props.node || this.defaultNode
     );
