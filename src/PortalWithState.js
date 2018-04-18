@@ -22,9 +22,6 @@ class PortalWithState extends React.Component {
     if (this.props.closeOnEsc) {
       document.addEventListener('keydown', this.handleKeydown);
     }
-    if (this.props.closeOnOutsideClick) {
-      document.addEventListener('click', this.handleOutsideMouseClick);
-    }
   }
 
   componentWillUnmount() {
@@ -40,10 +37,10 @@ class PortalWithState extends React.Component {
     if (this.state.active) {
       return;
     }
-    if (e && e.nativeEvent) {
-      e.nativeEvent.stopImmediatePropagation();
-    }
     this.setState({ active: true }, this.props.onOpen);
+    if (this.props.closeOnOutsideClick) {
+      document.addEventListener('click', this.handleOutsideMouseClick);
+    }
   }
 
   closePortal() {
@@ -51,6 +48,9 @@ class PortalWithState extends React.Component {
       return;
     }
     this.setState({ active: false }, this.props.onClose);
+    if (this.props.closeOnOutsideClick) {
+      document.removeEventListener('click', this.handleOutsideMouseClick);
+    }
   }
 
   wrapWithPortal(children) {
