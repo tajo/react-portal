@@ -26,6 +26,7 @@
     "clean": "rimraf es lib build",
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "lint": "eslint webpack.config.js src/**/*.js",
+    "prepare": "cross-env NODE_ENV=production npm run build",
     "format": "prettier --write \"**/*.js\"",
     "test": "cross-env BABEL_ENV=commonjs jest --no-cache",
     "react": "enzyme-adapter-react-install 16"
