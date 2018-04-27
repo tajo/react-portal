@@ -2,9 +2,12 @@
   "name": "react-portal",
   "version": "4.1.5",
   "description": "To make your life with React Portals easier.",
-  "main": "lib/index.js",
+  "main": "lib/commonjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
+  "browser": {
+    "./lib/commonjs/index.js": "./lib/umd/index.js"
+  },
   "browserslist": "last 2 versions, ie 11",
   "files": [
     "*.md",
@@ -19,10 +22,11 @@
   "author": "Vojtech Miksu <vojtech@miksu.cz>",
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean && npm run build-es && npm run build-cjs",
+    "build": "npm run clean && npm run build-es && npm run build-cjs && npm run build-umd",
     "build-es": "babel ./src --out-dir ./es",
-    "build-cjs": "cross-env BABEL_ENV=commonjs babel ./src --out-dir ./lib",
-    "build:examples": "cross-env webpack",
+    "build-cjs": "cross-env BABEL_ENV=commonjs babel ./src --out-dir ./lib/commonjs",
+    "build-umd": "cross-env BABEL_ENV=umd webpack",
+    "build:examples": "cross-env webpack --config examples/webpack.config.js",
     "clean": "rimraf es lib build",
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "lint": "eslint webpack.config.js src/**/*.js",
