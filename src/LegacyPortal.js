@@ -17,7 +17,7 @@ export default class Portal extends React.Component {
   componentWillUnmount() {
     ReactDOM.unmountComponentAtNode(this.defaultNode || this.props.node);
     if (this.defaultNode) {
-      document.body.removeChild(this.defaultNode);
+      this.defaultNode.parentNode.removeChild(this.defaultNode);
     }
     this.defaultNode = null;
     this.portal = null;
@@ -26,7 +26,7 @@ export default class Portal extends React.Component {
   renderPortal(props) {
     if (!this.props.node && !this.defaultNode) {
       this.defaultNode = document.createElement('div');
-      document.body.appendChild(this.defaultNode);
+      Portal.portalRoot.appendChild(this.defaultNode);
     }
 
     let children = this.props.children;
@@ -46,6 +46,8 @@ export default class Portal extends React.Component {
     return null;
   }
 }
+
+Portal.portalRoot = document.body;
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,
