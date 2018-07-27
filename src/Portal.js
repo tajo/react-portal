@@ -6,7 +6,7 @@ import { canUseDOM } from './utils';
 class Portal extends React.Component {
   componentWillUnmount() {
     if (this.defaultNode) {
-      document.body.removeChild(this.defaultNode);
+      this.defaultNode.parentNode.removeChild(this.defaultNode);
     }
     this.defaultNode = null;
   }
@@ -17,7 +17,7 @@ class Portal extends React.Component {
     }
     if (!this.props.node && !this.defaultNode) {
       this.defaultNode = document.createElement('div');
-      document.body.appendChild(this.defaultNode);
+      Portal.portalRoot.appendChild(this.defaultNode);
     }
     return ReactDOM.createPortal(
       this.props.children,
@@ -25,6 +25,8 @@ class Portal extends React.Component {
     );
   }
 }
+
+Portal.portalRoot = document.body;
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,

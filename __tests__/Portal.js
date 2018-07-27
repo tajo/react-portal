@@ -52,6 +52,39 @@ ifReact('>= 16', test, test.skip)(
   }
 );
 
+ifReact(
+  '>= 16',
+  describe,
+  describe.skip
+)('can specify another portalRoot than document.body', () => {
+  let portalRoot;
+  beforeAll(() => {
+    portalRoot = document.createElement('div');
+    Portal.portalRoot = portalRoot;
+  });
+
+  afterAll(() => {
+    Portal.portalRoot = document.body;
+  });
+
+  test('should render portal to the given element', () => {
+    document.body.innerHTML = '<div id="root"></div>';
+    ReactDOM.render(<Portal>Foo</Portal>, document.getElementById('root'));
+    expect(document.getElementById('root').outerHTML).toBe(
+      '<div id="root"></div>'
+    );
+    expect(portalRoot.outerHTML).toBe('<div><div>Foo</div></div>');
+  });
+
+  test('should remove the portal even if portalRoot has changed', () => {
+    document.body.innerHTML = '<div id="root"></div>';
+    ReactDOM.render(<Portal>Foo</Portal>, document.getElementById('root'));
+    Portal.portalRoot = document.body;
+    ReactDOM.render(null, document.getElementById('root'));
+    expect(portalRoot.outerHTML).toBe('<div></div>');
+  });
+});
+
 ifReact('< 16', test, test.skip)(
   'should append portal to a custom element',
   () => {
