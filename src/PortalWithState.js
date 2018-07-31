@@ -37,11 +37,11 @@ class PortalWithState extends React.Component {
   }
 
   openPortal(e) {
-    if (this.state.active) {
-      return;
-    }
     if (e && e.nativeEvent) {
       e.nativeEvent.stopImmediatePropagation();
+    }
+    if (this.state.active) {
+      return;
     }
     this.setState({ active: true }, this.props.onOpen);
   }
