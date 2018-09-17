@@ -46,11 +46,15 @@ class PortalWithState extends React.Component {
     this.setState({ active: true }, this.props.onOpen);
   }
 
-  closePortal() {
+  closePortal(...args) {
     if (!this.state.active) {
       return;
     }
-    this.setState({ active: false }, this.props.onClose);
+    this.setState({ active: false }, () => {
+      if (this.props.onClose) {
+        this.props.onClose(...args);
+      }
+    });
   }
 
   wrapWithPortal(children) {
