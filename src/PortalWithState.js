@@ -99,7 +99,6 @@ PortalWithState.propTypes = {
   children: PropTypes.func.isRequired,
   defaultOpen: PropTypes.bool,
   node: PropTypes.any,
-  openByClickOn: PropTypes.element,
   closeOnEsc: PropTypes.bool,
   closeOnOutsideClick: PropTypes.bool,
   onOpen: PropTypes.func,
