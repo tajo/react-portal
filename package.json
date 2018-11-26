@@ -4,6 +4,7 @@
   "description": "To make your life with React Portals easier.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "sideEffects": false,
   "jsnext:main": "es/index.js",
   "browserslist": "last 2 versions, ie 11",
   "files": [
