@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ifReact from 'enzyme-adapter-react-helper/build/ifReact';
-import Portal from '../src/PortalCompat';
-import PortalWithState from '../src/PortalWithState';
+import { Portal, PortalWithState } from '../src';
 
 export default class App extends React.Component {
   constructor(props) {
