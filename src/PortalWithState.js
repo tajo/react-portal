@@ -25,6 +25,9 @@ class PortalWithState extends React.Component {
     if (this.props.closeOnOutsideClick) {
       document.addEventListener('click', this.handleOutsideMouseClick);
     }
+    if (this.props.defaultOpen) {
+      this.props.onOpen();
+    }
   }
 
   componentWillUnmount() {
