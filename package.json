@@ -1,6 +1,6 @@
 {
   "name": "react-portal",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "To make your life with React Portals easier.",
   "main": "lib/index.js",
   "module": "es/index.js",
