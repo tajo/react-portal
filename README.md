@@ -76,7 +76,7 @@ import { PortalWithState } from 'react-portal';
 </PortalWithState>
 ```
 
-Don't let this example to intimidate you! `PortalWithState` **expects one child, a function**. This function gets a few parameters (mostly functions) and returns a React component.
+Don't let this example intimidate you! `PortalWithState` **expects one child, a function**. This function gets a few parameters (mostly functions) and returns a React component.
 
 ### There are 4 optional parameters:
 
