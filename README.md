@@ -49,7 +49,7 @@ That's it! Do you want to toggle portal? It's a plain React component, so you ca
 {isOpen && <Portal>Sometimes portaled?</Portal>}
 ```
 
-**This gives you absolute flexibility and control** and I would recommend you to use it a basic building block for your components as modals or notifications. **This code also works with server-side rendering**. If you think about just using official `ReactDOM.createPortal()`, you would have to check for existence of DOM environment.
+  **This gives you absolute flexibility and control** and I would recommend you to use it as a basic building block for your components like modals or notifications. **This code also works with server-side rendering**. If you think about just using official `ReactDOM.createPortal()`, you would have to check for existence of DOM environment.
 
 React-portal used to come packed with some extra goodies because sometimes **you are ok with giving up some flexibility for convenience**. For that case, V4 introduces another component that handles its own state for you:
 
